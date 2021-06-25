@@ -1,0 +1,54 @@
+@use 'variables';
+
+.shopping-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    padding: 30px 44px 34px;
+    position: relative;
+
+    &__main {
+        display: flex;
+        flex-direction: column;
+        row-gap: 40px;
+        overflow-y: scroll;  
+        width: 100%;
+        padding-bottom: 128px;
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;  /* Firefox */
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
+    }
+
+    &__add-item {
+        background-color: variables.$accent-1;
+        height: 130px;
+        border-radius: 24px;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    &__img {
+        position: absolute;
+        top: 10px;
+        left: 50px;
+    }
+
+    &__qs {
+        align-self: center;
+        padding: 0px 30px;
+        padding-left: 100px;
+
+        & p {
+            font-family: variables.$font-1;
+            font-size: 1rem;
+            color: variables.$light-1;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+    }
+}

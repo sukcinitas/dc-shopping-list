@@ -1,0 +1,43 @@
+@use 'variables';
+
+.add-item-card {
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+    height: 100%;
+    justify-content: space-between;
+    padding: 30px 44px 34px;
+    background-color: variables.$grey-4;
+
+    &__main {
+        display: flex;
+        flex-direction: column;
+        row-gap: 20px;
+        height: 100%;
+        overflow-y: auto;  
+        padding-bottom: 128px;
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;  /* Firefox */
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
+    }
+
+    &__tag {
+        color: variables.$dark-2;
+        font-size: 0.87rem;
+        font-family: variables.$font-1;
+        margin-bottom: 6px;
+        display: block;
+    }  
+}
+
+.heading {
+    font-family: variables.$font-1;
+    font-size: 1.5rem;
+    color: variables.$dark-1;
+    font-weight: 500;
+    line-height: 30px;
+    margin-bottom: 10px;
+}

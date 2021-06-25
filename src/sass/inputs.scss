@@ -1,0 +1,55 @@
+@use 'variables';
+
+.inpt {
+    border: 2px solid variables.$grey-3;
+    border-radius: 12px;
+    color: variables.$grey-3;
+    font-family: variables.$font-1;
+    padding: 18px 22px;
+    width: 100%;
+    background-color: transparent;
+    font-size: 0.87rem;
+    outline: none;
+    padding-right: 60px;
+
+    &--bright {
+        border: 2px solid variables.$yellow-1;
+    }
+
+    &--search {
+        padding: 18px 14px;
+        padding-left: 50px;
+        border: 2px solid transparent;
+        max-width: 275px;
+        background-color: variables.$light-1;
+    }
+
+    &:focus, &:hover {
+        border: 2px solid variables.$yellow-1;
+    }
+}
+
+.inpts {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    background-color: transparent;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 34px 44px;
+    background-color: variables.$light-1;
+    justify-content: center;
+}
+
+
+.search-bar {
+    position: relative;
+}
+.search-bar__icon {
+    color: variables.$grey-1;  
+    position: absolute;
+    left: 18px;
+    // height: 57px;
+}

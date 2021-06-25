@@ -1,0 +1,13 @@
+@use 'variables';
+
+.items {
+    background-color: variables.$grey-4;
+    flex-grow: 1;
+    padding: 80px;
+
+    &__header {
+        margin: 40px 0px 60px;
+        display: flex;
+        flex-direction: row;
+    }
+}
