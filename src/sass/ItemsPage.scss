@@ -2,12 +2,56 @@
 
 .items {
     background-color: variables.$grey-4;
-    flex-grow: 1;
-    padding: 80px;
+    width: calc(100vw - 480px);
+    padding: 30px 80px 80px;
+    overflow-y: auto;  
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
 
     &__header {
-        margin: 40px 0px 60px;
+        margin: 0px 0px 60px;
         display: flex;
         flex-direction: row;
+    }
+
+    &__items {
+        display: flex;
+        flex-direction: row;
+        row-gap: 30px;
+        column-gap: 20px;
+        flex-wrap: wrap;
+        align-items: flex-start;
+    }
+
+    &__item {
+        background-color: variables.$light-1;
+        border-radius: 12px;
+        padding: 15px 16px;
+        padding-right: 46px;
+        position: relative;
+        font-family: variables.$font-1;
+        color: variables.$dark-1;
+        font-size: 1rem;
+        width: 182px;
+        font-weight: 500;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    &__icon {
+        color: variables.$grey-2;
+        position: absolute; 
+        right: 16px;
+        top: 13px;
+    }
+
+    &__categories {
+        display: flex;
+        flex-direction: column;
+        column-gap: 50px;
     }
 }

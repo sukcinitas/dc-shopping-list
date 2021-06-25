@@ -1,0 +1,12 @@
+@use 'variables';
+
+.calendar-detail {
+    font-family: variables.$font-1;
+    font-size: 0.75rem;
+    color: variables.$grey-2;
+    font-weight: 500;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    min-width: 120px;
+}

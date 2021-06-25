@@ -63,6 +63,11 @@
         padding: 0px 26px;
         font-size: 0.87rem;
     }
+
+    &--arrow {
+        padding: 0;
+        color: variables.$yellow-1;
+    }
 }
 
 .arrow {

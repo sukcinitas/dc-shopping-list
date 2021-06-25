@@ -22,7 +22,7 @@ const Header = () => {
             <Link to="/" className="icon" activeClassName="icon--selected" exact={true}><FormatListBulletedOutlinedIcon fontSize="default" /></Link>
           </li>
           <li className="nav__link header__item">
-              <Link to="/about" className="icon" activeClassName="icon--selected" ><ReplayIcon fontSize="default"/></Link>
+              <Link to="/history" className="icon" activeClassName="icon--selected" ><ReplayIcon fontSize="default"/></Link>
           </li>
           <li className="nav__link header__item">
               <Link to="/users" className="icon" activeClassName="icon--selected" ><AssessmentOutlinedIcon fontSize="default"/></Link>

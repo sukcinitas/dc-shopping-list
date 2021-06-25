@@ -1,0 +1,15 @@
+@use 'variables';
+
+.completed-detail {
+    padding: 4px 7px;
+    border: 1px solid variables.$blue-1;
+    border-radius: 8px;
+    color: variables.$blue-1;
+    font-size: 0.75rem;
+    font-family: variables.$font-1;
+
+    &--cancelled {
+        border: 1px solid variables.$danger-1;
+        color: variables.$danger-1;
+    }
+}

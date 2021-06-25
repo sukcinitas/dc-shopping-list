@@ -3,18 +3,15 @@ import React from 'react';
 import '../sass/ItemsPage.scss';
 import '../sass/headings.scss';
 import SearchBar from '../components/SearchBar';
+import CategoryItems from '../components/CategoryItems';
 
-const categories = [{name: 'Meats', items: ['Chicken', 'Egg']}];
+const categories = [{name: 'Meats', items: ['Chicken', 'Egg','kalmar', 'dsaasdasdasdasd dfdfsdsd dfsdsfdsfdsfdsf', 'sadsadasd', 'dsasadsadassad', 'dsadasdasd']}];
 
 const ItemsPage = () => {
   const cats = categories.map((cat) =>
     <div className="items__category" key={cat.name}>
-      <h4 className="subheading--items"></h4>
-      {cat.items.map((item) => 
-      <div key={item} className="items__item">{item}
-
-      </div>
-      )}
+      <h4 className="subheading subheading--items">{cat.name}</h4>
+      <CategoryItems items={cat.items} add />
     </div>
   )
   return (

@@ -1,0 +1,18 @@
+@use 'variables';
+
+.pieces {
+    border: 2px solid variables.$yellow-1;
+    font-family: variables.$font-1;
+    color: variables.$yellow-1;
+    font-size: 0.75rem;
+    border-radius: 24px;
+    padding: 7px 20px;
+
+    &--simple {
+        border: none;
+        position: absolute; 
+        right: 16px;
+        top: 16px;
+        padding: 0;
+    }
+}

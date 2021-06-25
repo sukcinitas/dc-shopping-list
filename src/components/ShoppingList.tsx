@@ -7,13 +7,15 @@ import '../sass/headings.scss';
 import image from '../assets/source.svg';
 
 const ShoppingList = () => {
-  // const list = info.map((item) => (
-  //   <div className="shopping-list__category">
-  //     <h4 className="shopping-list__tag">Name</h4>
-  //     <ul>
-  //     </ul>
-  //   </div>
-  // ))
+  const info = [{name: 'name', items: ['game', 'play', 'fun', 'sad', 'keel', 'seel']}];
+  const list = info.map((item) => (
+    <div key={item.name} className="shopping-list__category">
+      <h4 className="shopping-list__tag">{item.name}</h4>
+      <ul>
+        {item.items.map((name) => <li key={name}>{name}</li>)}
+      </ul>
+    </div>
+  ))
   return (
   <form className="shopping-list">
       <div className="shopping-list__main">
@@ -26,6 +28,7 @@ const ShoppingList = () => {
         </div>
         <h2 className="subheading">Shopping List</h2>
       </div>
+      {list}
       <div className="inpts">
             <input className="inpt inpt--bright" placeholder="Enter a name" />
             <button className="btn btn--bright-input">Save</button>
