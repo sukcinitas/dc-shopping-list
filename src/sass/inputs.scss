@@ -27,6 +27,13 @@
     &:focus, &:hover {
         border: 2px solid variables.$yellow-1;
     }
+
+
+    &--select {
+        &:hover + ul, &:focus + ul {
+            visibility: visible;
+        }
+    }
 }
 
 .inpts {

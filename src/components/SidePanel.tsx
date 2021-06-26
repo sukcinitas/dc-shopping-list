@@ -16,8 +16,8 @@ const SidePanel = () => {
   return (
   <div className="side-panel">
       {/* <ItemInfoCard item={item} /> */}
-      {/* <AddItemCard /> */}
-      <ShoppingList />
+      <AddItemCard />
+      {/* <ShoppingList /> */}
   </div>
 )
 };

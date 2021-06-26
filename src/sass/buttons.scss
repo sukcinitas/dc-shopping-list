@@ -12,6 +12,10 @@
     right: 0;
     padding: 34px 0px;
     background-color: variables.$light-1;
+
+    &--grey {
+        background-color: variables.$grey-4;
+    }
 }
 
 .btn {

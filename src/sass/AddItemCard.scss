@@ -8,6 +8,7 @@
     justify-content: space-between;
     padding: 30px 44px 34px;
     background-color: variables.$grey-4;
+    position: relative;
 
     &__main {
         display: flex;
@@ -31,6 +32,29 @@
         margin-bottom: 6px;
         display: block;
     }  
+
+    &__list {
+        visibility: hidden;
+        margin-top: 12px;
+        border-radius: 12px;
+        border: 1px solid variables.$grey-5;
+        padding: 6px 8px;
+        background-color: variables.$light-1;
+    }
+
+    &__list-item {
+        font-family: variables.$font-1;
+        color: variables.$grey-6;
+        font-size: variables.$s18;
+        border-radius: 12px;
+        padding: 10px 24px;
+
+        &:hover, &:focus {
+            visibility: visible;
+            color: variables.$grey-7;
+            background-color: variables.$grey-8;
+        }
+    }
 }
 
 .heading {
