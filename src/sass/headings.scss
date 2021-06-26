@@ -6,24 +6,24 @@
     color: variables.$dark-2;
 
     &--items {
-        font-size: 1.12rem;
+        font-size: variables.$s18;
         margin-bottom: 20px;
     }
 
     &--date {
-        font-size: 0.75rem;
+        font-size: variables.$s12;
         color: variables.$dark-1;
         margin-bottom: 20px;
     }
 
     &--history-item {
-        font-size: 1rem;
+        font-size: variables.$s16;
         line-height: 20px;
     }
 }
 
 .heading{
-    font-size: 1.63rem;
+    font-size: variables.$s26;
     font-family: variables.$font-1;
     color: variables.$dark-2;
     padding: 10px 0;

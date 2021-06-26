@@ -15,7 +15,7 @@
 }
 
 .btn {
-    font-size: 1rem;
+    font-size: variables.$s16;
     font-family: variables.$font-1;
     font-weight: 700;
     line-height: 20px;
@@ -32,7 +32,7 @@
     &--bright-text {
         color: variables.$yellow-1; 
         height: 40px;
-        font-size: 0.87rem;
+        font-size: variables.$s14;
         align-self: flex-start;
         padding: 0px 0px;
         position: relative;
@@ -61,7 +61,7 @@
         height: 40px;
         background-color: variables.$light-1;
         padding: 0px 26px;
-        font-size: 0.87rem;
+        font-size: variables.$s14;
     }
 
     &--arrow {

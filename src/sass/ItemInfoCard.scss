@@ -30,14 +30,14 @@
 
     &__tag {
         color: variables.$grey-2;
-        font-size: 0.75rem;
+        font-size: variables.$s12;
         font-family: variables.$font-1;
         margin-bottom: 10px;
     }  
 
     &__content {
         color: variables.$dark-1;
-        font-size: 1.12rem;
+        font-size: variables.$s18;
         font-family: variables.$font-1;
     }
 }
