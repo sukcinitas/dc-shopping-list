@@ -6,6 +6,7 @@ import FormatListBulletedOutlinedIcon from '@material-ui/icons/FormatListBullete
 import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
 
 import image from '../assets/logo.svg';
+import Tooltip from './TooltipDetail';
 import '../sass/Header.scss';
 
 const Header = () => {
@@ -19,13 +20,22 @@ const Header = () => {
     <nav className="nav">
         <ul className="nav__list">
           <li className="nav__link header__item">
-            <Link to="/" className="icon" activeClassName="icon--selected" exact={true}><FormatListBulletedOutlinedIcon fontSize="default" /></Link>
+            <Link to="/" className="icon" activeClassName="icon--selected" exact={true}>
+              <FormatListBulletedOutlinedIcon fontSize="default" />
+              <Tooltip>items</Tooltip>
+            </Link>
           </li>
           <li className="nav__link header__item">
-              <Link to="/history" className="icon" activeClassName="icon--selected" ><ReplayIcon fontSize="default"/></Link>
+              <Link to="/history" className="icon" activeClassName="icon--selected" >
+                <ReplayIcon fontSize="default"/>
+                <Tooltip>history</Tooltip>
+              </Link>
           </li>
           <li className="nav__link header__item">
-              <Link to="/users" className="icon" activeClassName="icon--selected" ><AssessmentOutlinedIcon fontSize="default"/></Link>
+              <Link to="/statistics" className="icon" activeClassName="icon--selected" >
+                <AssessmentOutlinedIcon fontSize="default"/>
+                <Tooltip>statistics</Tooltip>
+              </Link>
           </li>
         </ul>
     </nav>

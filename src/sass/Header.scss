@@ -60,4 +60,34 @@
             top: 0;
         }
     }
+
+    &:hover .tooltip {
+        visibility: visible;
+    }
+}
+
+.tooltip {
+    visibility: hidden;
+    position: absolute;
+    background-color: variables.$grey-1;
+    border-radius: 4px;
+    font-family: variables.$font-1;
+    font-weight: 500;
+    color: variables.$light-1;
+    font-size: 0.83rem;
+    padding: 3px 16px;
+    margin-left: 20px;
+
+    &::before {
+        content: '';
+        width: 0; 
+        height: 0; 
+        border-top: 5px solid transparent;
+        border-bottom: 5px solid transparent; 
+        border-right:5px solid variables.$grey-1; 
+        display: block;
+        position: absolute;
+        left: -5px;
+        top: 7px;
+    }
 }
