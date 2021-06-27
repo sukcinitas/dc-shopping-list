@@ -3,14 +3,15 @@ import { createSlice } from '@reduxjs/toolkit';
 export const itemsSlice = createSlice({
   name: 'items',
   initialState: {
-        categories: [{ category: 'Meats', items: [{id: 1, name: 'Pork', url: '', description: ''}, {id: 2, name: 'Chicken', url: '', description: ''}]},
-        {category: 'Fish', items: [{id: 1, name: 'Salmon', url: '', description: ''}]}],
-        categoriesNames: ['Meats', 'Fish']
+        categories: [{ category: 'Meats', items: [{id: '1', name: 'Pork', url: '', description: ''}, {id: '2', name: 'Chicken', url: '', description: ''}]},
+        {category: 'Fish', items: [{id: '3', name: 'Salmon', url: '', description: ''}]}],
+        categoriesNames: ['Meats', 'Fish'],
+        selectedItem: null,
   },
   reducers: {
     add: (state, action) => {
         const category:string = action.payload.category;
-        if (category in state) {
+        if (state.categoriesNames.indexOf(category) > -1) {
             return {
                 ...state,
                 categories: state.categories.map((item) => {
@@ -40,21 +41,40 @@ export const itemsSlice = createSlice({
         return {
             ...state,
             categories: state.categories.map((item) => {
-                if (category === item.category) {
+                if (category === action.payload.category) {
                     return {
                         category,
-                        items: item.items.filter((it) => it.id !== action.payload.item.id),
+                        items: item.items.filter((it) => it.id !== action.payload.id),
                     }
                 } else {
                     return item;
                 }
             }),
+            selectedItem: null,
         }
     },
+    selectItem: (state, { payload: { item, category }} ) => {
+        if (!item) {
+            return {
+                ...state,
+                selectedItem: item,
+            }
+        } else {
+            const { id, name, description } = item;
+            return {
+                ...state,
+                selectedItem: {
+                    id,
+                    name, 
+                    description, 
+                    category,
+                }
+            }
+        }
+    }
   }
 })
 
-export const { add, remove } = itemsSlice.actions;
-// export const selectCategoriesNames = (state:any) => state.categoriesNames;
+export const { add, remove, selectItem } = itemsSlice.actions;
 
 export default itemsSlice.reducer;

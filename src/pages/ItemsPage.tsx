@@ -1,17 +1,18 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 
 import '../sass/ItemsPage.scss';
 import '../sass/headings.scss';
 import SearchBar from '../components/SearchBar';
 import CategoryItems from '../components/CategoryItems';
 
-const categories = [{name: 'Meats', items: ['Chicken', 'Egg','kalmar', 'dsaasdasdasdasd dfdfsdsd dfsdsfdsfdsfdsf', 'sadsadasd', 'dsasadsadassad', 'dsadasdasd']}];
-
 const ItemsPage = () => {
-  const cats = categories.map((cat) =>
-    <div className="items__category" key={cat.name}>
-      <h4 className="subheading subheading--items">{cat.name}</h4>
-      <CategoryItems items={cat.items} add />
+  const categories = useSelector((state:any) => state.items.categories);
+
+  const cats = categories.map((cat: {category: string; items: [{ id: string; name: string; url: string; description: string; }]}) =>
+    <div className="items__category" key={cat.category}>
+      <h4 className="subheading subheading--items">{cat.category}</h4>
+      <CategoryItems items={cat.items} category={cat.category} add />
     </div>
   )
   return (

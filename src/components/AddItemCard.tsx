@@ -1,23 +1,39 @@
 import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux'
-
+import { useSelector, useDispatch } from 'react-redux';
 import {
   add,
-  // selectCategoriesNames
 } from '../store/reducers/itemsSlice';
 import '../sass/AddItemCard.scss';
 import '../sass/buttons.scss';
 import '../sass/inputs.scss';
 
-const AddItemCard = () => {
+const AddItemCard = ({ cb }: { cb: () => void }) => {
   const categories = useSelector((state:any) => state.items.categoriesNames);
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [image, setImage] = useState('');
   const [category, setCategory] = useState('');
 
-  const categoryList = categories.map((category: string) => <li onClick={(e) => setCategory('game')} className="add-item-card__list-item" key={category}>{category}</li>);
+  const categoryList = categories.map((category: string) => <li 
+      onClick={(e) => setCategory(category)} 
+      className="add-item-card__list-item" 
+      key={category}>
+      {category}
+    </li>);
+
+  const addItem = () => {
+    dispatch(add({
+      item: {
+        id: '6',
+        name,
+        description,
+        image
+      },
+      category,
+    }));
+    cb();
+  };
 
   return (
   <form className="add-item-card">
@@ -44,8 +60,8 @@ const AddItemCard = () => {
         </div>
       </div>
       <div className="btns btns--grey">
-          <button className="btn">Cancel</button>
-          <button className="btn btn--bright">Save</button>
+          <button className="btn" onClick={cb} >Cancel</button>
+          <button type="submit" disabled={!name || !category} className="btn btn--bright" onClick={addItem}>Save</button>
       </div>
   </form>
 )

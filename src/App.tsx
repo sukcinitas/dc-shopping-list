@@ -1,5 +1,5 @@
 import React from "react";
-import { HashRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import Header from './components/Header';
 import SidePanel from './components/SidePanel';
@@ -15,10 +15,10 @@ const App = () => {
           <div className="main"> 
             <Header />
             <Switch>
-              <Route exact path="/" component={ItemsPage}/>
               <Route exact path="/history/item" component={HistoryItemPage} />
               <Route path="/history" component={HistoryPage} />
               <Route path="/statistics" component={StatisticsPage} />
+              <Route exact path="/" component={ItemsPage}/>
             </Switch>
             <SidePanel />
           </div>

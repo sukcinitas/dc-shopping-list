@@ -1,18 +1,19 @@
 import React from 'react';
 import TrendingFlatOutlinedIcon from '@material-ui/icons/TrendingFlatOutlined';
 
+import { useSelector } from 'react-redux';
 import CalendarDetail from '../components/CalendarDetail';
 import CategoryItems from '../components/CategoryItems';
 import '../sass/buttons.scss';
 import '../sass/HistoryPage.scss';
 
-const categories = [{name: 'Meats', items: ['Chicken', 'Egg','kalmar', 'dsaasdasdasdasd dfdfsdsd dfsdsfdsfdsfdsf', 'sadsadasd', 'dsasadsadassad', 'dsadasdasd']}];
-
 const HistoryItemPage = () => {
-    const cats = categories.map((cat) =>
-    <div className="items__category" key={cat.name}>
-      <h4 className="subheading subheading--items">{cat.name}</h4>
-      <CategoryItems items={cat.items} add={false} />
+  const categories = useSelector((state:any) => state.items.categoriesNames);
+
+    const cats = categories.map((cat: {category: string; items: [{ id: string; name: string; url: string; description: string; }]}) =>
+    <div className="items__category" key={cat.category}>
+      <h4 className="subheading subheading--items">{cat.category}</h4>
+      <CategoryItems items={cat.items} add={false} category={cat.category} />
     </div>
   )
     return (
