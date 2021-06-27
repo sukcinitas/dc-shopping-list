@@ -20,6 +20,12 @@
         font-size: variables.$s16;
         line-height: 20px;
     }
+
+    &--list {
+        font-size: variables.$s14;
+        color: variables.$grey-6;
+        margin-bottom: 25px;
+    }
 }
 
 .heading{

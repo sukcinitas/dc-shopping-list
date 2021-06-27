@@ -15,4 +15,30 @@
         top: 16px;
         padding: 0;
     }
+
+    &__panel {
+        display: flex;
+        flex-direction: row;  
+        background-color: variables.$light-1;
+        border-radius: 12px;
+        justify-content: space-between;
+        padding: 6px 16px;
+        align-items: center;
+        position: relative;
+    }
+
+    &__icon {
+        color: variables.$yellow-1;
+        margin: 4px;
+
+        &--bright {
+            color: variables.$light-1;
+            background-color: variables.$yellow-1;
+            border-radius: 12px;
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+        }
+    }
 }

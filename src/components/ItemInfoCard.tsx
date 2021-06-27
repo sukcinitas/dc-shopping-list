@@ -4,6 +4,9 @@ import {
   remove,
   selectItem
 } from '../store/reducers/itemsSlice';
+import {
+  addItem,
+} from '../store/reducers/listSlice';
 import TrendingFlatOutlinedIcon from '@material-ui/icons/TrendingFlatOutlined';
 
 import '../sass/ItemInfoCard.scss';
@@ -13,7 +16,8 @@ const ItemInfoCard = () => {
   const { id, name, category, description, image } = useSelector((state:any) => state.items.selectedItem);
   const dispatch = useDispatch();
 
-  const addItemToList = () => {
+  const addItemToList = (category: string, id: string, name: string) => {
+    dispatch(addItem({ category, item: { id, name }}));
     dispatch(selectItem({
       item: null,
     }));
@@ -22,7 +26,7 @@ const ItemInfoCard = () => {
   return (
   <article className="item-info-card">
     <div className="item-info-card__main">
-      <button className="btn btn--bright-text"><TrendingFlatOutlinedIcon className="arrow" onClick={() => dispatch(selectItem({item: null}))} />back</button>
+      <button className="btn btn--bright-text" onClick={() => dispatch(selectItem({item: null}))}><TrendingFlatOutlinedIcon className="arrow"/>back</button>
         <img
           className="item-info-card__img"
           src={image}
@@ -43,7 +47,7 @@ const ItemInfoCard = () => {
       </div>
       <div className="btns">
           <button className="btn" onClick={() => dispatch(remove({ id, category }))}>Delete</button>
-          <button className="btn btn--bright" onClick={() => addItemToList()}>Add to list</button>
+          <button className="btn btn--bright" onClick={() => addItemToList(category, id, name)}>Add to list</button>
       </div>
   </article>
 )

@@ -5,9 +5,8 @@ import {
   selectItem,
 } from '../store/reducers/itemsSlice';
 import {
-  useRouteMatch, useHistory
-} from "react-router-dom";
-
+  addItem,
+} from '../store/reducers/listSlice';
 
 import PiecesDetail from './PiecesDetail'
 import '../sass/ItemsPage.scss';
@@ -23,7 +22,7 @@ const CategoryItems = ({items, category, add }: {items: Array<{ id: string; name
     {items.map((item) => 
       <div className="items__item" key={item.id} onClick={() => select(item, category)}>
         {item.name}
-        {add ? <AddIcon className="items__icon" /> : <PiecesDetail pcs={4} simple />}
+        {/* {add ? <AddIcon className="items__icon" onClick={() => dispatch(add({ category, item: {id: item.id, name: item.name }}))} /> : <PiecesDetail pcs={4} simple />} */}
       </div>
     )}
   </div>
