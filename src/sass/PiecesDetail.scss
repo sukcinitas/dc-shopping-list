@@ -7,7 +7,7 @@
     font-size: variables.$s12;
     border-radius: 24px;
     padding: 7px 20px;
-
+    
     &--simple {
         border: none;
         position: absolute; 
@@ -22,9 +22,11 @@
         background-color: variables.$light-1;
         border-radius: 12px;
         justify-content: space-between;
-        padding: 6px 16px;
+        padding: 7px;
+        padding-left: 40px;
         align-items: center;
         position: relative;
+        width: 200px;
     }
 
     &__icon {
@@ -39,6 +41,15 @@
             left: 0;
             top: 0;
             bottom: 0;
+            margin: 0;
+            width: 37px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        &--inside {
+            padding: 1px;
         }
     }
 }

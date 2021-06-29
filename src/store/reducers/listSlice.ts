@@ -1,31 +1,109 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { bindActionCreators, createSlice } from '@reduxjs/toolkit';
+
+type list = {
+    name: string;
+    items: {id: string; name: string; category: string; pieces: number; completed: boolean; }[];
+    state: string;
+};
+
+type item = {
+    id: string; name: string; category: string; pieces: number; completed: boolean;
+}
 
 export const listSlice = createSlice({
     name: 'items',
     initialState: {
-            name: 'Shopping List',
-            categories: [{ category: 'Meat', items: [{ id: '1', name: 'Pork', pieces: 1}]}]
+            name: '',
+            items: [],
+            state: 'edit' // edit | active
     },
     reducers: {
-        addItem: (state, action) => {
-            const newCategories = state.categories.map((category) => {
-                if (action.payload.category === category.category) {
-                    return {
-                        category: action.payload.catgory,
-                        items: [...category.items, {...action.payload.item, pieces: 1 }]
-                    }
-                } else {
-                        return category;
-                    }
-            });
+        editName: (state: any, action) => {
+            if (!state.name) {
+                return {
+                    ...state,
+                    name: action.payload.name,
+                    state: 'edit'
+                }
+            }
             return {
                 ...state,
-                categories: newCategories,
+                name: action.payload.name,
+                state: 'active'
             }
         },
+        editState: (state:any, action) => {
+            return {...state, state: action.payload.state};
+        },
+        addItem: (state:any, action) => {
+            if (state.items.find((item: item) => item.id === action.payload.item.id )) {
+                return {...state};
+            }
+            return {
+                ...state,
+                items: [...state.items, {...action.payload.item, pieces: 1, completed: false }]
+            }
+        },
+        removeItem: (state:any, action) => {
+            return {
+                ...state,
+                items: state.items.filter((item: item) => item.id !== action.payload.id),
+            }
+        },
+        increaseAmount: (state:any, action) => {
+            return {
+                ...state,
+                items: state.items.map((item: item) => {
+                    if (item.id === action.payload.id) {
+                        return {...item, pieces: item.pieces + 1}
+                    } else {
+                        return item;
+                    }
+                })
+            }
+        },
+        decreaseAmount: (state:any, action) => {
+            return {
+                ...state,
+                items: state.items.map((item:item) => {
+                    if (item.pieces === 0) {
+                        return item;
+                    }
+                    if (item.id === action.payload.id) {
+                        return {...item, pieces: item.pieces - 1}
+                    } else {
+                        return item;
+                    }
+                })
+            }
+        },
+        cancelList: () => {
+            return {
+                name: '',
+                items: [],
+                state: 'edit' // edit | active
+            }
+        }
     }
 });
 
-export const { addItem } = listSlice.actions;
+export const selectItemsByCategories = ({ list }: { list: any }) => {
+    const map: any = {};
+    for (let i = 0; i < list.items.length; i++) {
+        if (list.items[i].category in map) {
+            map[list.items[i].category] = [...map[list.items[i].category], list.items[i]];
+        } else {
+            map[list.items[i].category] = [list.items[i]];
+        }
+    }
+    console.log(map);
+    return map;
+};
+
+export const selectListName = (state: any) => state.list.name;
+
+export const selectInEditState = (state: any) => state.list.state === 'edit';
+
+export const { addItem, removeItem, increaseAmount, decreaseAmount, editName, editState, cancelList } = listSlice.actions;
 
 export default listSlice.reducer;

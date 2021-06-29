@@ -2,18 +2,27 @@ import React, { useState } from 'react';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
+import { useSelector } from 'react-redux';
+import {
+  selectInEditState,
+} from '../store/reducers/listSlice';
 
-const PiecesDetail = ({ pcs, simple }: { pcs: number|undefined, simple?: boolean }) => {
+const PiecesDetail = ({ pcs, simple, increaseAmount, decreaseAmount, deleteItem }:
+     { pcs: number|undefined, simple?: boolean, increaseAmount?: () => void, decreaseAmount?: () => void, deleteItem?: () => void }) => {
     const [isExpanded, setIsExpanded] = useState(false);
-    if (isExpanded && !simple) {
+    const isInEdit = useSelector(selectInEditState);
+    if (isExpanded && isInEdit && !simple) {
         return <span className="pieces__panel">
-                <DeleteOutlineIcon className="pieces__icon pieces__icon--bright" />
-                <AddIcon className="pieces__icon" />
+                <span className="pieces__icon pieces__icon--bright">
+                    <DeleteOutlineIcon onClick={deleteItem} className="pieces__icon--inside"/>
+                </span>
+                <RemoveIcon onClick={decreaseAmount} className="pieces__icon" />
                 <span className="pieces pieces--panel">{`${pcs} pcs`}</span>
-                <RemoveIcon className="pieces__icon" />
+                <AddIcon onClick={increaseAmount} className="pieces__icon" />
             </span>
     } else {
-        return <span onClick={() => setIsExpanded(true)} className="pieces">{`${pcs} pcs`}</span> 
+        return <span onClick={() => isInEdit ? setIsExpanded(true) : null} className="pieces">{`${pcs} pcs`}</span>
+ 
     }
 }
 

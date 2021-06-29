@@ -47,6 +47,11 @@
         color: variables.$light-1;
     }
 
+    &--blue {
+        background-color: variables.$blue-1;
+        color: variables.$light-1;
+    }
+
     &--bright-input {
         background-color: variables.$yellow-1;
         color: variables.$light-1;
@@ -56,9 +61,13 @@
         padding: 18px 26px;
     }
 
-    &--grey {
+    &--grey-input {
         background-color: variables.$grey-2;
-        color: variables.$light-1;  
+        color: variables.$light-1; 
+        position: absolute;
+        border: none;
+        right: 44px;
+        padding: 18px 26px; 
     }
 
     &--narrow {

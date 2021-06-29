@@ -17,7 +17,7 @@ const ItemInfoCard = () => {
   const dispatch = useDispatch();
 
   const addItemToList = (category: string, id: string, name: string) => {
-    dispatch(addItem({ category, item: { id, name }}));
+    dispatch(addItem({ item: { id, name, category }}));
     dispatch(selectItem({
       item: null,
     }));

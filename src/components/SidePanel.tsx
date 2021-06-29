@@ -7,7 +7,6 @@ import '../sass/SidePanel.scss';
 
 const SidePanel = () => {
   const item = useSelector((state:any) => state.items.selectedItem);
-  console.log(item);
   return (
   <div className="side-panel">
       <ShoppingList />
