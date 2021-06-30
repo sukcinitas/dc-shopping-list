@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
-  add,
+  add, selectCategories
 } from '../store/reducers/productsSlice';
 import '../sass/AddItemCard.scss';
 import '../sass/buttons.scss';
 import '../sass/inputs.scss';
 
 const AddItemCard = ({ cb }: { cb: () => void }) => {
-  const categories = useSelector((state:any) => state.products.categoriesNames);
+  const categories = useSelector(selectCategories);
   const dispatch = useDispatch();
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
-  const [image, setImage] = useState('');
+  const [url, setUrl] = useState('');
   const [category, setCategory] = useState('');
 
   const categoryList = categories.map((category: string) => <li 
@@ -28,9 +28,9 @@ const AddItemCard = ({ cb }: { cb: () => void }) => {
         id: '6',
         name,
         description,
-        image
+        url,
+        category
       },
-      category,
     }));
     cb();
   };
@@ -49,7 +49,7 @@ const AddItemCard = ({ cb }: { cb: () => void }) => {
         </div>
         <div className="add-item-card__elem">
             <label htmlFor="image" className="add-item-card__tag">Image (optional)</label>
-            <input id="image" placeholder="Enter a url" className="inpt" value={image} onChange={(e) => setImage(e.target.value)} />
+            <input id="image" placeholder="Enter a url" className="inpt" value={url} onChange={(e) => setUrl(e.target.value)} />
         </div>
         <div className="add-item-card__elem">
             <label htmlFor="category" className="add-item-card__tag">Category</label>

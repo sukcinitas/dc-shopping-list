@@ -20,8 +20,10 @@ const PiecesDetail = ({ pcs, simple, increaseAmount, decreaseAmount, deleteItem 
                 <span className="pieces pieces--panel">{`${pcs} pcs`}</span>
                 <AddIcon onClick={increaseAmount} className="pieces__icon" />
             </span>
+    } else if (simple) {
+        return <span className="pieces pieces--simple">{`${pcs} pcs`}</span>;
     } else {
-        return <span onClick={() => isInEdit ? setIsExpanded(true) : null} className="pieces">{`${pcs} pcs`}</span>
+        return <span onClick={() => isInEdit ? setIsExpanded(true) : null} className="pieces">{`${pcs} pcs`}</span>;
  
     }
 }

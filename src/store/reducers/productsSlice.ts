@@ -1,66 +1,40 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+type item = {
+    id: string; name: string; category: string; url: string; description: string;
+}
+
 export const productsSlice = createSlice({
   name: 'products',
   initialState: {
-        categories: [{ category: 'Meats', items: [{id: '1', name: 'Pork', url: '', description: ''}, {id: '2', name: 'Chicken', url: '', description: ''}]},
-        {category: 'Fish', items: [{id: '3', name: 'Salmon', url: '', description: ''}]}],
-        categoriesNames: ['Meats', 'Fish'],
+        items: [{id: '1', name: 'Pork', url: '', description: '', category: 'Meats'}, {id: '2', name: 'Chicken', url: '', description: '', category: 'Meats'},
+        { id: '3', name: 'Salmon', url: '', description: '', category: 'Fish' }],
         selectedProduct: null,
   },
   reducers: {
-    add: (state, action) => {
-        const category:string = action.payload.category;
-        if (state.categoriesNames.indexOf(category) > -1) {
-            return {
-                ...state,
-                categories: state.categories.map((item) => {
-                    if (category === item.category) {
-                        return {
-                            category,
-                            items: [...item.items, action.payload.item]
-                        }
-                    } else {
-                        return item;
-                    }
-                }),
-            }
-        } else {
-            return {
-                ...state,
-                categories: [...state.categories, {
-                    category: action.payload.category,
-                    items: [action.payload.item]
-                }],
-                categoriesName: [...state.categoriesNames, action.payload.item.category]  
-            }
+    add: (state:any, action) => {
+        if (state.items.find((item: item) => item.name === action.payload.item.name )) {
+            return {...state};
         }
-    },
-    remove: (state, action) => {
-        const category = action.payload.category;
         return {
             ...state,
-            categories: state.categories.map((item) => {
-                if (category === action.payload.category) {
-                    return {
-                        category,
-                        items: item.items.filter((it) => it.id !== action.payload.id),
-                    }
-                } else {
-                    return item;
-                }
-            }),
-            selectedProduct: null,
+            items: [...state.items, {...action.payload.item }]
         }
     },
-    selectProduct: (state, { payload: { item, category }} ) => {
+    remove: (state:any, action) => {
+        return {
+            ...state,
+            items: state.items.filter((item: item) => item.id !== action.payload.id),
+        }
+    },
+    selectProduct: (state, { payload: { item }} ) => {
         if (!item) {
             return {
                 ...state,
                 selectedProduct: item,
             }
         } else {
-            const { id, name, description } = item;
+            const { id, name, description, url, category } = item;
             return {
                 ...state,
                 selectedProduct: {
@@ -68,12 +42,35 @@ export const productsSlice = createSlice({
                     name, 
                     description, 
                     category,
+                    url,
                 }
             }
         }
     }
   }
-})
+});
+
+export const selectProductsByCategories =  ({ products: { items } }: any) => {
+    const map: any = {};
+    for (let i = 0; i < items.length; i++) {
+        if (items[i].category in map) {
+            map[items[i].category] = [...map[items[i].category], items[i]];
+        } else {
+            map[items[i].category] = [items[i]];
+        }
+    }
+    return map;
+};
+
+export const selectCategories = ({ products: { items } }: any) => {
+    const map: any = [];
+    for (let i = 0; i < items.length; i++) {
+        if (map.indexOf(items[i].category) < 0) {
+            map.push(items[i].category);
+        }
+    }
+    return map;
+};
 
 export const { add, remove, selectProduct } = productsSlice.actions;
 

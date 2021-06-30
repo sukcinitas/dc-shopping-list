@@ -29,7 +29,6 @@ const ShoppingList = () => {
       <h4 className="subheading subheading--list">{category}</h4>
       <ul>
         {initialList[category].map((product: { id: string; name: string; pieces: number; category: string; completed: boolean }) => {
-          console.log(!isInEdit && product.completed);
         return <li className="shopping-list__item" key={product.id}>
           {product.completed ? <span className="shopping-list__tag">{!isInEdit && <CheckBoxOutlinedIcon onClick={() => dispatch(toggleItemCompletion({id: product.id}))} className="shopping-list__icon" />}<span>{product.name}</span></span> 
           : <span className="shopping-list__tag">{!isInEdit && <CheckBoxOutlineBlankOutlinedIcon onClick={() => dispatch(toggleItemCompletion({id: product.id}))} className="shopping-list__icon" />}<span>{product.name}</span></span>}

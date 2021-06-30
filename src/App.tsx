@@ -5,7 +5,7 @@ import Header from './components/Header';
 import SidePanel from './components/SidePanel';
 import ItemsPage from './pages/ItemsPage';
 import HistoryPage from './pages/HistoryPage';
-import HistoryItemPage from './pages/HistoryItemPage';
+import HistoryListPage from './pages/HistoryListPage';
 import StatisticsPage from './pages/StatisticsPage';
 import './sass/App.scss';
 
@@ -15,7 +15,7 @@ const App = () => {
           <div className="main"> 
             <Header />
             <Switch>
-              <Route exact path="/history/:id" component={HistoryItemPage} />
+              <Route exact path="/history/:id" component={HistoryListPage} />
               <Route path="/history" component={HistoryPage} />
               <Route path="/statistics" component={StatisticsPage} />
               <Route exact path="/" component={ItemsPage}/>

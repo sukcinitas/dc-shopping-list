@@ -46,7 +46,7 @@ const ItemInfoCard = () => {
         </div>}
       </div>
       <div className="btns">
-          <button className="btn" onClick={() => dispatch(remove({ id, category }))}>Delete</button>
+          <button className="btn" onClick={() => dispatch(remove({ id }))}>Delete</button>
           <button className="btn btn--bright" onClick={() => addItemToList(category, id, name)}>Add to list</button>
       </div>
   </article>
