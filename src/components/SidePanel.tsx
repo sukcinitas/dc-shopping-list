@@ -6,7 +6,7 @@ import ShoppingList from './ShoppingList';
 import '../sass/SidePanel.scss';
 
 const SidePanel = () => {
-  const item = useSelector((state:any) => state.items.selectedItem);
+  const item = useSelector((state:any) => state.products.selectedItem);
   return (
   <div className="side-panel">
       <ShoppingList />

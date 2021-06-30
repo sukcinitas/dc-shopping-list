@@ -9,6 +9,16 @@
     position: relative;
     background-color: variables.$yellow-2;
 
+    &__icon {
+        color: variables.$yellow-1;
+        margin-right: 6px;
+    }
+
+    &__tag {
+        display: flex;
+        flex-direction: row;
+    }
+
     &__main {
         display: flex;
         flex-direction: column;

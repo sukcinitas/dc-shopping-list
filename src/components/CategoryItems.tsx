@@ -2,8 +2,8 @@ import React from 'react';
 import AddIcon from '@material-ui/icons/Add';
 import { useDispatch, useSelector  } from 'react-redux';
 import {
-  selectItem,
-} from '../store/reducers/itemsSlice';
+  selectProduct,
+} from '../store/reducers/productsSlice';
 import {
   selectInEditState, addItem
 } from '../store/reducers/listSlice';
@@ -14,7 +14,7 @@ import PiecesDetail from './PiecesDetail';
 const CategoryItems = ({items, category, add }: {items: Array<{ id: string; name: string; url: string; description: string; }>;  category: string; add: boolean; }) => {
   const dispatch = useDispatch();
   const select = (item:any, category:string) => {
-    dispatch(selectItem({item, category}));
+    dispatch(selectProduct({item, category}));
   };
   const addItemToList = (e: any, item: any) => {
     e.stopPropagation();

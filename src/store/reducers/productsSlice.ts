@@ -1,12 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-export const itemsSlice = createSlice({
-  name: 'items',
+export const productsSlice = createSlice({
+  name: 'products',
   initialState: {
         categories: [{ category: 'Meats', items: [{id: '1', name: 'Pork', url: '', description: ''}, {id: '2', name: 'Chicken', url: '', description: ''}]},
         {category: 'Fish', items: [{id: '3', name: 'Salmon', url: '', description: ''}]}],
         categoriesNames: ['Meats', 'Fish'],
-        selectedItem: null,
+        selectedProduct: null,
   },
   reducers: {
     add: (state, action) => {
@@ -50,20 +50,20 @@ export const itemsSlice = createSlice({
                     return item;
                 }
             }),
-            selectedItem: null,
+            selectedProduct: null,
         }
     },
-    selectItem: (state, { payload: { item, category }} ) => {
+    selectProduct: (state, { payload: { item, category }} ) => {
         if (!item) {
             return {
                 ...state,
-                selectedItem: item,
+                selectedProduct: item,
             }
         } else {
             const { id, name, description } = item;
             return {
                 ...state,
-                selectedItem: {
+                selectedProduct: {
                     id,
                     name, 
                     description, 
@@ -75,6 +75,6 @@ export const itemsSlice = createSlice({
   }
 })
 
-export const { add, remove, selectItem } = itemsSlice.actions;
+export const { add, remove, selectProduct } = productsSlice.actions;
 
-export default itemsSlice.reducer;
+export default productsSlice.reducer;

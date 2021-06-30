@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   add,
-} from '../store/reducers/itemsSlice';
+} from '../store/reducers/productsSlice';
 import '../sass/AddItemCard.scss';
 import '../sass/buttons.scss';
 import '../sass/inputs.scss';
 
 const AddItemCard = ({ cb }: { cb: () => void }) => {
-  const categories = useSelector((state:any) => state.items.categoriesNames);
+  const categories = useSelector((state:any) => state.products.categoriesNames);
   const dispatch = useDispatch();
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');

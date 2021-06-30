@@ -11,8 +11,10 @@ import AddItemCard from './AddItemCard';
 import PiecesDetail from './PiecesDetail';
 import EditIcon from '@material-ui/icons/Edit';
 import {
-  removeItem, selectItemsByCategories, selectListName, increaseAmount, decreaseAmount, editName, selectInEditState, editState, cancelList
+  removeItem, selectItemsByCategories, selectListName, increaseAmount, decreaseAmount, editName, selectInEditState, editState, cancelList, toggleItemCompletion
 } from '../store/reducers/listSlice';
+import CheckBoxOutlineBlankOutlinedIcon from '@material-ui/icons/CheckBoxOutlineBlankOutlined';
+import CheckBoxOutlinedIcon from '@material-ui/icons/CheckBoxOutlined';
 
 const ShoppingList = () => {
   const dispatch = useDispatch();
@@ -26,15 +28,18 @@ const ShoppingList = () => {
     <div key={category} className="shopping-list__category">
       <h4 className="subheading subheading--list">{category}</h4>
       <ul>
-        {initialList[category].map((product: { id: string; name: string; pieces: number; category: string; completed: boolean }) => <li className="shopping-list__item" key={product.id}>
-          <span>{product.name}</span>
+        {initialList[category].map((product: { id: string; name: string; pieces: number; category: string; completed: boolean }) => {
+          console.log(!isInEdit && product.completed);
+        return <li className="shopping-list__item" key={product.id}>
+          {product.completed ? <span className="shopping-list__tag">{!isInEdit && <CheckBoxOutlinedIcon onClick={() => dispatch(toggleItemCompletion({id: product.id}))} className="shopping-list__icon" />}<span>{product.name}</span></span> 
+          : <span className="shopping-list__tag">{!isInEdit && <CheckBoxOutlineBlankOutlinedIcon onClick={() => dispatch(toggleItemCompletion({id: product.id}))} className="shopping-list__icon" />}<span>{product.name}</span></span>}
           <PiecesDetail 
             deleteItem={() => deleteItem(product.id)} 
             pcs={product.pieces} 
             increaseAmount={() => dispatch(increaseAmount({id: product.id }))}
             decreaseAmount={() => dispatch(decreaseAmount({id: product.id }))}
           />
-        </li>)}
+        </li>})}
       </ul>
     </div>
     )

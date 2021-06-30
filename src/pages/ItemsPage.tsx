@@ -7,7 +7,7 @@ import SearchBar from '../components/SearchBar';
 import CategoryItems from '../components/CategoryItems';
 
 const ItemsPage = () => {
-  const categories = useSelector((state:any) => state.items.categories);
+  const categories = useSelector((state:any) => state.products.categories);
 
   const cats = categories.map((cat: {category: string; items: [{ id: string; name: string; url: string; description: string; }]}) =>
     <div className="items__category" key={cat.category}>

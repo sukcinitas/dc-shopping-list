@@ -2,8 +2,8 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   remove,
-  selectItem
-} from '../store/reducers/itemsSlice';
+  selectProduct
+} from '../store/reducers/productsSlice';
 import {
   addItem,
 } from '../store/reducers/listSlice';
@@ -18,7 +18,7 @@ const ItemInfoCard = () => {
 
   const addItemToList = (category: string, id: string, name: string) => {
     dispatch(addItem({ item: { id, name, category }}));
-    dispatch(selectItem({
+    dispatch(selectProduct({
       item: null,
     }));
   }
@@ -26,7 +26,7 @@ const ItemInfoCard = () => {
   return (
   <article className="item-info-card">
     <div className="item-info-card__main">
-      <button className="btn btn--bright-text" onClick={() => dispatch(selectItem({item: null}))}><TrendingFlatOutlinedIcon className="arrow"/>back</button>
+      <button className="btn btn--bright-text" onClick={() => dispatch(selectProduct({item: null}))}><TrendingFlatOutlinedIcon className="arrow"/>back</button>
         <img
           className="item-info-card__img"
           src={image}

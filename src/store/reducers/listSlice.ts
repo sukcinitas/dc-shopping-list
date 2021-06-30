@@ -83,6 +83,18 @@ export const listSlice = createSlice({
                 items: [],
                 state: 'edit' // edit | active
             }
+        },
+        toggleItemCompletion: (state: any, action) => {
+            return {
+                ...state,
+                items: state.items.map((item: item) => {
+                    if (item.id === action.payload.id) {
+                        return {...item, completed: !item.completed };
+                    } else {
+                        return item;
+                    }
+                })
+            }
         }
     }
 });
@@ -96,7 +108,6 @@ export const selectItemsByCategories = ({ list }: { list: any }) => {
             map[list.items[i].category] = [list.items[i]];
         }
     }
-    console.log(map);
     return map;
 };
 
@@ -104,6 +115,6 @@ export const selectListName = (state: any) => state.list.name;
 
 export const selectInEditState = (state: any) => state.list.state === 'edit';
 
-export const { addItem, removeItem, increaseAmount, decreaseAmount, editName, editState, cancelList } = listSlice.actions;
+export const { addItem, removeItem, increaseAmount, decreaseAmount, editName, editState, cancelList, toggleItemCompletion } = listSlice.actions;
 
 export default listSlice.reducer;
