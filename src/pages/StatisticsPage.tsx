@@ -8,8 +8,8 @@ const StatisticsPage = () => {
   return (
   <div className="statistics">
     <div className="statistics__top">
-      <TopStatistics title="Somekind of name"/>
-      <TopStatistics title="Another name"/>
+      <TopStatistics title="Top Items"/>
+      <TopStatistics title="Top Categories"/>
     </div>
   </div>
 )

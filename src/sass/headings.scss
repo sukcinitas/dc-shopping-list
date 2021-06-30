@@ -43,6 +43,18 @@
         color: variables.$grey-6;
         margin-bottom: 25px;
     }
+
+    &--top {
+        font-size: variables.$s14;
+        color: variables.$dark-1;
+        width: auto;
+    }
+
+    &--top-percent {
+        font-size: variables.$s18;
+        color: variables.$dark-1;
+        width: auto;
+    }
 }
 
 .heading{

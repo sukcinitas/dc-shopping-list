@@ -1,21 +1,50 @@
+@use 'variables';
 
 .top-statistics {
+    width: 100%;
+
+    & > h1 {
+        margin-bottom: 40px;
+    }
+
     &__items {
         display: flex;
         flex-direction: column;
-        column-gap:30px;
-
+        row-gap:30px;
+        width: 100%;
+        column-gap: 65px;
     }
 
     &__item {
         display: flex;
+        flex-direction: column;
         justify-content: space-between;
         flex-wrap: wrap;
+        row-gap: 15px;
+    }
+
+    &__details {
+        display: flex;
+        justify-content: space-between;
     }
 
     &__bar {
-        min-width: 200px;
+        width: 100%;
+        background-color: variables.$grey-5;
+        border-radius: 8px;
         height: 6px;
-        background-color:yellow;
+        position: relative;
+        overflow: hidden;
+        border-radius: 4px;
+    }
+      
+    &__bar--percent {
+        content: "";
+        height: 6px;
+        border-radius: 6px;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        background-color: variables.$yellow-1;
     }
 }
