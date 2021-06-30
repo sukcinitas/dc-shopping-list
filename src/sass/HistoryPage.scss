@@ -15,4 +15,10 @@
     &__header {
         margin: 0px 0px 60px;
     }
+
+    &__months {
+        display: flex;
+        flex-direction: column;
+        row-gap: 50px;
+    }
 }

@@ -4,10 +4,11 @@ import EventNoteIcon from '@material-ui/icons/EventNote';
 import '../sass/CalendarDetail.scss';
 
 const CalendarDetail = ({ date }: { date: string}) => {
-    const dateFormatted: string = date;
+    const dayMap = ['Sun', 'Mon', 'Tuey', 'Wen', 'Thu', 'Fri', 'Sat'];
+
     return <div className="calendar-detail">
         <EventNoteIcon />
-        <span>{dateFormatted}</span>
+        <span>{`${dayMap[(new Date(date)).getDay()]} ${date}` }</span>
     </div>
 }
 

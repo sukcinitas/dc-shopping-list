@@ -11,5 +11,6 @@
     &--cancelled {
         border: 1px solid variables.$danger-1;
         color: variables.$danger-1;
+        margin: 0 3px; // 
     }
 }

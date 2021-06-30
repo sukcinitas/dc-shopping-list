@@ -77,7 +77,7 @@
         font-size: variables.$s14;
     }
 
-    &--arrow {
+    &--arrow, &--arrow > a {
         padding: 0;
         color: variables.$yellow-1;
     }
