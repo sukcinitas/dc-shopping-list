@@ -4,6 +4,9 @@
     background-color: variables.$grey-4;
     width: calc(100vw - 480px);
     padding: 30px 80px 80px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 65px;
     overflow-y: auto;  
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */

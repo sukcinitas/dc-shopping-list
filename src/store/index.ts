@@ -4,6 +4,7 @@ import productsReducer from './reducers/productsSlice';
 import listReducer from './reducers/listSlice';
 import historyReducer from './reducers/historySlice';
 import historyListReducer from './reducers/historyListSlice';
+import monthlySlice from './reducers/monthlySlice';
 
 export default configureStore({
   reducer: {
@@ -11,5 +12,6 @@ export default configureStore({
     list: listReducer,
     history: historyReducer,
     historyList: historyListReducer,
+    monthly: monthlySlice
   }
 })

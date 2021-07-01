@@ -9,6 +9,8 @@ export const productsSlice = createSlice({
   initialState: {
         items: [{id: '1', name: 'Pork', url: '', description: '', category: 'Meats'}, {id: '2', name: 'Chicken', url: '', description: '', category: 'Meats'},
         { id: '3', name: 'Salmon', url: '', description: '', category: 'Fish' }],
+        filteredItems: [{id: '1', name: 'Pork', url: '', description: '', category: 'Meats'}, {id: '2', name: 'Chicken', url: '', description: '', category: 'Meats'},
+        { id: '3', name: 'Salmon', url: '', description: '', category: 'Fish' }],
         selectedProduct: null,
   },
   reducers: {
@@ -50,13 +52,13 @@ export const productsSlice = createSlice({
   }
 });
 
-export const selectProductsByCategories =  ({ products: { items } }: any) => {
+export const selectProductsByCategories =  ({ products: { filteredItems } }: any) => {
     const map: any = {};
-    for (let i = 0; i < items.length; i++) {
-        if (items[i].category in map) {
-            map[items[i].category] = [...map[items[i].category], items[i]];
+    for (let i = 0; i < filteredItems.length; i++) {
+        if (filteredItems[i].category in map) {
+            map[filteredItems[i].category] = [...map[filteredItems[i].category], filteredItems[i]];
         } else {
-            map[items[i].category] = [items[i]];
+            map[filteredItems[i].category] = [filteredItems[i]];
         }
     }
     return map;
