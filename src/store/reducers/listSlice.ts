@@ -66,7 +66,7 @@ export const listSlice = createSlice({
             return {
                 ...state,
                 items: state.items.map((item:item) => {
-                    if (item.pieces === 0) {
+                    if (item.pieces === 1) {
                         return item;
                     }
                     if (item.id === action.payload.id) {

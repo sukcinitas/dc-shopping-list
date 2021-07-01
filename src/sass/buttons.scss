@@ -16,6 +16,12 @@
     &--grey {
         background-color: variables.$grey-4;
     }
+
+    &--box {
+        position: static;
+        width: auto;
+        padding: 0;
+    }
 }
 
 .btn {
@@ -28,6 +34,7 @@
     background-color: transparent;
     color: variables.$dark-2;
     border: none;
+    outline: none;
 
     &:hover {
         cursor: pointer;
@@ -80,6 +87,11 @@
     &--arrow, &--arrow > a {
         padding: 0;
         color: variables.$yellow-1;
+    }
+
+    &--danger {
+        background-color: variables.$danger-1;
+        color: variables.$light-1;
     }
 }
 

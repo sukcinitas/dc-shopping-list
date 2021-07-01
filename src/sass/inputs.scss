@@ -3,7 +3,7 @@
 .inpt {
     border: 2px solid variables.$grey-3;
     border-radius: 12px;
-    color: variables.$grey-3;
+    color: darken(variables.$grey-3, 30%);
     font-family: variables.$font-1;
     padding: 18px 22px;
     width: 100%;
@@ -11,6 +11,16 @@
     font-size: variables.$s14;
     outline: none;
     padding-right: 60px;
+
+    &::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+        color: variables.$grey-3;
+        opacity: 1; /* Firefox */
+      }
+      
+    &:-ms-input-placeholder { /* Internet Explorer 10-11 */
+        color: variables.$grey-3;
+        opacity: 1; /* Firefox */
+      }      
 
     &--bright {
         border: 2px solid variables.$yellow-1;

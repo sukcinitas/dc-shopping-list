@@ -48,6 +48,18 @@ export const productsSlice = createSlice({
                 }
             }
         }
+    },
+    search: (state, { payload: { phrase }}: any ) => {
+        console.log(phrase)
+        if (!phrase) {
+            return  {...state, filteredItems: [...state.items]};
+        } else {
+            const regex = new RegExp(`^${phrase}`, 'i');
+            return {
+                ...state,
+                filteredItems: state.items.filter((item) => regex.test(item.name))
+            }
+        }
     }
   }
 });
@@ -74,6 +86,6 @@ export const selectCategories = ({ products: { items } }: any) => {
     return map;
 };
 
-export const { add, remove, selectProduct } = productsSlice.actions;
+export const { add, remove, selectProduct, search } = productsSlice.actions;
 
 export default productsSlice.reducer;

@@ -64,6 +64,10 @@
     padding: 10px 0;
     margin-right: 60px;
 
+    &--box {
+        margin: 0;
+    }
+
     &__detail {
         color: variables.$yellow-1;
     }

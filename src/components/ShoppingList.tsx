@@ -5,6 +5,7 @@ import '../sass/ShoppingList.scss';
 import '../sass/buttons.scss';
 import '../sass/inputs.scss';
 import '../sass/headings.scss';
+import ConfirmationBox from './ConfirmationBox';
 import image from '../assets/source.svg';
 import image2 from '../assets/cart.svg';
 import AddItemCard from './AddItemCard';
@@ -23,6 +24,8 @@ const ShoppingList = () => {
   const isInEdit = useSelector(selectInEditState);
   const list = [];
   const [name, setName] = useState(title);
+  const [isCancelling, setIsCancelling] = useState(false);
+
   for (const category of Object.keys(initialList)) {
     list.push(
     <div key={category} className="shopping-list__category">
@@ -56,6 +59,7 @@ const ShoppingList = () => {
   }
 
   const shoppingList = <form className="shopping-list">
+    {isCancelling && <ConfirmationBox cb={() => { dispatch(cancelList()); setIsCancelling(false)}} close={() => setIsCancelling(false)} />}
     <div className={Object.keys(initialList).length === 0 ? 'shopping-list__main shopping-list__main--no-items' : 'shopping-list__main'}>
       <div className="shopping-list__add-item">
         <img className="shopping-list__img" src={image} />
@@ -74,7 +78,7 @@ const ShoppingList = () => {
     </div>
     :
     <div className="inpts">
-        <button className="btn" onClick={() => dispatch(cancelList())}>cancel</button>
+        <button type="button" className="btn" onClick={() => setIsCancelling(true)}>cancel</button>
         <button className="btn btn--blue" type="submit">Complete</button>
     </div>
     }

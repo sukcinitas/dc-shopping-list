@@ -1,0 +1,33 @@
+@use 'variables';
+
+.confirmation-box {
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.1);
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &__box {
+        position: absolute;
+        padding: 30px;
+        padding-top: 20px;
+        background-color: variables.$light-1;
+        border-radius: 24px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        max-width: 500px;
+    }
+
+    &__icon {
+        color: variables.$grey-6;
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
+}
