@@ -84,3 +84,13 @@
         height: 50px;
     }
 }
+
+@media only screen and (max-width: 500px) {
+    .shopping-list {
+        &__tag {
+            font-size: variables.$s14;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    }
+}

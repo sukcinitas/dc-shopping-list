@@ -20,8 +20,8 @@ const HistoryMonth = ({ month, items }: { month: string; items: {id: string; cre
             <div className="history__item-details">
                 <CalendarDetail date={created_at} />
                 <CompletedDetail completed={status === 'completed' } />
-                <button className="btn btn--arrow"><Link to={`history/${id}`}><ArrowForwardIosIcon /></Link></button>
             </div>
+            <button className="btn btn--arrow"><Link to={`history/${id}`}><ArrowForwardIosIcon /></Link></button>
         </div>
       )}
       </div>

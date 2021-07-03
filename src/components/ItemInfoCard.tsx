@@ -13,7 +13,7 @@ import '../sass/ItemInfoCard.scss';
 import '../sass/buttons.scss';
 
 const ItemInfoCard = () => {
-  const { id, name, category, description, image } = useSelector((state:any) => state.items.selectedItem);
+  const { id, name, category, description, url } = useSelector((state:any) => state.products.selectedProduct);
   const dispatch = useDispatch();
 
   const addItemToList = (category: string, id: string, name: string) => {
@@ -22,14 +22,13 @@ const ItemInfoCard = () => {
       item: null,
     }));
   }
-
   return (
   <article className="item-info-card">
     <div className="item-info-card__main">
       <button className="btn btn--bright-text" onClick={() => dispatch(selectProduct({item: null}))}><TrendingFlatOutlinedIcon className="arrow"/>back</button>
         <img
           className="item-info-card__img"
-          src={image}
+          src={url}
         />
         <div>
           <h4 className="item-info-card__tag">name</h4>

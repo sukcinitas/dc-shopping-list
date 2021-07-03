@@ -72,3 +72,22 @@
         color: variables.$yellow-1;
     }
 }
+
+@media only screen and (max-width: 500px) {
+    .heading {
+        font-size: variables.$s20;
+    }
+    .subheading {
+        &--items {
+            font-size: variables.$s18;
+        }
+
+        &--top {
+            font-size: variables.$s14;
+        }
+
+        &--top-percent {
+            font-size: variables.$s18;
+        }
+    }
+}

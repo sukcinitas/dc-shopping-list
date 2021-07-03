@@ -60,7 +60,6 @@
     justify-content: center;
 }
 
-
 .search-bar {
     position: relative;
 }
@@ -69,4 +68,10 @@
     position: absolute;
     left: 18px;
     margin: 15px 0;
+}
+
+@media only screen and (max-width: 500px) {
+    .inpts {
+        padding: 16px;
+    }
 }

@@ -4,12 +4,17 @@ import ReplayIcon from '@material-ui/icons/Replay';
 import AssessmentOutlinedIcon from '@material-ui/icons/AssessmentOutlined';
 import FormatListBulletedOutlinedIcon from '@material-ui/icons/FormatListBulletedOutlined';
 import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
+import { useDispatch } from 'react-redux';
+import {
+  toggleSidePanel
+} from '../store/reducers/productsSlice';
 
 import image from '../assets/logo.svg';
 import Tooltip from './TooltipDetail';
 import '../sass/Header.scss';
 
 const Header = () => {
+  const dispatch = useDispatch();
   return (
   <header className="header">
     <img 
@@ -39,7 +44,7 @@ const Header = () => {
           </li>
         </ul>
     </nav>
-    <ShoppingCartOutlinedIcon className="icon icon--with-bg header__item" />
+    <ShoppingCartOutlinedIcon onClick={() => dispatch(toggleSidePanel())} className="icon icon--with-bg header__item" />
   </header>
 )
 };

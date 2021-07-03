@@ -12,6 +12,7 @@ export const productsSlice = createSlice({
         filteredItems: [{id: '1', name: 'Pork', url: '', description: '', category: 'Meats'}, {id: '2', name: 'Chicken', url: '', description: '', category: 'Meats'},
         { id: '3', name: 'Salmon', url: '', description: '', category: 'Fish' }],
         selectedProduct: null,
+        isSidePanelShown: false,
   },
   reducers: {
     add: (state:any, action) => {
@@ -20,13 +21,15 @@ export const productsSlice = createSlice({
         }
         return {
             ...state,
-            items: [...state.items, {...action.payload.item }]
+            items: [...state.items, {...action.payload.item }],
+            filteredItems: [...state.items, {...action.payload.item }],
         }
     },
     remove: (state:any, action) => {
         return {
             ...state,
             items: state.items.filter((item: item) => item.id !== action.payload.id),
+            filteredItems: state.items.filter((item: item) => item.id !== action.payload.id),
         }
     },
     selectProduct: (state, { payload: { item }} ) => {
@@ -50,7 +53,6 @@ export const productsSlice = createSlice({
         }
     },
     search: (state, { payload: { phrase }}: any ) => {
-        console.log(phrase)
         if (!phrase) {
             return  {...state, filteredItems: [...state.items]};
         } else {
@@ -60,6 +62,9 @@ export const productsSlice = createSlice({
                 filteredItems: state.items.filter((item) => regex.test(item.name))
             }
         }
+    },
+    toggleSidePanel: (state) => {
+        return  {...state, isSidePanelShown: !state.isSidePanelShown };
     }
   }
 });
@@ -86,6 +91,10 @@ export const selectCategories = ({ products: { items } }: any) => {
     return map;
 };
 
-export const { add, remove, selectProduct, search } = productsSlice.actions;
+export const selectSelectedItem = ({ products: { selectedProduct } }: any) => selectedProduct;
+
+export const selectIsSidePanelShown = ({ products: { isSidePanelShown }}: any) => isSidePanelShown;
+
+export const { add, remove, selectProduct, search, toggleSidePanel } = productsSlice.actions;
 
 export default productsSlice.reducer;

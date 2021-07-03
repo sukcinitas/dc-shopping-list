@@ -12,6 +12,7 @@
     top: 0;
     bottom: 0;
     background-color: variables.$light-1;
+    z-index: 3;
 
     &__main {
         display: flex;

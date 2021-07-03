@@ -2,8 +2,8 @@
 
 .items {
     background-color: variables.$grey-4;
-    width: calc(100vw - 480px);
-    padding: 30px 80px 80px;
+    width: 100%;
+    padding: variables.$padding;
     overflow-y: auto;  
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
@@ -53,5 +53,39 @@
         display: flex;
         flex-direction: column;
         row-gap: 50px;
+    }
+}
+
+@media only screen and (max-width: 1100px) {
+    .items {
+        padding: variables.$padding-2;
+        
+        &__header {
+            flex-wrap: wrap;
+        }
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .items {
+        padding: variables.$padding-2;
+        
+        &__categories {
+            row-gap: 30px;
+        }
+
+        &__items {
+            column-gap: 9px;
+            row-gap: 24px;
+        }
+        
+        &__header {
+            display: none;
+        }
+
+        &__item {
+            font-size: variables.$s14;
+            width: 140px;
+        }
     }
 }

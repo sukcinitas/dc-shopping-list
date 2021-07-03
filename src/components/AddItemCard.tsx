@@ -22,7 +22,8 @@ const AddItemCard = ({ cb }: { cb: () => void }) => {
       {category}
     </li>);
 
-  const addItem = () => {
+  const addItem = (e: any) => {
+    e.preventDefault();
     dispatch(add({
       item: {
         id: '6',
@@ -61,7 +62,7 @@ const AddItemCard = ({ cb }: { cb: () => void }) => {
       </div>
       <div className="btns btns--grey">
           <button className="btn" onClick={cb} >Cancel</button>
-          <button type="submit" disabled={!name || !category} className="btn btn--bright" onClick={addItem}>Save</button>
+          <button type="submit" disabled={!name || !category} className="btn btn--bright" onClick={(e) => addItem(e)}>Save</button>
       </div>
   </form>
 )

@@ -1,4 +1,32 @@
 .side-panel {
     width: 390px; //
     position: relative;
+    flex-shrink: 0;
+}
+
+@media only screen and (max-width: 800px) {
+    .side-panel {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        width: 390px;
+    }
+    .side-panel--hidden {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .side-panel {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 60px;
+        width: auto;
+    }
+    .side-panel--hidden {
+        display: none;
+    }
 }

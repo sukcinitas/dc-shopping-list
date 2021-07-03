@@ -84,6 +84,11 @@
         font-size: variables.$s14;
     }
 
+    &--arrow {
+        position: absolute;
+        right: 10px;
+    }
+
     &--arrow, &--arrow > a {
         padding: 0;
         color: variables.$yellow-1;
@@ -99,4 +104,12 @@
     transform: rotate(180deg);
     position: relative;
     top: 8px;
+}
+
+@media only screen and (max-width: 500px) {
+    .btn {
+        &--bright-input, &--grey-input {
+            right: 16px;
+        }
+    }
 }
