@@ -16,7 +16,7 @@ const SidePanel = () => {
   return (
   <div className={shown ? 'side-panel' : 'side-panel side-panel--hidden'}>
       <ShoppingList />
-      { item && <ItemInfoCard /> }
+      { item.name && <ItemInfoCard /> }
   </div>
 )
 };

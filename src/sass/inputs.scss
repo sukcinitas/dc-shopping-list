@@ -37,6 +37,10 @@
 
     &:focus, &:hover {
         border: 2px solid variables.$yellow-1;
+
+        & + button {
+            background-color: variables.$yellow-1;
+        }
     }
 
 
