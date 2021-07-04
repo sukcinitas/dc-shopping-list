@@ -47,3 +47,9 @@
         font-family: variables.$font-1;
     }
 }
+
+@media only screen and (max-width: 500px) {
+    .item-info-card {
+        padding: 24px 18px 30px;
+    }
+}

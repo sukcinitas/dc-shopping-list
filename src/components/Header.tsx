@@ -4,16 +4,21 @@ import ReplayIcon from '@material-ui/icons/Replay';
 import AssessmentOutlinedIcon from '@material-ui/icons/AssessmentOutlined';
 import FormatListBulletedOutlinedIcon from '@material-ui/icons/FormatListBulletedOutlined';
 import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   toggleSidePanel
 } from '../store/reducers/productsSlice';
+import {
+  selectNonCompletedAmount
+} from '../store/reducers/listSlice';
 
 import image from '../assets/logo.svg';
 import Tooltip from './TooltipDetail';
 import '../sass/Header.scss';
 
 const Header = () => {
+  const nonCompleted = useSelector(selectNonCompletedAmount);
+  console.log(nonCompleted);
   const dispatch = useDispatch();
   return (
   <header className="header">
@@ -44,7 +49,7 @@ const Header = () => {
           </li>
         </ul>
     </nav>
-    <ShoppingCartOutlinedIcon onClick={() => dispatch(toggleSidePanel())} className="icon icon--with-bg header__item" />
+    <span className="icon-wrapper"><ShoppingCartOutlinedIcon onClick={() => dispatch(toggleSidePanel())} className="icon icon--with-bg header__item" />{nonCompleted !== 0 && <span className="non-completed">{nonCompleted}</span>}</span>
   </header>
 )
 };

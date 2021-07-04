@@ -46,6 +46,10 @@
         border-radius: 50%;
         color: variables.$light-1;
         box-sizing: content-box;
+
+        &:hover {
+            cursor: pointer;
+        }
     }
 
     &--selected {
@@ -67,6 +71,23 @@
     }
 }
 
+.icon-wrapper {
+    text-align: center;
+    position: relative;
+}
+
+.non-completed {
+    position: absolute;
+    background-color: variables.$danger-1;
+    font-size: 12px;
+    color: variables.$light-1;
+    font-family: variables.$font-1;
+    padding: 3px 7px;
+    border-radius: 4px;
+    top: 26px;
+    right: 18px;
+}
+
 .tooltip {
     visibility: hidden;
     position: absolute;
@@ -78,6 +99,7 @@
     font-size: 0.83rem;
     padding: 3px 16px;
     margin-left: 20px;
+    z-index: 4;
 
     &::before {
         content: '';
@@ -103,5 +125,9 @@
 @media only screen and (max-width: 500px) {
     .header {
         width: 60px;
+    }
+
+    .non-completed {
+        right: 4px;
     }
 }

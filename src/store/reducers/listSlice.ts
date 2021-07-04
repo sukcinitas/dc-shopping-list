@@ -111,6 +111,16 @@ export const selectItemsByCategories = ({ list }: { list: any }) => {
     return map;
 };
 
+export const selectNonCompletedAmount = ({ list }: { list: any }) => {
+    let count = 0;
+    for (let i = 0; i < list.items.length; i++) {
+        if (!list.items[i].completed) {
+            count++;
+        }
+    }
+    return count;
+};
+
 export const selectListName = (state: any) => state.list.name;
 
 export const selectInEditState = (state: any) => state.list.state === 'edit';
