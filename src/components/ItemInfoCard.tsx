@@ -2,7 +2,8 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   remove,
-  selectProduct
+  selectProduct,
+  selectSelectedItem
 } from '../store/reducers/productsSlice';
 import {
   addItem,
@@ -13,17 +14,19 @@ import '../sass/ItemInfoCard.scss';
 import '../sass/buttons.scss';
 
 const ItemInfoCard = () => {
-  const { id, name, category, description, url } = useSelector((state:any) => state.products.selectedProduct);
+  const item = useSelector(selectSelectedItem);
+  const { id, name, category, description, url } = item;
+
   const dispatch = useDispatch();
 
-  const addItemToList = (category: string, id: string, name: string) => {
+  const addItemToList = (category: string, id: number, name: string) => {
     dispatch(addItem({ item: { id, name, category }}));
     dispatch(selectProduct({
       item: null,
     }));
   };
 
-  const removeItemFromList = (id: string) => {
+  const removeItemFromList = (id: number) => {
     dispatch(remove({ id }));
     dispatch(selectProduct({
       item: null,

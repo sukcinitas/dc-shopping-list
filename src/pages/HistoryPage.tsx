@@ -11,7 +11,6 @@ import '../sass/headings.scss';
 
 const HistoryPage = () => {
   const lists = useSelector(selectListsByDate);
-  console.log(lists);
 
   return (
   <div className="history">

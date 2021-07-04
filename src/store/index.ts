@@ -6,7 +6,8 @@ import historyReducer from './reducers/historySlice';
 import historyListReducer from './reducers/historyListSlice';
 import monthlySlice from './reducers/monthlySlice';
 
-export default configureStore({
+
+const store = configureStore({
   reducer: {
     products: productsReducer,
     list: listReducer,
@@ -14,4 +15,9 @@ export default configureStore({
     historyList: historyListReducer,
     monthly: monthlySlice
   }
-})
+});
+
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
+
+export default store;

@@ -11,7 +11,7 @@ const SearchBar = () => {
   const dispatch = useDispatch();
   const [phrase, setPhrase] = useState('');
 
-  const searchByPhrase = (e: any) => {
+  const searchByPhrase = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPhrase(e.target.value);
     dispatch(search({ phrase: e.target.value }));
   }

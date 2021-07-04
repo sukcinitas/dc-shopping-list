@@ -1,24 +1,29 @@
-import { bindActionCreators, createSlice } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
+import type { RootState } from '../index';
 
-type list = {
+interface ListState {
     name: string;
-    items: {id: string; name: string; category: string; pieces: number; completed: boolean; }[];
+    items: Array<{
+        id: number;
+        name: string;
+        pieces: number;
+        completed: boolean;
+        category: string;
+    }>;
     state: string;
-};
+}
 
-type item = {
-    id: string; name: string; category: string; pieces: number; completed: boolean;
+const initialState: ListState = {
+    name: '',
+    items: [],
+    state: 'edit' // edit | active
 }
 
 export const listSlice = createSlice({
     name: 'items',
-    initialState: {
-            name: '',
-            items: [],
-            state: 'edit' // edit | active
-    },
+    initialState,
     reducers: {
-        editName: (state: any, action) => {
+        editName: (state, action) => {
             if (!state.name) {
                 return {
                     ...state,
@@ -32,11 +37,11 @@ export const listSlice = createSlice({
                 state: 'active'
             }
         },
-        editState: (state:any, action) => {
+        editState: (state, action) => {
             return {...state, state: action.payload.state};
         },
-        addItem: (state:any, action) => {
-            if (state.items.find((item: item) => item.id === action.payload.item.id )) {
+        addItem: (state, action) => {
+            if (state.items.find((item) => item.id === action.payload.item.id )) {
                 return {...state};
             }
             return {
@@ -44,16 +49,16 @@ export const listSlice = createSlice({
                 items: [...state.items, {...action.payload.item, pieces: 1, completed: false }]
             }
         },
-        removeItem: (state:any, action) => {
+        removeItem: (state, action) => {
             return {
                 ...state,
-                items: state.items.filter((item: item) => item.id !== action.payload.id),
+                items: state.items.filter((item) => item.id !== action.payload.id),
             }
         },
-        increaseAmount: (state:any, action) => {
+        increaseAmount: (state, action) => {
             return {
                 ...state,
-                items: state.items.map((item: item) => {
+                items: state.items.map((item) => {
                     if (item.id === action.payload.id) {
                         return {...item, pieces: item.pieces + 1}
                     } else {
@@ -62,10 +67,10 @@ export const listSlice = createSlice({
                 })
             }
         },
-        decreaseAmount: (state:any, action) => {
+        decreaseAmount: (state, action) => {
             return {
                 ...state,
-                items: state.items.map((item:item) => {
+                items: state.items.map((item) => {
                     if (item.pieces === 1) {
                         return item;
                     }
@@ -84,10 +89,10 @@ export const listSlice = createSlice({
                 state: 'edit' // edit | active
             }
         },
-        toggleItemCompletion: (state: any, action) => {
+        toggleItemCompletion: (state, action) => {
             return {
                 ...state,
-                items: state.items.map((item: item) => {
+                items: state.items.map((item) => {
                     if (item.id === action.payload.id) {
                         return {...item, completed: !item.completed };
                     } else {
@@ -99,8 +104,14 @@ export const listSlice = createSlice({
     }
 });
 
-export const selectItemsByCategories = ({ list }: { list: any }) => {
-    const map: any = {};
+export const selectItemsByCategories = ({ list }: RootState) => {
+    const map: {[key: string]: Array<{
+        id: number;
+        name: string;
+        pieces: number;
+        completed: boolean;
+        category: string;
+    }>;} = {};
     for (let i = 0; i < list.items.length; i++) {
         if (list.items[i].category in map) {
             map[list.items[i].category] = [...map[list.items[i].category], list.items[i]];
@@ -111,7 +122,7 @@ export const selectItemsByCategories = ({ list }: { list: any }) => {
     return map;
 };
 
-export const selectNonCompletedAmount = ({ list }: { list: any }) => {
+export const selectNonCompletedAmount = ({ list }: RootState) => {
     let count = 0;
     for (let i = 0; i < list.items.length; i++) {
         if (!list.items[i].completed) {
@@ -121,9 +132,9 @@ export const selectNonCompletedAmount = ({ list }: { list: any }) => {
     return count;
 };
 
-export const selectListName = (state: any) => state.list.name;
+export const selectListName = (state: RootState) => state.list.name;
 
-export const selectInEditState = (state: any) => state.list.state === 'edit';
+export const selectInEditState = (state: RootState) => state.list.state === 'edit';
 
 export const { addItem, removeItem, increaseAmount, decreaseAmount, editName, editState, cancelList, toggleItemCompletion } = listSlice.actions;
 

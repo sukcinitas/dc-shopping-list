@@ -1,26 +1,29 @@
 import React from 'react';
 import AddIcon from '@material-ui/icons/Add';
-import { useDispatch, useSelector  } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import {
   selectProduct,
 } from '../store/reducers/productsSlice';
 import {
-  selectInEditState, addItem
+  addItem
 } from '../store/reducers/listSlice';
 import '../sass/ItemsPage.scss';
 import '../sass/PiecesDetail.scss';
 import PiecesDetail from './PiecesDetail';
 
-const CategoryItems = ({items, add }: {items: Array<{ id: string; name: string; url: string; description: string; }>, add: boolean}) => {
+interface Item {
+  id: number; name: string; url: string; description: string; 
+}
+
+const CategoryItems = ({items, add }: {items: Array<Item>, add: boolean}) => {
   const dispatch = useDispatch();
-  const select = (item:any) => {
+  const select = (item: Item) => {
     dispatch(selectProduct({ item }));
   };
-  const addItemToList = (e: any, item: any) => {
+  const addItemToList = (e: React.MouseEvent<SVGElement>, item: Item) => {
     e.stopPropagation();
     dispatch(addItem({ item }));
   }
-  const isInEdit = useSelector(selectInEditState);
   return (
     <div className="items__items">
     {items.map((item) => 

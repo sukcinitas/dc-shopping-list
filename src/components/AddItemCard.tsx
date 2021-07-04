@@ -16,17 +16,17 @@ const AddItemCard = ({ cb }: { cb: () => void }) => {
   const [category, setCategory] = useState('');
 
   const categoryList = categories.map((category: string) => <li 
-      onClick={(e) => setCategory(category)} 
+      onClick={() => setCategory(category)} 
       className="add-item-card__list-item" 
       key={category}>
       {category}
     </li>);
 
-  const addItem = (e: any) => {
+  const addItem = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
     dispatch(add({
       item: {
-        id: '6',
+        id: 6,
         name,
         description,
         url,

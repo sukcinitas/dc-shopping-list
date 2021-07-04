@@ -9,7 +9,7 @@ import '../sass/headings.scss';
 
 // TODO created_at to show day of the week
 
-const HistoryMonth = ({ month, items }: { month: string; items: {id: string; created_at: string; name: string; status: string; }[] }) => {
+const HistoryMonth = ({ month, items }: { month: string; items: {id: number; created_at: string; name: string; status: string; }[] }) => {
   return (
   <div className="history__month">
       <h4 className="subheading subheading--date">{month}</h4>

@@ -1,24 +1,28 @@
 import { createSlice } from '@reduxjs/toolkit';
+import type { RootState } from '../index';
 
-type list = {
-    name: string;
-    items: {id: string; name: string; category: string; pieces: number; completed: boolean; }[];
-    state: string;
-};
-
-type item = {
-    id: string; name: string; category: string; pieces: number; completed: boolean;
+interface HistoryState {
+    lists: Array<{
+        id: number;
+        name: string;
+        status: string;
+        created_at: string;
+    }>;
+    status: string;
+    error: string;
 }
+
+const initialState: HistoryState = {
+    lists: [{ id: 1, created_at: '2020-10-11', name: 'Pirmas apsipirkimas', status: 'completed' },
+     { id: 2, created_at: '2019-10-11', name: 'Pirmas apsipirkimas', status: 'completed' },
+     { id: 3, created_at: '2019-10-12', name: 'Monthly', status: 'cancelled' }],
+    error: '',
+    status: 'loading', // loading | success | error
+};
 
 export const historySlice = createSlice({
     name: 'history',
-    initialState: {
-            lists: [{ id: 1, created_at: '2020-10-11', name: 'Pirmas apsipirkimas', status: 'completed' },
-             { id: 2, created_at: '2019-10-11', name: 'Pirmas apsipirkimas', status: 'completed' },
-             { id: 3, created_at: '2019-10-12', name: 'Monthly', status: 'cancelled' }],
-            error: '',
-            status: 'loading', // loading | success | error
-    },
+    initialState,
     reducers: {}
 });
 
@@ -26,12 +30,16 @@ export const historySlice = createSlice({
 
 // 2020-11-11
 const monthsMap = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-export const selectListsByDate = ({ history: { lists }}: any) => {
-    const map: any = {};
+export const selectListsByDate = ({ history: { lists }}: RootState) => {
+    const map: {[key: string]: Array<{
+        id: number;
+        name: string;
+        status: string;
+        created_at: string;
+    }>;} = {};
     for (let i = 0; i < lists.length; i++) {
         const date =  new Date(lists[i].created_at);
         const dateByMonth = `${date.getFullYear()} ${monthsMap[date.getMonth()]}`;
-        console.log(dateByMonth);
         if (dateByMonth in map) {
             map[dateByMonth] = [...map[dateByMonth], lists[i]];
         } else {
