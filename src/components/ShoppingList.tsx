@@ -33,7 +33,7 @@ const ShoppingList = () => {
       <ul>
         {initialList[category].map((product: { id: number; name: string; pieces: number; category: string; completed: boolean }) => {
         return <li className="shopping-list__item" key={product.id}>
-          {product.completed ? <span className="shopping-list__tag">{!isInEdit && <CheckBoxOutlinedIcon onClick={() => dispatch(toggleItemCompletion({id: product.id}))} className="shopping-list__icon" />}<span className="linethrough">{product.name}</span></span> 
+          {product.completed ? <span className="shopping-list__tag">{!isInEdit && <CheckBoxOutlinedIcon onClick={() => dispatch(toggleItemCompletion({id: product.id}))} className="shopping-list__icon" />}<span className={isInEdit ? '' : 'linethrough'}>{product.name}</span></span> 
           : <span className="shopping-list__tag">{!isInEdit && <CheckBoxOutlineBlankOutlinedIcon onClick={() => dispatch(toggleItemCompletion({id: product.id}))} className="shopping-list__icon" />}<span>{product.name}</span></span>}
           <PiecesDetail 
             deleteItem={() => deleteItem(product.id)} 

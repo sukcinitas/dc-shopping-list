@@ -108,6 +108,7 @@
 
 @media only screen and (max-width: 500px) {
     .btn {
+        font-size: variables.$s14;
         &--bright-input, &--grey-input {
             right: 16px;
         }
