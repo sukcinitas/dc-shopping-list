@@ -66,7 +66,7 @@ const ShoppingList = () => {
         <button className={title ? 'btn btn--bright-input' : 'btn btn--grey-input'} type="submit" disabled={!name} onClick={(e) => changeName(e)}>Save</button>
     </div>
     :
-    <div className="inpts">
+    <div className="btns">
         <button type="button" className="btn" onClick={() => setIsCancelling(true)}>cancel</button>
         <button className="btn btn--blue" type="submit">Complete</button>
     </div>

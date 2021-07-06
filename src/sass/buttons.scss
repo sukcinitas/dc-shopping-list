@@ -12,6 +12,7 @@
     right: 0;
     padding: 34px 0px;
     background-color: variables.$light-1;
+    z-index: 1;
 
     &--grey {
         background-color: variables.$grey-4;
@@ -107,6 +108,9 @@
 }
 
 @media only screen and (max-width: 500px) {
+    .btns {
+        padding: 16px 0;
+    }
     .btn {
         font-size: variables.$s14;
         &--bright-input, &--grey-input {
