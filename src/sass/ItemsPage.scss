@@ -40,6 +40,16 @@
         font-weight: 500;
         overflow: hidden;
         text-overflow: ellipsis;
+
+        &:hover {
+            cursor: pointer;
+        }
+
+        &--history {
+            &:hover {
+                cursor: zoom-in;
+            }
+        }
     }
 
     &__icon {

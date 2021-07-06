@@ -73,8 +73,8 @@ const ShoppingList = () => {
     }
     <div className={Object.keys(initialList).length === 0 ? 'shopping-list__main shopping-list__main--no-items' : 'shopping-list__main'}>
       <div className="shopping-list__add-item">
-        <img className="shopping-list__img" src={image} />
         <div className="shopping-list__qs">
+          <img className="shopping-list__img" src={image} />
           <p>Did not find what you need?</p>
           <button onClick={() => setIsAdding(true)} className="btn btn--narrow">Add item</button>
         </div>

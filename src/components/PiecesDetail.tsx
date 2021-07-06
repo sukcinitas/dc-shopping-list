@@ -23,7 +23,7 @@ const PiecesDetail = ({ pcs, simple, increaseAmount, decreaseAmount, deleteItem 
     } else if (simple) {
         return <span className="pieces pieces--simple">{`${pcs} pcs`}</span>;
     } else {
-        return <span onClick={() => isInEdit ? setIsExpanded(true) : null} className="pieces">{`${pcs} pcs`}</span>;
+        return <span onClick={() => isInEdit ? setIsExpanded(true) : null} className={isInEdit ? 'pieces' : 'pieces pieces--unclickable'}>{`${pcs} pcs`}</span>;
  
     }
 }

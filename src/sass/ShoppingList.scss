@@ -40,7 +40,7 @@
 
     &__add-item {
         background-color: variables.$accent-1;
-        height: 130px;
+        padding: 20px;
         border-radius: 24px;
         display: flex;
         flex-direction: row;
@@ -102,6 +102,11 @@
             font-size: variables.$s14;
             overflow: hidden;
             text-overflow: ellipsis;
+        }
+
+        &__img--low {
+            bottom: 80px;
+            height: 160px;
         }
     }
 }

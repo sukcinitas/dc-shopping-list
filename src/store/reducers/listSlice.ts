@@ -24,13 +24,6 @@ export const listSlice = createSlice({
     initialState,
     reducers: {
         editName: (state, action) => {
-            if (!state.name) {
-                return {
-                    ...state,
-                    name: action.payload.name,
-                    state: 'edit'
-                }
-            }
             return {
                 ...state,
                 name: action.payload.name,
@@ -42,10 +35,21 @@ export const listSlice = createSlice({
         },
         addItem: (state, action) => {
             if (state.items.find((item) => item.id === action.payload.item.id )) {
-                return {...state};
+                return {
+                    ...state,
+                    state: 'edit',
+                    items: state.items.map((item) => {
+                        if (item.id === action.payload.item.id) {
+                            return {...item, pieces: item.pieces + 1}
+                        } else {
+                            return item;
+                        }
+                    })
+                }
             }
             return {
                 ...state,
+                state: 'edit',
                 items: [...state.items, {...action.payload.item, pieces: 1, completed: false }]
             }
         },

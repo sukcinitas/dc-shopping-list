@@ -7,6 +7,10 @@
     font-size: variables.$s12;
     border-radius: 24px;
     padding: 7px 20px;
+
+    &:hover {
+        cursor: pointer;
+    }
     
     &--simple {
         border: none;
@@ -14,6 +18,16 @@
         right: 16px;
         top: 16px;
         padding: 0;
+
+        &:hover {
+            cursor: zoom-in;
+        }
+    }
+
+    &--unclickable, &--panel {
+        &:hover {
+            cursor: zoom-in;
+        } 
     }
 
     &__panel {
@@ -32,6 +46,10 @@
     &__icon {
         color: variables.$yellow-1;
         margin: 4px;
+
+        &:hover {
+            cursor: pointer;
+        }
 
         &--bright {
             color: variables.$light-1;

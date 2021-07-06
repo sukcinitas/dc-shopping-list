@@ -15,19 +15,22 @@ interface Item {
   id: number; name: string; url: string; description: string; 
 }
 
-const CategoryItems = ({items, add }: {items: Array<Item>, add: boolean}) => {
+const CategoryItems = ({items, add }: {items: Array<Item>, add?: boolean}) => {
   const dispatch = useDispatch();
   const select = (item: Item) => {
+    if (!add) return;
     dispatch(selectProduct({ item }));
   };
   const addItemToList = (e: React.MouseEvent<SVGElement>, item: Item) => {
+    //
     e.stopPropagation();
+    if (!add) return;
     dispatch(addItem({ item }));
   }
   return (
     <div className="items__items">
     {items.map((item) => 
-      <div className="items__item" key={item.id} onClick={() => select(item)}>
+      <div className={add ? 'items__item' : 'items__item items__item--history'} key={item.id} onClick={() => select(item)}>
         {item.name}
         {add ? <AddIcon className="items__icon" onClick={(e) => addItemToList(e, item)} /> : <PiecesDetail pcs={4} simple />}
       </div>
