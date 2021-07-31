@@ -9,17 +9,17 @@ import '../sass/headings.scss';
 
 // TODO created_at to show day of the week
 
-const HistoryMonth = ({ month, items }: { month: string; items: {id: number; created_at: string; name: string; status: string; }[] }) => {
+const HistoryMonth = ({ month, items }: { month: string; items: {id: number; created_at: string; name: string; state: string; }[] }) => {
   return (
   <div className="history__month">
       <h4 className="subheading subheading--date">{month}</h4>
       <div className="history__items">
-      {items.map(({ name, status, created_at, id }) => 
+      {items.map(({ name, state, created_at, id }) => 
         <div key={id} className="history__item">
             <h6 className="subheading subheading--history-item">{name}</h6>
             <div className="history__item-details">
                 <CalendarDetail date={created_at} />
-                <CompletedDetail completed={status === 'completed' } />
+                <CompletedDetail completed={state === 'completed' } />
             </div>
             <button className="btn btn--arrow"><Link to={`history/${id}`}><ArrowForwardIosIcon /></Link></button>
         </div>

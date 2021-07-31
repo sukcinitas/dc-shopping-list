@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
-  remove,
+  removeProduct,
   selectProduct,
   selectSelectedItem
 } from '../store/reducers/productsSlice';
@@ -14,7 +14,10 @@ import '../sass/ItemInfoCard.scss';
 import '../sass/buttons.scss';
 
 const ItemInfoCard = () => {
-  const item = useSelector(selectSelectedItem);
+  let item = useSelector(selectSelectedItem);
+  if (!item) {
+    item = { id: 0, name: '', category: '', description: '', url: '', deletedAt: null, user_id: 0 };
+  }
   const { id, name, category, description, url } = item;
 
   const dispatch = useDispatch();
@@ -27,7 +30,7 @@ const ItemInfoCard = () => {
   };
 
   const removeItemFromList = (id: number) => {
-    dispatch(remove({ id }));
+    dispatch(removeProduct(id));
     dispatch(selectProduct({
       item: null,
     }));

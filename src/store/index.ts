@@ -4,8 +4,8 @@ import productsReducer from './reducers/productsSlice';
 import listReducer from './reducers/listSlice';
 import historyReducer from './reducers/historySlice';
 import historyListReducer from './reducers/historyListSlice';
-import monthlySlice from './reducers/monthlySlice';
-
+import statisticsSlice from '././reducers/statisticsSlice';
+import userSlice from './reducers/userSlice';
 
 const store = configureStore({
   reducer: {
@@ -13,8 +13,9 @@ const store = configureStore({
     list: listReducer,
     history: historyReducer,
     historyList: historyListReducer,
-    monthly: monthlySlice
-  }
+    statistics: statisticsSlice,
+    user: userSlice,
+  },
 });
 
 export type RootState = ReturnType<typeof store.getState>;

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
-  add, selectCategories
+  addProduct, selectCategories
 } from '../store/reducers/productsSlice';
 import '../sass/AddItemCard.scss';
 import '../sass/buttons.scss';
@@ -24,15 +24,12 @@ const AddItemCard = ({ cb }: { cb: () => void }) => {
 
   const addItem = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
-    dispatch(add({
-      item: {
-        id: 6,
+    dispatch(addProduct({
         name,
         description,
         url,
         category
-      },
-    }));
+      }));
     cb();
   };
 

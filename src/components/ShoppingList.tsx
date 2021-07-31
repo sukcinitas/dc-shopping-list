@@ -12,7 +12,7 @@ import AddItemCard from './AddItemCard';
 import PiecesDetail from './PiecesDetail';
 import EditIcon from '@material-ui/icons/Edit';
 import {
-  removeItem, selectItemsByCategories, selectListName, increaseAmount, decreaseAmount, editName, selectInEditState, editState, cancelList, toggleItemCompletion
+  changeActiveListState, removeItem, selectItemsByCategories, selectListName, increaseAmount, decreaseAmount, saveList, selectInEditState, editState, toggleItemCompletion
 } from '../store/reducers/listSlice';
 import CheckBoxOutlineBlankOutlinedIcon from '@material-ui/icons/CheckBoxOutlineBlankOutlined';
 import CheckBoxOutlinedIcon from '@material-ui/icons/CheckBoxOutlined';
@@ -52,23 +52,30 @@ const ShoppingList = () => {
     dispatch(removeItem({ id }));
   }
 
-  const changeName = (e: React.MouseEvent<HTMLElement>) => {
+  const save = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
-    dispatch(editName({ name }));
+    dispatch(saveList(name));
     setName(name);
   }
 
+  const changeListState = (e: React.MouseEvent<HTMLElement>, state: 'completed'|'cancelled') => {
+    e.preventDefault();
+    dispatch(saveList(title));
+    dispatch(changeActiveListState(state));
+    setName('');
+  }
+
   const shoppingList = <form className="shopping-list">
-    {isCancelling && <ConfirmationBox cb={() => { dispatch(cancelList()); setIsCancelling(false)}} close={() => setIsCancelling(false)} />}
+    {isCancelling && <ConfirmationBox cb={(e: React.MouseEvent<HTMLElement>) => { changeListState(e, 'cancelled'); setIsCancelling(false)}} close={() => setIsCancelling(false)} />}
     {isInEdit ? 
     <div className="inpts">
         <input className={title ? 'inpt inpt--bright' : 'inpt inpt--grey'} placeholder="Enter a name" value={name} onChange={(e) => setName(e.target.value)} />
-        <button className={title ? 'btn btn--bright-input' : 'btn btn--grey-input'} type="submit" disabled={!name} onClick={(e) => changeName(e)}>Save</button>
+        <button className={title ? 'btn btn--bright-input' : 'btn btn--grey-input'} type="submit" disabled={!name} onClick={(e) => save(e)}>Save</button>
     </div>
     :
     <div className="btns">
         <button type="button" className="btn" onClick={() => setIsCancelling(true)}>cancel</button>
-        <button className="btn btn--blue" type="submit">Complete</button>
+        <button className="btn btn--blue" type="button" onClick={(e) => changeListState(e, 'completed')}>Complete</button>
     </div>
     }
     <div className="shopping-list__add-item">

@@ -4,7 +4,7 @@ import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Responsi
 
 import {
   selectMonthlyItems
-} from '../store/reducers/monthlySlice';
+} from '../store/reducers/statisticsSlice';
 import '../sass/MonthlySummary.scss';
 import '../sass/headings.scss';
 

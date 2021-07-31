@@ -1,6 +1,9 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
+import {
+  getActiveList
+} from '../store/reducers/listSlice';
 import {
   selectSelectedItem,
   selectIsSidePanelShown
@@ -12,11 +15,16 @@ import '../sass/SidePanel.scss';
 const SidePanel = () => {
   const item = useSelector(selectSelectedItem);
   const shown = useSelector(selectIsSidePanelShown);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getActiveList());
+  }, []);
 
   return (
   <div className={shown ? 'side-panel' : 'side-panel side-panel--hidden'}>
       <ShoppingList />
-      { item.name && <ItemInfoCard /> }
+      { item && <ItemInfoCard /> }
   </div>
 )
 };

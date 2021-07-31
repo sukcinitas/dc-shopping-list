@@ -1,8 +1,8 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
 import {
-  selectListsByDate,
+  selectListsByDate, getLists
 } from '../store/reducers/historySlice';
 import '../components/HistoryMonth';
 import HistoryMonth from '../components/HistoryMonth';
@@ -11,6 +11,11 @@ import '../sass/headings.scss';
 
 const HistoryPage = () => {
   const lists = useSelector(selectListsByDate);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getLists());
+  }, []);
 
   return (
   <div className="history">

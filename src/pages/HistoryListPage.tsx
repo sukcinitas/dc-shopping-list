@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import TrendingFlatOutlinedIcon from '@material-ui/icons/TrendingFlatOutlined';
-import { useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { useHistory, useParams } from 'react-router-dom';
 
 import {
-  selectItemsByCategories, selectListName, selectListDate
+  selectItemsByCategories, selectListName, selectListDate, getList
 } from '../store/reducers/historyListSlice';
 import CategoryItems from '../components/CategoryItems';
 import CalendarDetail from '../components/CalendarDetail';
@@ -16,6 +16,12 @@ const HistoryListPage = () => {
   const name = useSelector(selectListName);
   const date = useSelector(selectListDate);
   const history = useHistory();
+  const dispatch = useDispatch();
+  const { id } = useParams<{ id: string }>();
+
+  useEffect(() => {
+    dispatch(getList(Number(id)));
+  }, [])
 
   const cats = Object.keys(items).map((cat) =>
   <div className="items__category" key={cat}>

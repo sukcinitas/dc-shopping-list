@@ -1,7 +1,10 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+
 import type { RootState } from '../index';
+import api from '../../api';
 
 interface ListState {
+    id: number|undefined;
     name: string;
     items: Array<{
         id: number;
@@ -14,22 +17,35 @@ interface ListState {
 }
 
 const initialState: ListState = {
+    id: undefined,
     name: '',
     items: [],
     state: 'edit' // edit | active
 }
 
+// thunks
+export const getActiveList = createAsyncThunk('products/loadActiveList', async () => {
+    const response: any = await api.getActiveList();
+    return response.list;
+});
+
+export const saveList = createAsyncThunk('products/saveActiveList', async (name: string, { getState }) => {
+    const { list } = getState() as RootState;
+    const response: any = await api.saveActiveList({...list, name, state: 'active'});
+    return response;
+});
+
+export const changeActiveListState = createAsyncThunk('products/changeListState', async (state: 'cancelled'|'completed', { getState }) => {
+    console.log(state), 'state';
+    const { list }: any = getState() as RootState;
+    await api.changeActiveListState(list.id, state);
+    return { state };
+});
+
 export const listSlice = createSlice({
     name: 'items',
     initialState,
     reducers: {
-        editName: (state, action) => {
-            return {
-                ...state,
-                name: action.payload.name,
-                state: 'active'
-            }
-        },
         editState: (state, action) => {
             return {...state, state: action.payload.state};
         },
@@ -86,13 +102,6 @@ export const listSlice = createSlice({
                 })
             }
         },
-        cancelList: () => {
-            return {
-                name: '',
-                items: [],
-                state: 'edit' // edit | active
-            }
-        },
         toggleItemCompletion: (state, action) => {
             return {
                 ...state,
@@ -104,8 +113,31 @@ export const listSlice = createSlice({
                     }
                 })
             }
-        }
-    }
+        },  
+    },
+    extraReducers: builder => {
+        builder
+            .addCase(getActiveList.fulfilled, (state, action) => {
+                return {...state, name: action.payload.name, items: action.payload.items, id: action.payload.id, state: 'active'
+                }
+            })
+            .addCase(saveList.fulfilled, (state, action) => {
+                return {
+                    ...state,
+                    name: action.payload.name,
+                    state: 'active',
+                    id: action.payload.id
+                }
+            })
+            .addCase(changeActiveListState.fulfilled, (state, action) => {
+                return {
+                    id: undefined,
+                    name: '',
+                    items: [],
+                    state: 'edit' // edit | active
+                }
+            })
+    },
 });
 
 export const selectItemsByCategories = ({ list }: RootState) => {
@@ -140,6 +172,6 @@ export const selectListName = (state: RootState) => state.list.name;
 
 export const selectInEditState = (state: RootState) => state.list.state === 'edit';
 
-export const { addItem, removeItem, increaseAmount, decreaseAmount, editName, editState, cancelList, toggleItemCompletion } = listSlice.actions;
+export const { addItem, removeItem, increaseAmount, decreaseAmount, editState, toggleItemCompletion } = listSlice.actions;
 
 export default listSlice.reducer;

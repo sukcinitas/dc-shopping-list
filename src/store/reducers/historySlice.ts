@@ -1,11 +1,13 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+
 import type { RootState } from '../index';
+import api from '../../api';
 
 interface HistoryState {
     lists: Array<{
         id: number;
         name: string;
-        status: string;
+        state: string;
         created_at: string;
     }>;
     status: string;
@@ -13,30 +15,46 @@ interface HistoryState {
 }
 
 const initialState: HistoryState = {
-    lists: [{ id: 1, created_at: '2020-10-11', name: 'Pirmas apsipirkimas', status: 'completed' },
-     { id: 2, created_at: '2019-10-11', name: 'Pirmas apsipirkimas', status: 'completed' },
-     { id: 3, created_at: '2019-10-12', name: 'Monthly', status: 'cancelled' }],
+    lists: [],
     error: '',
-    status: 'loading', // loading | success | error
+    status: 'idle', // loading | idle
 };
+
+// thunks
+export const getLists = createAsyncThunk('products/loadLists', async () => {
+    const response: any = await api.getLists();
+    return response.filter((list: any) => list.state !== 'active');
+});
 
 export const historySlice = createSlice({
     name: 'history',
     initialState,
-    reducers: {}
+    reducers: {},
+    extraReducers: builder => {
+        builder
+            .addCase(getLists.pending, (state, action) => {
+                return {...state, status: 'loading'}
+            })
+            .addCase(getLists.fulfilled, (state, action) => {
+                return {...state, status: 'idle', error: '', lists: action.payload }
+            })
+            .addCase(getLists.rejected, (state, action) => {
+                return {...state, status: 'idle', error: 'Something went wrong!' }
+            })
+    },
 });
 
 // need to get list sorted by recent date
 
-// 2020-11-11
 const monthsMap = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 export const selectListsByDate = ({ history: { lists }}: RootState) => {
     const map: {[key: string]: Array<{
         id: number;
         name: string;
-        status: string;
+        state: string;
         created_at: string;
     }>;} = {};
+
     for (let i = 0; i < lists.length; i++) {
         const date =  new Date(lists[i].created_at);
         const dateByMonth = `${date.getFullYear()} ${monthsMap[date.getMonth()]}`;
@@ -46,7 +64,6 @@ export const selectListsByDate = ({ history: { lists }}: RootState) => {
             map[dateByMonth] = [lists[i]];
         }
     }
-    console.log(map, 'map');
     return map;
 };
 

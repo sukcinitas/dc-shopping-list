@@ -1,53 +1,59 @@
-import { createSlice } from '@reduxjs/toolkit';
-import type { RootState } from '../index';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
-interface Item {
-    id: number; name: string; category: string; url: string; description: string;
+import type { RootState } from '../index';
+import api from '../../api';
+
+interface ProductToAdd {
+    name: string; category: string; url: string; description: string;
+}
+
+interface Product extends ProductToAdd {
+    id: number; deletedAt: string|null; user_id: number;
 }
 
 interface ProductsState {
-    items: Array<Item>;
-    filteredItems: Array<Item>;
-    selectedProduct: Item;
+    products: {
+        state: string;
+        error: string;
+        items: Array<Product>;
+    }
+    filteredItems: Array<Product>;
+    selectedProduct: Product|null;
     isSidePanelShown: boolean;
 }
 
 const initialState: ProductsState =  {
-    items: [{id: 1, name: 'Pork', url: '', description: '', category: 'Meats'}, {id: 2, name: 'Chicken', url: '', description: '', category: 'Meats'},
-    { id: 3, name: 'Salmon', url: '', description: '', category: 'Fish' }],
-    filteredItems: [{id: 1, name: 'Pork', url: '', description: '', category: 'Meats'}, {id: 2, name: 'Chicken', url: '', description: '', category: 'Meats'},
-    { id: 3, name: 'Salmon', url: '', description: '', category: 'Fish' }],
-    selectedProduct: {
-        id: 0,
-        name: '',
-        category: '',
-        url: '',
-        description: ''
+    products: {
+        items: [],
+        state: 'idle', // loading | idle
+        error: '',
     },
+    filteredItems: [],
+    selectedProduct: null,
     isSidePanelShown: false,
 };
+
+// thunks
+export const getProducts = createAsyncThunk('products/loadProducts', async () => {
+    const response: any = await api.getProducts();
+    return { products: response.products };
+});
+
+export const addProduct = createAsyncThunk('products/add', async (product: ProductToAdd) => {
+    const response: any = await api.addProduct({...product});
+    return { product: response.product };
+});
+
+export const removeProduct = createAsyncThunk('products/remove', async (id: number) => {
+    await api.removeProduct(id);
+    return { id };
+});
+
 
 export const productsSlice = createSlice({
   name: 'products',
   initialState,
   reducers: {
-    add: (state, action) => {
-        if (state.items.find((item) => item.name === action.payload.item.name )) {
-            return {...state};
-        }
-        return {
-            ...state,
-            items: [...state.items, {...action.payload.item }],
-            filteredItems: [...state.items, {...action.payload.item }],
-        }
-    },
-    remove: (state, action) => {
-        return {
-            ...state,
-            items: state.items.filter((item) => item.id !== action.payload.id),
-            filteredItems: state.items.filter((item) => item.id !== action.payload.id),
-        }
-    },
     selectProduct: (state, { payload: { item }} ) => {
         if (!item) {
             return {
@@ -70,24 +76,58 @@ export const productsSlice = createSlice({
     },
     search: (state, { payload: { phrase }}) => {
         if (!phrase) {
-            return  {...state, filteredItems: [...state.items]};
+            return  {...state, filteredItems: [...state.products.items]};
         } else {
             const regex = new RegExp(`^${phrase}`, 'i');
             return {
                 ...state,
-                filteredItems: state.items.filter((item) => regex.test(item.name))
+                filteredItems: state.products.items.filter((item) => regex.test(item.name))
             }
         }
     },
     toggleSidePanel: (state) => {
         return  {...state, isSidePanelShown: !state.isSidePanelShown };
     }
-  }
+  },
+  extraReducers: builder => {
+    builder
+        .addCase(getProducts.pending, (state, action) => {
+            state.products.state = 'loading';
+        })
+        .addCase(getProducts.fulfilled, (state, action) => {
+            state.products.items = action.payload.products;
+            state.filteredItems = action.payload.products;
+            state.products.state = 'idle';
+        })
+        .addCase(getProducts.rejected, (state, action) => {
+            state.products.state = 'idle';
+            state.products.error = 'Something went wrong! Try again later!';
+            setInterval(() => {
+                state.products.error = '';
+            }, 400);
+        })
+        .addCase(addProduct.fulfilled, (state, action) => {
+            return {
+                ...state,
+                products: {...state.products, items: [...state.products.items, {...action.payload.product }]},
+                filteredItems: [...state.products.items, {...action.payload.product }],
+            }
+        })
+        .addCase(removeProduct.fulfilled, (state, action) => {
+            return {
+                ...state,
+                products: {...state.products, items: state.products.items.filter((product) => product.id !== action.payload.id)},
+                filteredItems: state.products.items.filter((product) => product.id !== action.payload.id),
+            }
+        })
+    },
 });
 
+//selectors
 export const selectProductsByCategories =  ({ products: { filteredItems } }: RootState) => {
-    const map: {[key: string]: Array<Item>;} = {};
+    const map: {[key: string]: Array<Product>;} = {};
     for (let i = 0; i < filteredItems.length; i++) {
+        if (filteredItems[i].deletedAt) continue;
         if (filteredItems[i].category in map) {
             map[filteredItems[i].category] = [...map[filteredItems[i].category], filteredItems[i]];
         } else {
@@ -97,7 +137,7 @@ export const selectProductsByCategories =  ({ products: { filteredItems } }: Roo
     return map;
 };
 
-export const selectCategories = ({ products: { items } }: RootState) => {
+export const selectCategories = ({ products: { products: { items } } }: RootState) => {
     const map: Array<string> = [];
     for (let i = 0; i < items.length; i++) {
         if (map.indexOf(items[i].category) < 0) {
@@ -111,6 +151,8 @@ export const selectSelectedItem = ({ products: { selectedProduct } }: RootState)
 
 export const selectIsSidePanelShown = ({ products: { isSidePanelShown }}: RootState) => isSidePanelShown;
 
-export const { add, remove, selectProduct, search, toggleSidePanel } = productsSlice.actions;
+export const selectState = ({ products: { products: { state } }}: RootState) => state;
+
+export const { selectProduct, search, toggleSidePanel } = productsSlice.actions;
 
 export default productsSlice.reducer;
