@@ -21,7 +21,7 @@ const HistoryListPage = () => {
 
   useEffect(() => {
     dispatch(getList(Number(id)));
-  }, [])
+  }, [dispatch, id])
 
   const cats = Object.keys(items).map((cat) =>
   <div className="items__category" key={cat}>

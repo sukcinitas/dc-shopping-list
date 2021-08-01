@@ -4,9 +4,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import {
   selectProductsByCategories, getProducts, selectState
 } from '../store/reducers/productsSlice';
-import {
-  getActiveList
-} from '../store/reducers/listSlice';
 import '../sass/ItemsPage.scss';
 import '../sass/headings.scss';
 import SearchBar from '../components/SearchBar';
@@ -19,7 +16,7 @@ const ItemsPage = () => {
 
   useEffect(() => {
     dispatch(getProducts());
-  }, []);
+  }, [dispatch]);
 
   const cats = Object.keys(categories).map((cat) =>
     <div className="items__category" key={cat}>

@@ -36,8 +36,7 @@ export const saveList = createAsyncThunk('products/saveActiveList', async (name:
 });
 
 export const changeActiveListState = createAsyncThunk('products/changeListState', async (state: 'cancelled'|'completed', { getState }) => {
-    console.log(state), 'state';
-    const { list }: any = getState() as RootState;
+    const { list } = getState() as RootState;
     await api.changeActiveListState(list.id, state);
     return { state };
 });
@@ -129,7 +128,7 @@ export const listSlice = createSlice({
                     id: action.payload.id
                 }
             })
-            .addCase(changeActiveListState.fulfilled, (state, action) => {
+            .addCase(changeActiveListState.fulfilled, () => {
                 return {
                     id: undefined,
                     name: '',

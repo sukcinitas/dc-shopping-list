@@ -32,13 +32,13 @@ export const historySlice = createSlice({
     reducers: {},
     extraReducers: builder => {
         builder
-            .addCase(getLists.pending, (state, action) => {
+            .addCase(getLists.pending, (state) => {
                 return {...state, status: 'loading'}
             })
             .addCase(getLists.fulfilled, (state, action) => {
                 return {...state, status: 'idle', error: '', lists: action.payload }
             })
-            .addCase(getLists.rejected, (state, action) => {
+            .addCase(getLists.rejected, (state) => {
                 return {...state, status: 'idle', error: 'Something went wrong!' }
             })
     },

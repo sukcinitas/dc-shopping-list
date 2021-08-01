@@ -14,7 +14,7 @@ const StatisticsPage = () => {
 
   useEffect(() => {
     dispatch(getStatisticsInfo());
-  }, []);
+  }, [dispatch]);
 
 
   return (

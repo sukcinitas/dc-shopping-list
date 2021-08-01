@@ -19,7 +19,7 @@ const initialState: StatisticsState =  {
     topItems: [],
     topCategories: [],
     error: '',
-    status: 'loading', // loading | success | error
+    status: 'loading', // loading | idle
 };
 
 // thunks
@@ -27,7 +27,6 @@ export const getStatisticsInfo = createAsyncThunk('products/getInfo', async () =
     const monthlyStatistics: any = await api.getMontlyStatistics();
     const topItems: any = await api.getTopItems();
     const topCategories: any = await api.getTopCategories();
-    console.log(topItems)
     return { monthlyStatistics, topItems, topCategories };
 });
 
@@ -37,13 +36,13 @@ export const statisticsSlice = createSlice({
     reducers: {},
     extraReducers: builder => {
         builder
-            .addCase(getStatisticsInfo.pending, (state, action) => {
+            .addCase(getStatisticsInfo.pending, (state) => {
                 return {...state, status: 'loading'}
             })
             .addCase(getStatisticsInfo.fulfilled, (state, action) => {
                 return {...state, status: 'idle', error: '', ...action.payload }
             })
-            .addCase(getStatisticsInfo.rejected, (state, action) => {
+            .addCase(getStatisticsInfo.rejected, (state) => {
                 return {...state, status: 'idle', error: 'Something went wrong!' }
             })
     },
@@ -55,8 +54,7 @@ export const selectMonthlyItems = ({ statistics: { monthlyStatistics }}: RootSta
 };
 
 export const selectTopItems = ({ statistics: { topItems }}: RootState) => topItems;
-export const selectTopCategories = ({ statistics: { topCategories }}: RootState) => topCategories;
 
-export const {  } = statisticsSlice.actions;
+export const selectTopCategories = ({ statistics: { topCategories }}: RootState) => topCategories;
 
 export default statisticsSlice.reducer;

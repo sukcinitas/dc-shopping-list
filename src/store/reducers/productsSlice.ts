@@ -91,7 +91,7 @@ export const productsSlice = createSlice({
   },
   extraReducers: builder => {
     builder
-        .addCase(getProducts.pending, (state, action) => {
+        .addCase(getProducts.pending, (state) => {
             state.products.state = 'loading';
         })
         .addCase(getProducts.fulfilled, (state, action) => {
@@ -99,7 +99,7 @@ export const productsSlice = createSlice({
             state.filteredItems = action.payload.products;
             state.products.state = 'idle';
         })
-        .addCase(getProducts.rejected, (state, action) => {
+        .addCase(getProducts.rejected, (state) => {
             state.products.state = 'idle';
             state.products.error = 'Something went wrong! Try again later!';
             setInterval(() => {

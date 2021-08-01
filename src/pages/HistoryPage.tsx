@@ -15,7 +15,7 @@ const HistoryPage = () => {
 
   useEffect(() => {
     dispatch(getLists());
-  }, []);
+  }, [dispatch]);
 
   return (
   <div className="history">

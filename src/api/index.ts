@@ -14,35 +14,34 @@ interface ProductToAdd {
   name: string; category: string; url: string; description: string;
 }
 
-// interface Product extends ProductToAdd {
-//     id: number; 
-//     user_id: number;
-//     deleted_at: string|null;
-// }
+interface ListState {
+  id: number|undefined;
+  name: string;
+  items: Array<{
+      id: number;
+      name: string;
+      pieces: number;
+      completed: boolean;
+      category: string;
+  }>;
+  state: string;
+}
 
-// interface ProductInList {
-//     id: number;  
-//     user_id: number;
-//     list_id: number;
-//     units: number;
-//     completed: boolean;
-//     product_id: number;
-// }
 
-const getProducts = async () => new Promise((resolve, reject) => {
+const getProducts = async () => new Promise((resolve) => {
     setTimeout(() => {
       resolve({ products: [...mockProducts.filter((item) => item.user_id === 1)] });
     }, 300);
 });
 
-const addProduct = async (product: ProductToAdd) => new Promise((resolve, reject) => {
+const addProduct = async (product: ProductToAdd) => new Promise((resolve) => {
   setTimeout(() => {
   mockProducts.push({...product, id: 6, deletedAt: null, user_id: 1 });
     resolve({product: {...product, deletedAt: null, id: 6}});
   }, 300);
 }); 
 
-const removeProduct = async (id: number) => new Promise((resolve, reject) => {
+const removeProduct = async (id: number) => new Promise((resolve) => {
   setTimeout(() => {
     mockProducts.map((item) => {
       if (item.id === id) {
@@ -55,23 +54,22 @@ const removeProduct = async (id: number) => new Promise((resolve, reject) => {
   }, 300);
 });
 
-const getLists = async () => new Promise((resolve, reject) => {
+const getLists = async () => new Promise((resolve) => {
     setTimeout(() => {
       resolve(mockLists.filter((item) => item.user_id === 1).map(({ id, state, created_at, name }) => ({name, id, state, created_at})));
     }, 300);
 });
 
-const getList = async (id: number) => new Promise((resolve, reject) => {
+const getList = async (id: number) => new Promise((resolve) => {
   setTimeout(() => {
     const list = mockLists.find((item) => item.id === id);
     resolve(list);
   }, 300);
 });
 
-const saveActiveList = async (list:any) => new Promise((resolve, reject) => {
+const saveActiveList = async (list: any) => new Promise((resolve) => {
   setTimeout(() => {
     const id = list.id === undefined ? ++mockListsIndex : list.id;
-    console.log(list.id, 'id');
     if (!list.id) {
       mockLists.push({ ...list, id, created_at: '2025-08-25', user_id: 1});
     } else {
@@ -83,7 +81,7 @@ const saveActiveList = async (list:any) => new Promise((resolve, reject) => {
   }, 300);
 });
 
-const getActiveList = async () => new Promise((resolve, reject) => {
+const getActiveList = async () => new Promise((resolve) => {
   setTimeout(() => {
     const list = mockLists.find((list) => list.state === 'active');
     let productsInList;
@@ -98,7 +96,7 @@ const getActiveList = async () => new Promise((resolve, reject) => {
   }, 300);
 }); 
 
-const changeActiveListState = async (id: number, state: 'cancelled'|'completed') => new Promise((resolve, reject) => {
+const changeActiveListState = async (id: number|undefined, state: 'cancelled'|'completed') => new Promise((resolve) => {
   setTimeout(() => {
     mockLists = mockLists.map((list) => {
       if (list.id === id) {
@@ -112,7 +110,7 @@ const changeActiveListState = async (id: number, state: 'cancelled'|'completed')
 });
 
 const getMontlyStatistics = async () => 
-  new Promise((resolve, reject) => {
+  new Promise((resolve) => {
     setTimeout(() => {
       resolve([{ month: 'January', items: 104 }, 
       { month: 'February', items: 104 }, 
@@ -130,14 +128,14 @@ const getMontlyStatistics = async () =>
 });
 
 const getTopItems = async () => 
-  new Promise((resolve, reject) => {
+  new Promise((resolve) => {
     setTimeout(() => {
       resolve([{ name: 'Banana', percent: 14 },{ name: 'Beef', percent: 40 },{ name: 'Beer', percent: 27 }]);
   }, 300);
 });
 
 const getTopCategories = async () => 
-  new Promise((resolve, reject) => {
+  new Promise((resolve) => {
     setTimeout(() => {
       resolve([{ name: 'Meats', percent: 80 },{ name: 'Drinks', percent: 15 },{ name: 'Vegetables', percent: 5 }]);
   }, 300);

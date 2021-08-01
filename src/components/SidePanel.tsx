@@ -19,7 +19,7 @@ const SidePanel = () => {
 
   useEffect(() => {
     dispatch(getActiveList());
-  }, []);
+  }, [dispatch]);
 
   return (
   <div className={shown ? 'side-panel' : 'side-panel side-panel--hidden'}>
