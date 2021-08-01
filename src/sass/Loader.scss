@@ -1,0 +1,71 @@
+@use 'variables';
+
+.loader {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 40px;
+    transform: rotate(-5deg);
+    animation: move 800ms 0s infinite alternate ease-in-out;
+
+    &--dots {
+        animation: none;
+        transform: none;
+    }
+
+    &__img {
+        height: 80px;
+    }
+
+    &__dots {
+        text-align: center;
+        width: 100%;
+    }
+
+    &__dot {
+        animation: dot-keyframes 1.5s infinite ease-in-out;
+        background-color: variables.$blue-1;
+        border-radius: 50%;
+        display: inline-block;
+        height: 6px;
+        width: 6px;
+        margin: 4px;
+        
+        &:nth-child(2) {
+            animation-delay: .5s;
+        }
+        
+        &:nth-child(3) {
+            animation-delay: 1s;
+        }
+    }
+}
+
+
+@keyframes dot-keyframes {
+    0% {
+      opacity: .4;
+      transform: scale(1, 1);
+    }
+  
+    50% {
+      opacity: 1;
+      transform: scale(1.2, 1.2);
+    }
+  
+    100% {
+      opacity: .4;
+      transform: scale(1, 1);
+    }
+  }
+  
+@keyframes move {
+    from {transform: rotate(-5deg);}
+    to {transform: rotate(30deg);}
+  }

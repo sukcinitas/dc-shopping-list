@@ -57,4 +57,6 @@ export const selectTopItems = ({ statistics: { topItems }}: RootState) => topIte
 
 export const selectTopCategories = ({ statistics: { topCategories }}: RootState) => topCategories;
 
+export const selectState = ({ statistics: { status }}: RootState) => status;
+
 export default statisticsSlice.reducer;

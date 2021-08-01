@@ -4,10 +4,11 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 
 import {
-  selectItemsByCategories, selectListName, selectListDate, getList
+  selectItemsByCategories, selectListName, selectListDate, getList, selectState
 } from '../store/reducers/historyListSlice';
 import CategoryItems from '../components/CategoryItems';
 import CalendarDetail from '../components/CalendarDetail';
+import Loader from '../components/Loader';
 import '../sass/buttons.scss';
 import '../sass/HistoryPage.scss';
 
@@ -15,6 +16,7 @@ const HistoryListPage = () => {
   const items = useSelector(selectItemsByCategories);
   const name = useSelector(selectListName);
   const date = useSelector(selectListDate);
+  const state = useSelector(selectState);
   const history = useHistory();
   const dispatch = useDispatch();
   const { id } = useParams<{ id: string }>();
@@ -32,14 +34,16 @@ const HistoryListPage = () => {
 
   return (
       <div className="history">
-        <button className="btn btn--bright-text" onClick={() => history.go(-1)}><TrendingFlatOutlinedIcon className="arrow" />back</button>
-        <div className="history__header">
-          <h1 className="heading">{name}</h1>
-          <CalendarDetail date={date} />
-        </div>
-        <div className="history__items">
-            {cats}
-        </div>
+        {state === 'loading' ? <Loader /> : <>
+          <button className="btn btn--bright-text" onClick={() => history.go(-1)}><TrendingFlatOutlinedIcon className="arrow" />back</button>
+          <div className="history__header">
+            <h1 className="heading">{name}</h1>
+            <CalendarDetail date={date} />
+          </div>
+          <div className="history__items">
+              {cats}
+          </div>
+        </>}
       </div>
     )
 }

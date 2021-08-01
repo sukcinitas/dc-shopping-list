@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import {
-  getActiveList
+  getActiveList,
 } from '../store/reducers/listSlice';
 import {
   selectSelectedItem,

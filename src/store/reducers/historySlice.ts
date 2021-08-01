@@ -69,4 +69,6 @@ export const selectListsByDate = ({ history: { lists }}: RootState) => {
 
 export const {  } = historySlice.actions;
 
+export const selectState = ({ history: { status }}: RootState) => status;
+
 export default historySlice.reducer;

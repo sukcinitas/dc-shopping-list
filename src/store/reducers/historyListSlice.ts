@@ -31,7 +31,7 @@ const initialState: HistoryListState = {
         state: '',
         items: []
     },
-    status: 'loading',
+    status: 'idle',
     error: '',
 }
 
@@ -50,6 +50,12 @@ export const historyListSlice = createSlice({
         builder
             .addCase(getList.fulfilled, (state, action) => {
                 return {...state, status: 'idle', error: '', list: action.payload }
+            })
+            .addCase(getList.pending, (state) => {
+                return {...state, status: 'loading'}
+            })
+            .addCase(getList.rejected, (state) => {
+                return {...state, status: 'idle', error: 'Something went wrong!' }
             })
     },
 });
@@ -80,6 +86,8 @@ export const selectItemsByCategories = ( { historyList: { list: { items } }}: Ro
 export const selectListName = (state: RootState) => state.historyList.list.name;
 
 export const selectListDate = (state: RootState) => state.historyList.list.created_at;
+
+export const selectState = ({ historyList: { status }}: RootState) => status;
 
 export const {  } = historyListSlice.actions;
 

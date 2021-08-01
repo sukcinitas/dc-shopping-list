@@ -1,6 +1,7 @@
 @use 'variables';
 
 .history {
+    position: relative;
     background-color: variables.$grey-4;
     width: 100%;
     padding: variables.$padding;

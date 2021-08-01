@@ -11,17 +11,20 @@ import image2 from '../assets/cart.svg';
 import AddItemCard from './AddItemCard';
 import PiecesDetail from './PiecesDetail';
 import EditIcon from '@material-ui/icons/Edit';
+import Loader from './Loader';
 import {
-  changeActiveListState, removeItem, selectItemsByCategories, selectListName, increaseAmount, decreaseAmount, saveList, selectInEditState, editState, toggleItemCompletion
+  changeActiveListState, selectStatus, removeItem, selectItemsByCategories, selectListName, increaseAmount, decreaseAmount, saveList, selectInEditState, editState, toggleItemCompletion
 } from '../store/reducers/listSlice';
 import CheckBoxOutlineBlankOutlinedIcon from '@material-ui/icons/CheckBoxOutlineBlankOutlined';
 import CheckBoxOutlinedIcon from '@material-ui/icons/CheckBoxOutlined';
+import { selectState } from '../store/reducers/historySlice';
 
 const ShoppingList = () => {
   const dispatch = useDispatch();
   const initialList = useSelector(selectItemsByCategories);
   const title = useSelector(selectListName);
   const isInEdit = useSelector(selectInEditState);
+  const status = useSelector(selectStatus);
   const list = [];
   const [name, setName] = useState(title);
   const [isCancelling, setIsCancelling] = useState(false);
@@ -85,10 +88,10 @@ const ShoppingList = () => {
           <button onClick={() => setIsAdding(true)} className="btn btn--narrow">Add item</button>
         </div>
     </div>
-    <div className={Object.keys(initialList).length === 0 ? 'shopping-list__main shopping-list__main--no-items' : 'shopping-list__main'}>
+    { status === 'loading' ? <Loader style="dots" /> : <div className={Object.keys(initialList).length === 0 ? 'shopping-list__main shopping-list__main--no-items' : 'shopping-list__main'}>
       {title && <h2 className="subheading">{title}{isInEdit ? '' : <EditIcon onClick={() => dispatch(editState({ state: 'edit' }))} className="subheading__icon" /> }</h2>}
       {Object.keys(initialList).length === 0 ? <><p className="subheading subheading--no-items">No items</p><img className="shopping-list__img--low" src={image2} /></> : list}
-    </div>
+    </div> }
   </form>;
   return isAdding ? <AddItemCard cb={() => setIsAdding(false)} /> : shoppingList;
 };

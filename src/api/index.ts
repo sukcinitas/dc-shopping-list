@@ -64,7 +64,7 @@ const getList = async (id: number) => new Promise((resolve) => {
   setTimeout(() => {
     const list = mockLists.find((item) => item.id === id);
     resolve(list);
-  }, 300);
+  }, 500);
 });
 
 const saveActiveList = async (list: any) => new Promise((resolve) => {
@@ -93,10 +93,11 @@ const getActiveList = async () => new Promise((resolve) => {
     } else {
       resolve({ status: 'success', list: []});
     }
-  }, 300);
+  }, 1000);
 }); 
 
 const changeActiveListState = async (id: number|undefined, state: 'cancelled'|'completed') => new Promise((resolve) => {
+  console.log(mockLists, id);
   setTimeout(() => {
     mockLists = mockLists.map((list) => {
       if (list.id === id) {

@@ -7,6 +7,7 @@ import {
 import '../sass/ItemsPage.scss';
 import '../sass/headings.scss';
 import SearchBar from '../components/SearchBar';
+import Loader from '../components/Loader';
 import CategoryItems from '../components/CategoryItems';
 
 const ItemsPage = () => {
@@ -25,18 +26,16 @@ const ItemsPage = () => {
     </div>
   );
 
-  if (state === 'loading') {
-    return <h1>Loading...</h1>
-  }
   return (
   <div className="items">
     <div className="items__header">
       <h1 className="heading"><span className="heading__detail">Shoppingify</span> allows you take your shopping list wherever you go</h1>
       <SearchBar />
     </div>
+    {state === 'loading' ? <Loader />:<>
     <div className="items__categories">
       {cats}
-    </div>
+    </div></>}
   </div>
 )
 };

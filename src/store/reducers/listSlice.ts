@@ -4,23 +4,31 @@ import type { RootState } from '../index';
 import api from '../../api';
 
 interface ListState {
-    id: number|undefined;
-    name: string;
-    items: Array<{
-        id: number;
+    list: {
+        id: number|undefined;
         name: string;
-        pieces: number;
-        completed: boolean;
-        category: string;
-    }>;
-    state: string;
+        items: Array<{
+            id: number;
+            name: string;
+            pieces: number;
+            completed: boolean;
+            category: string;
+        }>;
+        state: string;
+    }
+    status: string;
+    error: string;
 }
 
 const initialState: ListState = {
-    id: undefined,
-    name: '',
-    items: [],
-    state: 'edit' // edit | active
+    list: {
+        id: undefined,
+        name: '',
+        items: [],
+        state: 'edit' // edit | active
+    },
+    status: 'idle',
+    error: '',
 }
 
 // thunks
@@ -31,13 +39,14 @@ export const getActiveList = createAsyncThunk('products/loadActiveList', async (
 
 export const saveList = createAsyncThunk('products/saveActiveList', async (name: string, { getState }) => {
     const { list } = getState() as RootState;
-    const response: any = await api.saveActiveList({...list, name, state: 'active'});
+    const response: any = await api.saveActiveList({...list.list, name, state: 'active'});
     return response;
 });
 
 export const changeActiveListState = createAsyncThunk('products/changeListState', async (state: 'cancelled'|'completed', { getState }) => {
     const { list } = getState() as RootState;
-    await api.changeActiveListState(list.id, state);
+    console.log(list, 'dinf id')
+    await api.changeActiveListState(list.list.id, state);
     return { state };
 });
 
@@ -46,15 +55,50 @@ export const listSlice = createSlice({
     initialState,
     reducers: {
         editState: (state, action) => {
-            return {...state, state: action.payload.state};
+            return {...state, list: {...state.list, state: action.payload.state }};
         },
         addItem: (state, action) => {
-            if (state.items.find((item) => item.id === action.payload.item.id )) {
+            if (state.list.items.find((item) => item.id === action.payload.item.id )) {
                 return {
                     ...state,
+                    list: {
+                        ...state.list,
+                        state: 'edit',
+                        items: state.list.items.map((item) => {
+                            if (item.id === action.payload.item.id) {
+                                return {...item, pieces: item.pieces + 1}
+                            } else {
+                                return item;
+                            }
+                        })
+                    }
+                }
+            }
+            return {
+                ...state,
+                list: {
+                    ...state.list,
                     state: 'edit',
-                    items: state.items.map((item) => {
-                        if (item.id === action.payload.item.id) {
+                    items: [...state.list.items, {...action.payload.item, pieces: 1, completed: false }]
+                }
+            }
+        },
+        removeItem: (state, action) => {
+            return {
+                ...state,
+                list: {
+                    ...state.list,
+                    items: state.list.items.filter((item) => item.id !== action.payload.id),
+                }
+            }
+        },
+        increaseAmount: (state, action) => {
+            return {
+                ...state,
+                list: {
+                    ...state.list,
+                    items: state.list.items.map((item) => {
+                        if (item.id === action.payload.id) {
                             return {...item, pieces: item.pieces + 1}
                         } else {
                             return item;
@@ -62,78 +106,69 @@ export const listSlice = createSlice({
                     })
                 }
             }
-            return {
-                ...state,
-                state: 'edit',
-                items: [...state.items, {...action.payload.item, pieces: 1, completed: false }]
-            }
-        },
-        removeItem: (state, action) => {
-            return {
-                ...state,
-                items: state.items.filter((item) => item.id !== action.payload.id),
-            }
-        },
-        increaseAmount: (state, action) => {
-            return {
-                ...state,
-                items: state.items.map((item) => {
-                    if (item.id === action.payload.id) {
-                        return {...item, pieces: item.pieces + 1}
-                    } else {
-                        return item;
-                    }
-                })
-            }
         },
         decreaseAmount: (state, action) => {
             return {
                 ...state,
-                items: state.items.map((item) => {
-                    if (item.pieces === 1) {
-                        return item;
-                    }
-                    if (item.id === action.payload.id) {
-                        return {...item, pieces: item.pieces - 1}
-                    } else {
-                        return item;
-                    }
-                })
+                list: {
+                    ...state.list,
+                    items: state.list.items.map((item) => {
+                        if (item.pieces === 1) {
+                            return item;
+                        }
+                        if (item.id === action.payload.id) {
+                            return {...item, pieces: item.pieces - 1}
+                        } else {
+                            return item;
+                        }
+                    })
+                }
             }
         },
         toggleItemCompletion: (state, action) => {
             return {
                 ...state,
-                items: state.items.map((item) => {
-                    if (item.id === action.payload.id) {
-                        return {...item, completed: !item.completed };
-                    } else {
-                        return item;
-                    }
-                })
+                list: {
+                    ...state.list,
+                    items: state.list.items.map((item) => {
+                        if (item.id === action.payload.id) {
+                            return {...item, completed: !item.completed };
+                        } else {
+                            return item;
+                        }
+                    })
+                }
             }
         },  
     },
     extraReducers: builder => {
         builder
+            .addCase(getActiveList.pending, (state) => {
+                return {...state, status: 'loading'}
+            })
             .addCase(getActiveList.fulfilled, (state, action) => {
-                return {...state, name: action.payload.name, items: action.payload.items, id: action.payload.id, state: 'active'
-                }
+                return {...state, list: {...state.list,...action.payload, state: 'active'}, status: 'idle'}
+            })
+            .addCase(getActiveList.rejected, (state) => {
+                return {...state, status: 'idle', error: 'Something went wrong!'}
             })
             .addCase(saveList.fulfilled, (state, action) => {
+                console.log(action.payload);
                 return {
                     ...state,
-                    name: action.payload.name,
-                    state: 'active',
-                    id: action.payload.id
+                    list: {...state.list, state: 'active', name: action.payload.name, id: action.payload.id }
                 }
             })
             .addCase(changeActiveListState.fulfilled, () => {
                 return {
-                    id: undefined,
-                    name: '',
-                    items: [],
-                    state: 'edit' // edit | active
+                    list: {
+                        id: undefined,
+                        name: '',
+                        items: [],
+                        state: 'edit' // edit | active
+                    },
+                    error: '',
+                    status: 'idle',
                 }
             })
     },
@@ -147,11 +182,11 @@ export const selectItemsByCategories = ({ list }: RootState) => {
         completed: boolean;
         category: string;
     }>;} = {};
-    for (let i = 0; i < list.items.length; i++) {
-        if (list.items[i].category in map) {
-            map[list.items[i].category] = [...map[list.items[i].category], list.items[i]];
+    for (let i = 0; i < list.list.items.length; i++) {
+        if (list.list.items[i].category in map) {
+            map[list.list.items[i].category] = [...map[list.list.items[i].category], list.list.items[i]];
         } else {
-            map[list.items[i].category] = [list.items[i]];
+            map[list.list.items[i].category] = [list.list.items[i]];
         }
     }
     return map;
@@ -159,17 +194,19 @@ export const selectItemsByCategories = ({ list }: RootState) => {
 
 export const selectNonCompletedAmount = ({ list }: RootState) => {
     let count = 0;
-    for (let i = 0; i < list.items.length; i++) {
-        if (!list.items[i].completed) {
+    for (let i = 0; i < list.list.items.length; i++) {
+        if (!list.list.items[i].completed) {
             count++;
         }
     }
     return count;
 };
 
-export const selectListName = (state: RootState) => state.list.name;
+export const selectListName = (state: RootState) => state.list.list.name;
 
-export const selectInEditState = (state: RootState) => state.list.state === 'edit';
+export const selectInEditState = (state: RootState) => state.list.list.state === 'edit';
+
+export const selectStatus = (state: RootState) => state.list.status;
 
 export const { addItem, removeItem, increaseAmount, decreaseAmount, editState, toggleItemCompletion } = listSlice.actions;
 
