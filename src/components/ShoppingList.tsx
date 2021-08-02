@@ -78,7 +78,7 @@ const ShoppingList = () => {
     :
     <div className="btns">
         <button type="button" className="btn" onClick={() => setIsCancelling(true)}>cancel</button>
-        <button className="btn btn--blue" type="button" onClick={(e) => changeListState(e, 'completed')}>Complete</button>
+        <button disabled={list.length === 0} className={list.length > 0 ? 'btn btn--blue' : 'btn btn--blue-lighter'} type="button" onClick={(e) => changeListState(e, 'completed')}>Complete</button>
     </div>
     }
     <div className="shopping-list__add-item">

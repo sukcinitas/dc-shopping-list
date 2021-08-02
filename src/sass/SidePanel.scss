@@ -11,6 +11,8 @@
         bottom: 0;
         right: 0;
         width: 390px;
+        animation: slide-in 500ms;
+
     }
     .side-panel--hidden {
         display: none;
@@ -22,11 +24,22 @@
         position: absolute;
         top: 0;
         bottom: 0;
-        right: 0;
+        right: 0px;
         left: 60px;
         width: auto;
+        animation: slide-in-2 500ms;
     }
     .side-panel--hidden {
         display: none;
     }
+}
+
+@keyframes slide-in {
+    from {right: -390px}
+    to {right: 0}
+}
+
+@keyframes slide-in-2 {
+    from {left: 500px; right: -500px}
+    to {left: 60px; right: 0}
 }

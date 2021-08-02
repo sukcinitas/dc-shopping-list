@@ -11,19 +11,20 @@ const PiecesDetail = ({ pcs, simple, increaseAmount, decreaseAmount, deleteItem 
      { pcs: number|undefined, simple?: boolean, increaseAmount?: () => void, decreaseAmount?: () => void, deleteItem?: () => void }) => {
     const [isExpanded, setIsExpanded] = useState(false);
     const isInEdit = useSelector(selectInEditState);
+    
     if (isExpanded && isInEdit && !simple) {
         return <span className="pieces__panel">
                 <span className="pieces__icon pieces__icon--bright">
                     <DeleteOutlineIcon onClick={deleteItem} className="pieces__icon--inside"/>
                 </span>
                 <RemoveIcon onClick={decreaseAmount} className="pieces__icon" />
-                <span className="pieces pieces--panel">{`${pcs} pcs`}</span>
+                <span className="pieces pieces--panel" onClick={() => isInEdit ? setIsExpanded(!isExpanded) : null}>{`${pcs} pcs`}</span>
                 <AddIcon onClick={increaseAmount} className="pieces__icon" />
             </span>
     } else if (simple) {
         return <span className="pieces pieces--simple">{`${pcs} pcs`}</span>;
     } else {
-        return <span onClick={() => isInEdit ? setIsExpanded(true) : null} className={isInEdit ? 'pieces' : 'pieces pieces--unclickable'}>{`${pcs} pcs`}</span>;
+        return <span onClick={() => isInEdit ? setIsExpanded(!isExpanded) : null} className={isInEdit ? 'pieces' : 'pieces pieces--unclickable'}>{`${pcs} pcs`}</span>;
  
     }
 }

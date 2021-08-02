@@ -18,6 +18,11 @@
         display: flex;
         flex-direction: row;
         align-items: center;
+
+        & span {
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
     }
 
     &__main {
@@ -109,6 +114,7 @@
             font-size: variables.$s14;
             overflow: hidden;
             text-overflow: ellipsis;
+            max-width: 60px;
         }
 
         &__img--low {

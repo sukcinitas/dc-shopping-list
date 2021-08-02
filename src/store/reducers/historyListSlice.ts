@@ -72,6 +72,7 @@ export const selectItemsByCategories = ( { historyList: { list: { items } }}: Ro
         return {};
     }
     for (let i = 0; i < items.length; i++) {
+        console.log(items[i].completed);
         if (!items[i].completed) continue;
         if (items[i].category in map) {
             map[items[i].category] = [...map[items[i].category], items[i]];

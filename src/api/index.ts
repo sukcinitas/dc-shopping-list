@@ -3,6 +3,8 @@ const mockProducts = [{user_id: 1, id: 1, name: 'Pork', url: '', description: ''
 
 let mockListsIndex = 5;
 
+let productIndex = 6;
+
 let mockLists = [{id: 4, name: 'Pirmadienio apsipirkimas', created_at: '2021-08-01', state: 'completed', user_id: 1, items: [{id: 1, user_id: 1, list_id: 1, units: 2, product_id: 1, completed: true, category: 'Meats', pieces: 2, name:'Pork'}]},
 { id: 1, created_at: '2020-10-11', name: 'Pirmas apsipirkimas', state: 'active', user_id: 1, items: [{id: 1, user_id: 1, list_id: 1, units: 2, product_id: 1, completed: true, category: 'Meats', pieces: 2, name:'Pork'}] },
 { id: 2, created_at: '2019-10-11', name: 'Pirmas apsipirkimas', state: 'completed', user_id: 1, items: [{id: 1, user_id: 1, list_id: 1, units: 2, product_id: 1, completed: true, category: 'Meats', pieces: 2, name:'Pork'}] },
@@ -36,8 +38,8 @@ const getProducts = async () => new Promise((resolve) => {
 
 const addProduct = async (product: ProductToAdd) => new Promise((resolve) => {
   setTimeout(() => {
-  mockProducts.push({...product, id: 6, deletedAt: null, user_id: 1 });
-    resolve({product: {...product, deletedAt: null, id: 6}});
+  mockProducts.push({...product, id: ++productIndex, deletedAt: null, user_id: 1 });
+    resolve({product: {...product, deletedAt: null, id: ++productIndex}});
   }, 300);
 }); 
 
@@ -88,7 +90,7 @@ const getActiveList = async () => new Promise((resolve) => {
     if (list) {
       productsInList = mockProductsInLists
       .filter((item) => item.list_id === list.id)
-      productsInList = productsInList.map((item) => ({id: item.id, name: 'Mesa', pieces: item.units, category: 'Meats', completed: item.completed }));
+      productsInList = productsInList.map((item) => ({id: item.id, name: 'Pork', pieces: item.units, category: 'Meats', completed: item.completed }));
       resolve({ status: 'success', list: {...list, items: productsInList }});
     } else {
       resolve({ status: 'success', list: []});
