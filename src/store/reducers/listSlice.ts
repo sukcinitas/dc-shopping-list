@@ -43,9 +43,8 @@ export const saveList = createAsyncThunk('products/saveActiveList', async (name:
     return response;
 });
 
-export const changeActiveListState = createAsyncThunk('products/changeListState', async (state: 'cancelled'|'completed', { getState }) => {
+export const changeActiveListState = createAsyncThunk('products/changeListState', async (state: 'cancelled'|'completed', { getState }): Promise<{ state: 'cancelled'|'completed'}> => {
     const { list } = getState() as RootState;
-    console.log(list, 'dinf id')
     await api.changeActiveListState(list.list.id, state);
     return { state };
 });
@@ -153,7 +152,6 @@ export const listSlice = createSlice({
                 return {...state, status: 'idle', error: 'Something went wrong!'}
             })
             .addCase(saveList.fulfilled, (state, action) => {
-                console.log(action.payload);
                 return {
                     ...state,
                     list: {...state.list, state: 'active', name: action.payload.name, id: action.payload.id }

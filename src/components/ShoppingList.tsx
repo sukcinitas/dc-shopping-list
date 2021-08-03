@@ -17,7 +17,6 @@ import {
 } from '../store/reducers/listSlice';
 import CheckBoxOutlineBlankOutlinedIcon from '@material-ui/icons/CheckBoxOutlineBlankOutlined';
 import CheckBoxOutlinedIcon from '@material-ui/icons/CheckBoxOutlined';
-import { selectState } from '../store/reducers/historySlice';
 
 const ShoppingList = () => {
   const dispatch = useDispatch();

@@ -14,8 +14,8 @@ const PiecesDetail = ({ pcs, simple, increaseAmount, decreaseAmount, deleteItem 
     
     if (isExpanded && isInEdit && !simple) {
         return <span className="pieces__panel">
-                <span className="pieces__icon pieces__icon--bright">
-                    <DeleteOutlineIcon onClick={deleteItem} className="pieces__icon--inside"/>
+                <span className="pieces__icon pieces__icon--bright" onClick={deleteItem}>
+                    <DeleteOutlineIcon className="pieces__icon--inside"/>
                 </span>
                 <RemoveIcon onClick={decreaseAmount} className="pieces__icon" />
                 <span className="pieces pieces--panel" onClick={() => isInEdit ? setIsExpanded(!isExpanded) : null}>{`${pcs} pcs`}</span>

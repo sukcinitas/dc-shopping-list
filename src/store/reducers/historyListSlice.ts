@@ -38,7 +38,6 @@ const initialState: HistoryListState = {
 // thunks
 export const getList = createAsyncThunk('products/loadList', async (id: number) => {
     const response: any = await api.getList(id);
-    console.log(response);
     return response;
 });
 
@@ -72,7 +71,6 @@ export const selectItemsByCategories = ( { historyList: { list: { items } }}: Ro
         return {};
     }
     for (let i = 0; i < items.length; i++) {
-        console.log(items[i].completed);
         if (!items[i].completed) continue;
         if (items[i].category in map) {
             map[items[i].category] = [...map[items[i].category], items[i]];
@@ -80,7 +78,6 @@ export const selectItemsByCategories = ( { historyList: { list: { items } }}: Ro
             map[items[i].category] = [items[i]];
         }
     }
-    console.log(map);
     return map;
 };
 

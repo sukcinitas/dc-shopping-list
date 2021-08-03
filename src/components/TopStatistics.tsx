@@ -4,8 +4,7 @@ import '../sass/headings.scss';
 import '../sass/TopStatistics.scss';
 
 const TopStatistics = ({ title, items }: { title: string, items?: {name: string; percent: number}[] }) => {
-    if (!items) return <h1>Hey</h1>;
-    console.log(items)
+    if (!items) return <h1></h1>;
     return (<div className="top-statistics">
         <h1 className="heading">{title}</h1>
         <div className="top-statistics__items">

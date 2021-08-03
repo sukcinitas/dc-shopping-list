@@ -18,7 +18,6 @@ import '../sass/Header.scss';
 
 const Header = () => {
   const nonCompleted = useSelector(selectNonCompletedAmount);
-  console.log(nonCompleted);
   const dispatch = useDispatch();
   return (
   <header className="header">
