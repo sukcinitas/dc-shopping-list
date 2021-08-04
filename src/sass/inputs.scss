@@ -10,7 +10,6 @@
     background-color: transparent;
     font-size: variables.$s14;
     outline: none;
-    padding-right: 60px;
 
 
     &::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
@@ -25,6 +24,13 @@
 
     &--bright {
         border: 2px solid variables.$yellow-1;
+        padding: 18px 22px;
+        padding-right: 100px;
+    }
+
+    &--grey {
+        padding: 18px 22px;
+        padding-right: 100px;
     }
 
     &--search {
@@ -33,6 +39,7 @@
         border: 2px solid transparent;
         width: 275px;
         background-color: variables.$light-1;
+        padding-right: 60px;
     }
 
     &:focus, &:hover {
@@ -80,5 +87,17 @@
 @media only screen and (max-width: 500px) {
     .inpts {
         padding: 18px 20px;
+    }
+
+    .inpt {
+        padding: 14px 16px;
+
+        &--bright {
+            padding: 18px 22px;
+        }
+    
+        &--grey {
+            padding: 18px 22px;
+        }
     }
 }

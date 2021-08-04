@@ -66,6 +66,12 @@
         color: variables.$dark-1;
         width: auto;
     }
+
+    &--title {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        padding-right: 30px;
+    }
 }
 
 .heading {

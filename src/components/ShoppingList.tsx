@@ -36,7 +36,7 @@ const ShoppingList = () => {
         {initialList[category].map((product: { id: number; name: string; pieces: number; category: string; completed: boolean }) => {
         return <li className="shopping-list__item" key={product.id}>
           {product.completed ? <span className="shopping-list__tag">{!isInEdit && <CheckBoxOutlinedIcon onClick={() => dispatch(toggleItemCompletion({id: product.id}))} className="shopping-list__icon" />}<span className={isInEdit ? '' : 'linethrough'}>{product.name}</span></span> 
-          : <span className="shopping-list__tag">{!isInEdit && <CheckBoxOutlineBlankOutlinedIcon onClick={() => dispatch(toggleItemCompletion({id: product.id}))} className="shopping-list__icon" />}<span>{product.name}</span></span>}
+          : <span className={isInEdit ? "shopping-list__tag shopping-list__tag--edit" : "shopping-list__tag"}>{!isInEdit && <CheckBoxOutlineBlankOutlinedIcon onClick={() => dispatch(toggleItemCompletion({id: product.id}))} className="shopping-list__icon" />}<span>{product.name}</span></span>}
           <PiecesDetail 
             deleteItem={() => deleteItem(product.id)} 
             pcs={product.pieces} 
@@ -88,7 +88,7 @@ const ShoppingList = () => {
         </div>
     </div>
     { status === 'loading' ? <Loader style="dots" /> : <div className={Object.keys(initialList).length === 0 ? 'shopping-list__main shopping-list__main--no-items' : 'shopping-list__main'}>
-      {title && <h2 className="subheading">{title}{isInEdit ? '' : <EditIcon onClick={() => dispatch(editState({ state: 'edit' }))} className="subheading__icon" /> }</h2>}
+      {title && <h2 className="subheading subheading--title">{title}{isInEdit ? '' : <EditIcon onClick={() => dispatch(editState({ state: 'edit' }))} className="subheading__icon" /> }</h2>}
       {Object.keys(initialList).length === 0 ? <><p className="subheading subheading--no-items">No items</p><img className="shopping-list__img--low" src={image2} /></> : list}
     </div> }
   </form>;
