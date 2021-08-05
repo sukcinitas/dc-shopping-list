@@ -37,6 +37,9 @@
 
 An app to create shopping lists, review your shopping history and statistics. This was created mainly to practise using Redux (Redux Toolkit approach).
 
+![](https://github.com/sukcinitas/media/blob/master/sh/sh-1.gif)
+![](https://github.com/sukcinitas/media/blob/master/sh/sh-2.gif)
+
 ### Built With
 
 - [React 17](https://reactjs.org/)
