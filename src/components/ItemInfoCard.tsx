@@ -40,10 +40,11 @@ const ItemInfoCard = () => {
   <article className="item-info-card">
     <div className="item-info-card__main">
       <button className="btn btn--bright-text" onClick={() => dispatch(selectProduct({item: null}))}><TrendingFlatOutlinedIcon className="arrow"/>back</button>
-        <img
+        {url && <img
           className="item-info-card__img"
           src={url}
         />
+        }
         <div>
           <h4 className="item-info-card__tag">name</h4>
           <p className="item-info-card__content">{name}</p>
