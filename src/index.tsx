@@ -7,7 +7,7 @@ import axios from 'axios';
 
 import App from './App';
 
-const location = window.location.href === 'http://localhost:4000/' ? 'http://localhost:4000/' : 'https://desolated-depths.herokuapp.com/';
+const location = window.location.href === 'http://localhost:4000/' ? 'http://localhost:4000/' : 'https://desolate-depths.herokuapp.com/';
 axios.defaults.baseURL = location;
 
 ReactDOM.render(
