@@ -8,7 +8,8 @@ interface ListState {
         id: number|undefined;
         name: string;
         items: Array<{
-            id: number;
+            id: number|undefined;
+            product_id: number;
             name: string;
             pieces: number;
             completed: boolean;
@@ -33,20 +34,28 @@ const initialState: ListState = {
 
 // thunks
 export const getActiveList = createAsyncThunk('products/loadActiveList', async () => {
-    const response: any = await api.getActiveList();
-    return response.list;
+    const response = await api.getActiveList();
+    return response;
 });
 
 export const saveList = createAsyncThunk('products/saveActiveList', async (name: string, { getState }) => {
     const { list } = getState() as RootState;
-    const response: any = await api.saveActiveList({...list.list, name, state: 'active'});
+    const items = list.list.items;
+    const newItems = items.map(({ id, pieces, product_id, completed, name, category }) => ({ id, units: pieces, product_id, completed: completed ? "1" :"0", name, category }));
+    const response = await api.saveActiveList({...list.list, items: newItems, name, state: 'active'});
     return response;
 });
 
-export const changeActiveListState = createAsyncThunk('products/changeListState', async (state: 'cancelled'|'completed', { getState }): Promise<{ state: 'cancelled'|'completed'}> => {
+export const changeActiveListState = createAsyncThunk('products/changeListState', async (state: 'cancelled'|'completed', { getState }) => {
     const { list } = getState() as RootState;
     await api.changeActiveListState(list.list.id, state);
-    return { state };
+    return;
+});
+
+export const toggleItemCompletion = createAsyncThunk('products/toggleCompletion', async (state: { id: number|undefined, completed: true|false }, { getState }) => {
+    const { list } = getState() as RootState;
+    await api.toggleItemCompletion(list.list.id, state.id, state.completed ? "1" : "0");
+    return { id: state.id };
 });
 
 export const listSlice = createSlice({
@@ -57,17 +66,17 @@ export const listSlice = createSlice({
             return {...state, list: {...state.list, state: action.payload.state }};
         },
         addItem: (state, action) => {
-            if (state.list.items.find((item) => item.id === action.payload.item.id )) {
+            if (state.list.items.find((item) => item.product_id === action.payload.item.id )) {
                 return {
                     ...state,
                     list: {
                         ...state.list,
                         state: 'edit',
                         items: state.list.items.map((item) => {
-                            if (item.id === action.payload.item.id) {
+                            if (item.product_id === action.payload.item.id) {
                                 return {...item, pieces: item.pieces + 1}
                             } else {
-                                return item;
+                                return {...item};
                             }
                         })
                     }
@@ -78,7 +87,7 @@ export const listSlice = createSlice({
                 list: {
                     ...state.list,
                     state: 'edit',
-                    items: [...state.list.items, {...action.payload.item, pieces: 1, completed: false }]
+                    items: [...state.list.items, {...action.payload.item, product_id: action.payload.item.id, id: undefined, pieces: 1, completed: false }]
                 }
             }
         },
@@ -87,7 +96,7 @@ export const listSlice = createSlice({
                 ...state,
                 list: {
                     ...state.list,
-                    items: state.list.items.filter((item) => item.id !== action.payload.id),
+                    items: state.list.items.filter((item) => item.product_id !== action.payload.id),
                 }
             }
         },
@@ -97,7 +106,7 @@ export const listSlice = createSlice({
                 list: {
                     ...state.list,
                     items: state.list.items.map((item) => {
-                        if (item.id === action.payload.id) {
+                        if (item.product_id === action.payload.id) {
                             return {...item, pieces: item.pieces + 1}
                         } else {
                             return item;
@@ -115,7 +124,7 @@ export const listSlice = createSlice({
                         if (item.pieces === 1) {
                             return item;
                         }
-                        if (item.id === action.payload.id) {
+                        if (item.product_id === action.payload.id) {
                             return {...item, pieces: item.pieces - 1}
                         } else {
                             return item;
@@ -124,21 +133,6 @@ export const listSlice = createSlice({
                 }
             }
         },
-        toggleItemCompletion: (state, action) => {
-            return {
-                ...state,
-                list: {
-                    ...state.list,
-                    items: state.list.items.map((item) => {
-                        if (item.id === action.payload.id) {
-                            return {...item, completed: !item.completed };
-                        } else {
-                            return item;
-                        }
-                    })
-                }
-            }
-        },  
     },
     extraReducers: builder => {
         builder
@@ -154,7 +148,7 @@ export const listSlice = createSlice({
             .addCase(saveList.fulfilled, (state, action) => {
                 return {
                     ...state,
-                    list: {...state.list, state: 'active', name: action.payload.name, id: action.payload.id }
+                    list: {...action.payload.list, state: 'active'}
                 }
             })
             .addCase(changeActiveListState.fulfilled, () => {
@@ -169,12 +163,28 @@ export const listSlice = createSlice({
                     status: 'idle',
                 }
             })
+            .addCase(toggleItemCompletion.fulfilled, (state, action) => {
+                return {
+                    ...state,
+                    list: {
+                        ...state.list,
+                        items: state.list.items.map((item) => {
+                            if (item.id === action.payload.id) {
+                                return {...item, completed: !item.completed };
+                            } else {
+                                return item;
+                            }
+                        })
+                    }
+                }
+            })
     },
 });
 
 export const selectItemsByCategories = ({ list }: RootState) => {
     const map: {[key: string]: Array<{
-        id: number;
+        id: number|undefined,
+        product_id: number;
         name: string;
         pieces: number;
         completed: boolean;
@@ -206,6 +216,6 @@ export const selectInEditState = (state: RootState) => state.list.list.state ===
 
 export const selectStatus = (state: RootState) => state.list.status;
 
-export const { addItem, removeItem, increaseAmount, decreaseAmount, editState, toggleItemCompletion } = listSlice.actions;
+export const { addItem, removeItem, increaseAmount, decreaseAmount, editState } = listSlice.actions;
 
 export default listSlice.reducer;

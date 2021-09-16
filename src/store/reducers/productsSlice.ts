@@ -8,28 +8,8 @@ interface ProductToAdd {
 }
 
 interface Product extends ProductToAdd {
-    id: number; deletedAt: string|null; user_id: number;
+    id: number; deleted_at: string|null; user_id: number;
 }
-
-interface Product2 {
-    id: number;
-    name: string;
-    url: string;
-    description: string;
-    category: string;
-    deletedAt: null;
-  }
-  
-  interface ProductWithUserId extends Product2 {
-      user_id: number;
-  }
-  
-  interface SimpleProduct {
-    name:string;
-    id: number;
-    state: string;
-    created_at: string;
-  }
 
 interface ProductsState {
     products: {
@@ -54,21 +34,17 @@ const initialState: ProductsState =  {
 };
 
 // thunks
-export const getProducts = createAsyncThunk('products/loadProducts', async (): Promise<{ products: Array<ProductWithUserId>}> => {
-    const response = await api.getProducts();
-    return { products: response.products };
-});
+export const getProducts = createAsyncThunk('products/loadProducts', async (): Promise<any> => await api.getProducts());
 
-export const addProduct = createAsyncThunk('products/add', async (product: ProductToAdd): Promise<{product: any}>=> {
-    const response: any = await api.addProduct({...product});
-    return { product: response.product };
+export const addProduct = createAsyncThunk('products/add', async (productToAdd: ProductToAdd): Promise<any>=> {
+    const result = await api.addProduct({...productToAdd});
+    return { product: result.product};
 });
 
 export const removeProduct = createAsyncThunk('products/remove', async (id: number): Promise<{id: number}> => {
     await api.removeProduct(id);
     return { id };
 });
-
 
 export const productsSlice = createSlice({
   name: 'products',
@@ -122,9 +98,11 @@ export const productsSlice = createSlice({
         .addCase(getProducts.rejected, (state) => {
             state.products.state = 'idle';
             state.products.error = 'Something went wrong! Try again later!';
-            setInterval(() => {
-                state.products.error = '';
-            }, 400);
+            state.products.items = [];
+            state.filteredItems = [];
+            // setInterval(() => {
+            //     state.products.error = '';
+            // }, 400);
         })
         .addCase(addProduct.fulfilled, (state, action) => {
             return {
@@ -147,7 +125,7 @@ export const productsSlice = createSlice({
 export const selectProductsByCategories =  ({ products: { filteredItems } }: RootState) => {
     const map: {[key: string]: Array<Product>;} = {};
     for (let i = 0; i < filteredItems.length; i++) {
-        if (filteredItems[i].deletedAt) continue;
+        if (filteredItems[i].deleted_at) continue;
         if (filteredItems[i].category in map) {
             map[filteredItems[i].category] = [...map[filteredItems[i].category], filteredItems[i]];
         } else {

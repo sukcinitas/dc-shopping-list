@@ -8,7 +8,7 @@ interface HistoryState {
         id: number;
         name: string;
         state: string;
-        created_at: string;
+        updated_at: string;
     }>;
     status: string;
     error: string;
@@ -52,11 +52,11 @@ export const selectListsByDate = ({ history: { lists }}: RootState) => {
         id: number;
         name: string;
         state: string;
-        created_at: string;
+        updated_at: string;
     }>;} = {};
 
     for (let i = 0; i < lists.length; i++) {
-        const date =  new Date(lists[i].created_at);
+        const date =  new Date(lists[i].updated_at);
         const dateByMonth = `${date.getFullYear()} ${monthsMap[date.getMonth()]}`;
         if (dateByMonth in map) {
             map[dateByMonth] = [...map[dateByMonth], lists[i]];

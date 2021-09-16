@@ -17,10 +17,10 @@ const HistoryMonth = () => {
           height={300}
           data={items}
           margin={{
-            top: 5,
-            right: 0,
-            left: 0,
-            bottom: 5,
+            top: 15,
+            right: 10,
+            left: 10,
+            bottom: 20,
           }}
         >
           <CartesianGrid strokeDasharray="3 3" />
@@ -32,6 +32,14 @@ const HistoryMonth = () => {
         </LineChart>
       </ResponsiveContainer>
     );
+    if (items.length < 1) {
+      return (
+        <div className="monthly-summary">
+          <h1 className="heading">Monthly Summary</h1>
+          <p className="subheading subheading--top">More data is needed!</p>
+        </div>
+      )
+    }
     return (
     <div className="monthly-summary">
         <h1 className="heading">Monthly Summary</h1>

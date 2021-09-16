@@ -33,15 +33,15 @@ const ShoppingList = () => {
     <div key={category} className="shopping-list__category">
       <h4 className="subheading subheading--list">{category}</h4>
       <ul>
-        {initialList[category].map((product: { id: number; name: string; pieces: number; category: string; completed: boolean }) => {
-        return <li className="shopping-list__item" key={product.id}>
-          {product.completed ? <span className="shopping-list__tag">{!isInEdit && <CheckBoxOutlinedIcon onClick={() => dispatch(toggleItemCompletion({id: product.id}))} className="shopping-list__icon" />}<span className={isInEdit ? '' : 'linethrough'}>{product.name}</span></span> 
-          : <span className={isInEdit ? "shopping-list__tag shopping-list__tag--edit" : "shopping-list__tag"}>{!isInEdit && <CheckBoxOutlineBlankOutlinedIcon onClick={() => dispatch(toggleItemCompletion({id: product.id}))} className="shopping-list__icon" />}<span>{product.name}</span></span>}
+        {initialList[category].map((product: { id: number|undefined; product_id: number; name: string; pieces: number; category: string; completed: boolean }) => {
+        return <li className="shopping-list__item" key={product.product_id}>
+          {product.completed ? <span className="shopping-list__tag">{!isInEdit && <CheckBoxOutlinedIcon onClick={() => dispatch(toggleItemCompletion({id: product.id, completed: false}))} className="shopping-list__icon" />}<span className={isInEdit ? '' : 'linethrough'}>{product.name}</span></span> 
+          : <span className={isInEdit ? "shopping-list__tag shopping-list__tag--edit" : "shopping-list__tag"}>{!isInEdit && <CheckBoxOutlineBlankOutlinedIcon onClick={() => dispatch(toggleItemCompletion({id: product.id, completed: true}))} className="shopping-list__icon" />}<span>{product.name}</span></span>}
           <PiecesDetail 
-            deleteItem={() => deleteItem(product.id)} 
+            deleteItem={() => deleteItem(product.product_id)} 
             pcs={product.pieces} 
-            increaseAmount={() => dispatch(increaseAmount({id: product.id }))}
-            decreaseAmount={() => dispatch(decreaseAmount({id: product.id }))}
+            increaseAmount={() => dispatch(increaseAmount({id: product.product_id }))}
+            decreaseAmount={() => dispatch(decreaseAmount({id: product.product_id }))}
           />
         </li>})}
       </ul>
@@ -62,7 +62,6 @@ const ShoppingList = () => {
 
   const changeListState = (e: React.MouseEvent<HTMLElement>, state: 'completed'|'cancelled') => {
     e.preventDefault();
-    dispatch(saveList(title));
     dispatch(changeActiveListState(state));
     setName('');
   }

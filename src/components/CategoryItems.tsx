@@ -12,7 +12,7 @@ import '../sass/PiecesDetail.scss';
 import PiecesDetail from './PiecesDetail';
 
 interface Item {
-  id: number; name: string; url: string; description: string; 
+  product_id?: number; name: string; url: string; description: string; pieces?: number, id?: number|undefined;
 }
 
 const CategoryItems = ({items, add }: {items: Array<Item>, add?: boolean}) => {
@@ -22,7 +22,6 @@ const CategoryItems = ({items, add }: {items: Array<Item>, add?: boolean}) => {
     dispatch(selectProduct({ item }));
   };
   const addItemToList = (e: React.MouseEvent<SVGElement>, item: Item) => {
-    //
     e.stopPropagation();
     if (!add) return;
     dispatch(addItem({ item }));
@@ -32,7 +31,7 @@ const CategoryItems = ({items, add }: {items: Array<Item>, add?: boolean}) => {
     {items.map((item) => 
       <div className={add ? 'items__item' : 'items__item items__item--history'} key={item.id} onClick={() => select(item)}>
         {item.name}
-        {add ? <AddIcon className="items__icon" onClick={(e) => addItemToList(e, item)} /> : <PiecesDetail pcs={4} simple />}
+        {add ? <AddIcon className="items__icon" onClick={(e) => addItemToList(e, item)} /> : <PiecesDetail pcs={item.pieces} simple />}
       </div>
     )}
   </div>

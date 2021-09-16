@@ -22,9 +22,12 @@ const initialState: StatisticsState =  {
     status: 'loading', // loading | idle
 };
 
+const months = ['January','February','March','April','May','June','July',
+            'August','September','October','November','December'];
 // thunks
 export const getStatisticsInfo = createAsyncThunk('products/getInfo', async () => {
-    const monthlyStatistics: any = await api.getMontlyStatistics();
+    const monthlyStatisticsInitial: any = await api.getMontlyStatistics();
+    const monthlyStatistics = monthlyStatisticsInitial.map((m: any) => ({ month: months[parseInt(m.month) - 1], items: m.items }));
     const topItems: any = await api.getTopItems();
     const topCategories: any = await api.getTopCategories();
     return { monthlyStatistics, topItems, topCategories };
@@ -50,6 +53,7 @@ export const statisticsSlice = createSlice({
 
 export const selectMonthlyItems = ({ statistics: { monthlyStatistics }}: RootState) => {
     const index = (new Date()).getMonth();
+    if (monthlyStatistics.length < 12) return monthlyStatistics;
     return monthlyStatistics.slice(index - 3, index + 4);
 };
 

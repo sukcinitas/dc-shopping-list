@@ -7,10 +7,11 @@ interface HistoryListState {
     list: {
         id: number;
         name: string;
-        created_at: string;
+        updated_at: string;
         state: string;
         items: Array<{
             id: number;
+            product_id: number;
             name: string;
             description: string;
             url: string;
@@ -27,7 +28,7 @@ const initialState: HistoryListState = {
     list: {
         id: 0,
         name: '',
-        created_at: '',
+        updated_at: '',
         state: '',
         items: []
     },
@@ -61,17 +62,18 @@ export const historyListSlice = createSlice({
 
 export const selectItemsByCategories = ( { historyList: { list: { items } }}: RootState) => {
     const map: {[key: string]: Array<{
-        id: number;
+        product_id: number;
         name: string;
         description: string;
         url: string;
         category: string;
     }>;} = {};
-    if (!items) {
+    if (items.length === 0) {
         return {};
     }
     for (let i = 0; i < items.length; i++) {
-        if (!items[i].completed) continue;
+        const completed = Boolean(items[i].completed);
+        if (!completed) continue;
         if (items[i].category in map) {
             map[items[i].category] = [...map[items[i].category], items[i]];
         } else {
@@ -83,7 +85,7 @@ export const selectItemsByCategories = ( { historyList: { list: { items } }}: Ro
 
 export const selectListName = (state: RootState) => state.historyList.list.name;
 
-export const selectListDate = (state: RootState) => state.historyList.list.created_at;
+export const selectListDate = (state: RootState) => state.historyList.list.updated_at;
 
 export const selectState = ({ historyList: { status }}: RootState) => status;
 
