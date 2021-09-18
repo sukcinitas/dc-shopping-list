@@ -13,7 +13,7 @@ const TopStatistics = ({ title, items }: { title: string, items?: {name: string;
                     <h4 className="subheading subheading--top">{name}</h4>
                     <span className="subheading subheading--top-percent">{`${percent} %`}</span>
                 </div>
-                <span className="top-statistics__bar"><span className={name === 'Top Categories' ? 'top-statistics__bar--percent--blue' : 'top-statistics__bar--percent'} style={{width: `${percent}%`}}></span></span>
+                <span className="top-statistics__bar"><span className={title === 'Top Categories' ? 'top-statistics__bar--percent-blue' : 'top-statistics__bar--percent'} style={{width: `${percent}%`}}></span></span>
             </div>)}
         </div>
     </div>)

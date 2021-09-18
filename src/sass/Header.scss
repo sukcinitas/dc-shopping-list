@@ -15,6 +15,9 @@
 .nav {
     &__list {
         list-style: none;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
     }
     &__link {
         text-align: center; 
@@ -129,5 +132,13 @@
 
     .non-completed {
         right: 4px;
+    }
+
+    .nav__list {
+        height: 200px;
+    }
+
+    .icon {
+        margin: 10px auto;
     }
 }
