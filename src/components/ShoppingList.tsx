@@ -7,7 +7,6 @@ import '../sass/inputs.scss';
 import '../sass/headings.scss';
 import ConfirmationBox from './ConfirmationBox';
 import image from '../assets/source.svg';
-import image2 from '../assets/cart.svg';
 import AddItemCard from './AddItemCard';
 import PiecesDetail from './PiecesDetail';
 import EditIcon from '@material-ui/icons/Edit';
@@ -88,7 +87,7 @@ const ShoppingList = () => {
     </div>
     { status === 'loading' ? <Loader style="dots" /> : <div className={Object.keys(initialList).length === 0 ? 'shopping-list__main shopping-list__main--no-items' : 'shopping-list__main'}>
       {title && <h2 className="subheading subheading--title">{title}{isInEdit ? '' : <EditIcon onClick={() => dispatch(editState({ state: 'edit' }))} className="subheading__icon" /> }</h2>}
-      {Object.keys(initialList).length === 0 ? <><p className="subheading subheading--no-items">No items</p><img className="shopping-list__img--low" src={image2} /></> : list}
+      {Object.keys(initialList).length === 0 ? <><p className="subheading subheading--no-items">No items</p></> : list}
     </div> }
   </form>;
   return isAdding ? <AddItemCard cb={() => setIsAdding(false)} /> : shoppingList;

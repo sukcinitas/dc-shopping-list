@@ -57,7 +57,7 @@
         display: flex;
         flex-direction: row;
         justify-content: center;
-        z-index: 1;
+        z-index: 4;
     }
 
     &__img {
@@ -67,7 +67,7 @@
 
         &--low {
             position: absolute;
-            z-index: 1;
+            z-index: 2;
             bottom: 110px;
         }
     }

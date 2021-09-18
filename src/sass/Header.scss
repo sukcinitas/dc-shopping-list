@@ -128,10 +128,25 @@
 @media only screen and (max-width: 500px) {
     .header {
         width: 60px;
+        height: 100%; // don't use viewport height on mobile
     }
 
     .non-completed {
         right: 4px;
+    }
+
+    .nav__list {
+        height: 200px;
+    }
+
+    .icon {
+        margin: 10px auto;
+    }
+}
+
+@media only screen and (max-height: 500px) {
+    .header {
+        height: 100%; // don't use viewport height on mobile
     }
 
     .nav__list {
