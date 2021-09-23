@@ -19,10 +19,10 @@ const ItemsPage = () => {
     dispatch(getProducts());
   }, [dispatch]);
 
-  const cats = Object.keys(categories).map((cat) =>
-    <div className="items__category" key={cat}>
-      <h4 className="subheading subheading--items">{cat}</h4>
-      <CategoryItems items={categories[cat]} add />
+  const cats = categories.map((cat) =>
+    <div className="items__category" key={cat.category}>
+      <h4 className="subheading subheading--items">{cat.category}</h4>
+      <CategoryItems items={cat.items} add ac={cat.accumLength} />
     </div>
   );
 

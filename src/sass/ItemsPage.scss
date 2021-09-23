@@ -1,5 +1,10 @@
 @use 'variables';
 
+@keyframes fade-in {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
 .items {
     position: relative;
     background-color: variables.$grey-4;
@@ -28,6 +33,13 @@
         align-items: flex-start;
     }
 
+    &__category {
+        opacity: 0;
+        animation-name: fade-in;
+        animation-duration: 1s;
+        animation-fill-mode: forwards;
+    }
+
     &__item {
         background-color: variables.$light-1;
         border-radius: 12px;
@@ -41,6 +53,10 @@
         font-weight: 500;
         overflow: hidden;
         text-overflow: ellipsis;
+        opacity: 0;
+        animation-name: fade-in;
+        animation-duration: 1.2s;
+        animation-fill-mode: forwards;
 
         &:hover {
             cursor: pointer;

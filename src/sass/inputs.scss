@@ -10,6 +10,9 @@
     background-color: transparent;
     font-size: variables.$s14;
     outline: none;
+    transition: border;
+    transition-duration: 0.2s;
+    transition-timing-function: ease-out;
 
 
     &::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
@@ -44,10 +47,22 @@
 
     &:focus, &:hover {
         border: 2px solid variables.$yellow-1;
+        transition: border;
+        transition-duration: 0.2s;
+        transition-timing-function: ease-in;
 
         & + button {
             background-color: variables.$yellow-1;
+            transition: background-color;
+            transition-duration: 0.2s;
+            transition-timing-function: ease-in;
         }
+    }
+
+    & + button {
+        transition: background-color;
+        transition-duration: 0.2s;
+        transition-timing-function: ease-out;
     }
 
 

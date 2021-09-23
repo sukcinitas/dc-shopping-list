@@ -15,7 +15,7 @@ interface Item {
   product_id?: number; name: string; url: string; description: string; pieces?: number, id?: number|undefined;
 }
 
-const CategoryItems = ({items, add }: {items: Array<Item>, add?: boolean}) => {
+const CategoryItems = ({items, add, ac}: {items: Array<Item>, add?: boolean; ac:number;}) => {
   const dispatch = useDispatch();
   const select = (item: Item) => {
     if (!add) return;
@@ -27,9 +27,9 @@ const CategoryItems = ({items, add }: {items: Array<Item>, add?: boolean}) => {
     dispatch(addItem({ item }));
   }
   return (
-    <div className="items__items">
-    {items.map((item) => 
-      <div className={add ? 'items__item' : 'items__item items__item--history'} key={item.id} onClick={() => select(item)}>
+    <div className="items__items" style={{animationDelay: (0 + ac) * 0.05 + 's'}}>
+    {items.map((item, idx) => 
+      <div className={add ? 'items__item' : 'items__item items__item--history'} key={item.id} onClick={() => select(item)} style={{animationDelay: (idx + ac) * 0.075 + 's'}}>
         {item.name}
         {add ? <AddIcon className="items__icon" onClick={(e) => addItemToList(e, item)} /> : <PiecesDetail pcs={item.pieces} simple />}
       </div>

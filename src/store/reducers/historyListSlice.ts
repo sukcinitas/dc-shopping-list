@@ -69,7 +69,7 @@ export const selectItemsByCategories = ( { historyList: { list: { items } }}: Ro
         category: string;
     }>;} = {};
     if (items.length === 0) {
-        return {};
+        return [];
     }
     for (let i = 0; i < items.length; i++) {
         const completed = Boolean(items[i].completed);
@@ -80,7 +80,25 @@ export const selectItemsByCategories = ( { historyList: { list: { items } }}: Ro
             map[items[i].category] = [items[i]];
         }
     }
-    return map;
+
+    let accumLength = 0;
+    const array: Array<{ category: string; items: Array<{
+        product_id: number;
+        name: string;
+        description: string;
+        url: string;
+        category: string;
+    }>;
+        accumLength: number;}> = [];
+    Object.keys(map).map((key) => {
+        array.push({
+            category: key,
+            items: map[key],
+            accumLength,
+        })
+        accumLength += map[key].length;
+    });
+    return array;
 };
 
 export const selectListName = (state: RootState) => state.historyList.list.name;

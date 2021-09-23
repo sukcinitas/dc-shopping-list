@@ -53,7 +53,7 @@ const AddItemCard = ({ cb }: { cb: () => void }) => {
             <label htmlFor="category" className="add-item-card__tag">Category</label>
             <input id="category" placeholder="Enter a category" className="inpt inpt--select" value={category} onChange={(e) => setCategory(e.target.value)} />
             <ul className="add-item-card__list">
-                {categoryList}
+                {categories.length > 0 && categoryList}
             </ul>
         </div>
       </div>

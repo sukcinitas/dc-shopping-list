@@ -132,7 +132,17 @@ export const selectProductsByCategories =  ({ products: { filteredItems } }: Roo
             map[filteredItems[i].category] = [filteredItems[i]];
         }
     }
-    return map;
+    let accumLength = 0;
+    const array: Array<{ category: string; items: Array<Product>; accumLength: number;}> = [];
+    Object.keys(map).map((key) => {
+        array.push({
+            category: key,
+            items: map[key],
+            accumLength,
+        })
+        accumLength += map[key].length;
+    });
+    return array;
 };
 
 export const selectCategories = ({ products: { products: { items } } }: RootState) => {

@@ -25,10 +25,9 @@ const HistoryListPage = () => {
     dispatch(getList(Number(id)));
   }, [dispatch, id])
 
-  const cats = Object.keys(items).map((cat) =>
-  <div className="items__category" key={cat}>
-    <h4 className="subheading subheading--items">{cat}</h4>
-    <CategoryItems items={items[cat]} add={false} />
+  const cats = items.map((cat: any) => <div className="items__category" key={cat.category}>
+    <h4 className="subheading subheading--items">{cat.category}</h4>
+    <CategoryItems items={cat.items} add={false} ac={cat.accumLength} />
   </div>
   );
 
