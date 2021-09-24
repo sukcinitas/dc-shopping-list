@@ -7,6 +7,15 @@
     font-size: variables.$s12;
     border-radius: 24px;
     padding: 7px 20px;
+    transition: color, border;
+    transition-duration: 0.15s;
+
+    &:hover {
+        color: lighten(variables.$yellow-1, 10%);
+        border: 2px solid lighten(variables.$yellow-1, 10%);
+        transition: color, border;
+        transition-duration: 0.15s;
+    }
 
     &:hover {
         cursor: pointer;
@@ -21,12 +30,18 @@
 
         &:hover {
             cursor: zoom-in;
+            transition: none;    
+            border: 2px solid variables.$yellow-1;
+            color: variables.$yellow-1;
         }
     }
 
     &--unclickable {
         &:hover {
             cursor: zoom-in;
+            transition: none;    
+            border: 2px solid variables.$yellow-1;
+            color: variables.$yellow-1;
         } 
     }
 
@@ -64,10 +79,28 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            transition: color, background-color;
+            transition-duration: 0.15s;
+    
+            &:hover {
+                color: variables.$yellow-1;
+                background-color: variables.$light-1;
+                transition: color, background-color;
+                transition-duration: 0.15s;
+            }
         }
 
         &--inside {
             padding: 1px;
+        }
+
+        transition: color;
+        transition-duration: 0.15s;
+
+        &:hover {
+            color: lighten(variables.$yellow-1, 10%);
+            transition: color;
+            transition-duration: 0.15s;
         }
     }
 }

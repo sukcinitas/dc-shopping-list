@@ -1,5 +1,10 @@
 @use 'variables';
 
+@keyframes fade-in {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
 .subheading {
     font-size: 1.5rem;
     font-family: variables.$font-1;
@@ -58,6 +63,10 @@
         font-size: variables.$s14;
         color: variables.$grey-6;
         margin-bottom: 25px;
+        animation-name: fade-in;
+        animation-duration: 0.09s;
+        animation-fill-mode: forwards;
+        animation-timing-function: ease-in;
     }
 
     &--top {

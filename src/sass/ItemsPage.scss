@@ -74,6 +74,14 @@
         position: absolute; 
         right: 16px;
         top: 13px;
+        transition: color;
+        transition-duration: 0.25s;
+
+        &:hover {
+            color: variables.$blue-1;
+            transition: color;
+            transition-duration: 0.5s;
+        }
     }
 
     &__categories {

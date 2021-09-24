@@ -10,9 +10,6 @@
     background-color: transparent;
     font-size: variables.$s14;
     outline: none;
-    transition: border;
-    transition-duration: 0.2s;
-    transition-timing-function: ease-out;
 
 
     &::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
