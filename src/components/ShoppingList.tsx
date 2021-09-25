@@ -65,19 +65,8 @@ const ShoppingList = () => {
     setName('');
   }
 
-  const shoppingList = <form className="shopping-list">
+  const shoppingList = <><form className="shopping-list">
     {isCancelling && <ConfirmationBox cb={(e: React.MouseEvent<HTMLElement>) => { changeListState(e, 'cancelled'); setIsCancelling(false)}} close={() => setIsCancelling(false)} />}
-    {isInEdit ? 
-    <div className="inpts">
-        <input className={title ? 'inpt inpt--bright' : 'inpt inpt--grey'} placeholder="Enter a name" value={name} onChange={(e) => setName(e.target.value)} />
-        <button className={title ? 'btn btn--bright-input' : 'btn btn--grey-input'} type="submit" disabled={!name} onClick={(e) => save(e)}>Save</button>
-    </div>
-    :
-    <div className="btns">
-        <button type="button" className="btn" onClick={() => setIsCancelling(true)}>cancel</button>
-        <button disabled={list.length === 0} className={list.length > 0 ? 'btn btn--blue' : 'btn btn--blue-lighter'} type="button" onClick={(e) => changeListState(e, 'completed')}>Complete</button>
-    </div>
-    }
     <div className="shopping-list__add-item">
         <div className="shopping-list__qs">
           <img className="shopping-list__img" src={image} />
@@ -89,7 +78,20 @@ const ShoppingList = () => {
       {title && <h2 className="subheading subheading--title">{title}{isInEdit ? '' : <EditIcon onClick={() => dispatch(editState({ state: 'edit' }))} className="subheading__icon" /> }</h2>}
       {Object.keys(initialList).length === 0 ? <><p className="subheading subheading--no-items">No items</p></> : list}
     </div> }
-  </form>;
+
+  </form>
+  
+  {isInEdit ? 
+    <div className="inpts">
+        <input className={title ? 'inpt inpt--bright' : 'inpt inpt--grey'} placeholder="Enter a name" value={name} onChange={(e) => setName(e.target.value)} />
+        <button className={title ? 'btn btn--bright-input' : 'btn btn--grey-input'} type="submit" disabled={!name} onClick={(e) => save(e)}>Save</button>
+    </div>
+    :
+    <div className="btns">
+        <button type="button" className="btn" onClick={() => setIsCancelling(true)}>cancel</button>
+        <button disabled={list.length === 0} className={list.length > 0 ? 'btn btn--blue' : 'btn btn--blue-lighter'} type="button" onClick={(e) => changeListState(e, 'completed')}>Complete</button>
+    </div>
+    }</>;
   return isAdding ? <AddItemCard cb={() => setIsAdding(false)} /> : shoppingList;
 };
 

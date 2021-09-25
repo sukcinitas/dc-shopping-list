@@ -12,7 +12,7 @@
     right: 0;
     padding: 34px 0px;
     background-color: variables.$light-1;
-    z-index: 2; // 1 --> 2
+    z-index: 1; 
 
     &--grey {
         background-color: variables.$grey-4;
@@ -121,5 +121,11 @@
         &--bright-input, &--grey-input {
             right: 16px;
         }
+    }
+}
+
+@media only screen and (max-height: 500px) {
+    .btns {
+        z-index: 9;
     }
 }

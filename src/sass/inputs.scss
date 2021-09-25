@@ -113,3 +113,9 @@
         }
     }
 }
+
+@media only screen and (max-height: 500px) {
+    .inpts {
+        z-index: 9;
+    }
+}
