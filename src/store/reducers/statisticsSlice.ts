@@ -36,7 +36,14 @@ export const getStatisticsInfo = createAsyncThunk('products/getInfo', async () =
 export const statisticsSlice = createSlice({
     name: 'statistics',
     initialState,
-    reducers: {},
+    reducers: {
+        changeErrorMessage: (state) => {
+            return {
+                ...state,
+                error: '',
+            }
+        },
+    },
     extraReducers: builder => {
         builder
             .addCase(getStatisticsInfo.pending, (state) => {
@@ -46,7 +53,7 @@ export const statisticsSlice = createSlice({
                 return {...state, status: 'idle', error: '', ...action.payload }
             })
             .addCase(getStatisticsInfo.rejected, (state) => {
-                return {...state, status: 'idle', error: 'Something went wrong!' }
+                return {...state, status: 'idle', error: 'Something went wrong! Try again later!' }
             })
     },
 });
@@ -62,5 +69,9 @@ export const selectTopItems = ({ statistics: { topItems }}: RootState) => topIte
 export const selectTopCategories = ({ statistics: { topCategories }}: RootState) => topCategories;
 
 export const selectState = ({ statistics: { status }}: RootState) => status;
+
+export const selectError = ({ statistics: { error }}: RootState) => error;
+
+export const { changeErrorMessage } = statisticsSlice.actions;
 
 export default statisticsSlice.reducer;

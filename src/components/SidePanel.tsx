@@ -5,7 +5,8 @@ import {
   getActiveList,
 } from '../store/reducers/listSlice';
 import {
-  selectAddError, changeErrorMessage
+  selectAddError, changeAddErrorMessage,
+  selectAddMessage, changeAddMessage
 } from '../store/reducers/productsSlice';
 import Message from './Message';
 import {
@@ -20,6 +21,7 @@ const SidePanel = () => {
   const item = useSelector(selectSelectedItem);
   const shown = useSelector(selectIsSidePanelShown);
   const error = useSelector(selectAddError);
+  const message = useSelector(selectAddMessage);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -30,17 +32,25 @@ const SidePanel = () => {
   useEffect(() => {
     if (error) {
       setInterval(() => {
-      dispatch(changeErrorMessage());
-      }, 500)
+      dispatch(changeAddErrorMessage());
+      }, 2000)
 
     }
   }, [dispatch, error]);
 
-console.log(error)
+  useEffect(() => {
+    if (message) {
+      setInterval(() => {
+      dispatch(changeAddMessage());
+      }, 2000)
+
+    }
+  }, [dispatch, message]);
 
   return (
   <div className={shown ? 'side-panel' : 'side-panel side-panel--hidden'}>
       {error && <Message error fullWidth>{error}</Message>}
+      {message && <Message success fullWidth>{message}</Message>}
       <ShoppingList />
       { item && <ItemInfoCard /> }
   </div>

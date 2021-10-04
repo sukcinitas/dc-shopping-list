@@ -29,7 +29,14 @@ export const getLists = createAsyncThunk('products/loadLists', async () => {
 export const historySlice = createSlice({
     name: 'history',
     initialState,
-    reducers: {},
+    reducers: {
+        changeErrorMessage: (state) => {
+            return {
+                ...state,
+                error: '',
+            }
+        },
+    },
     extraReducers: builder => {
         builder
             .addCase(getLists.pending, (state) => {
@@ -39,7 +46,7 @@ export const historySlice = createSlice({
                 return {...state, status: 'idle', error: '', lists: action.payload }
             })
             .addCase(getLists.rejected, (state) => {
-                return {...state, status: 'idle', error: 'Something went wrong!' }
+                return {...state, status: 'idle', error: 'Something went wrong! Try again later!' }
             })
     },
 });
@@ -67,8 +74,10 @@ export const selectListsByDate = ({ history: { lists }}: RootState) => {
     return map;
 };
 
-export const {  } = historySlice.actions;
+export const { changeErrorMessage } = historySlice.actions;
 
 export const selectState = ({ history: { status }}: RootState) => status;
+
+export const selectError = ({ history: { error }}: RootState) => error;
 
 export default historySlice.reducer;

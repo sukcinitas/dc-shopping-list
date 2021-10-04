@@ -4,11 +4,12 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 
 import {
-  selectItemsByCategories, selectListName, selectListDate, getList, selectState
+  selectItemsByCategories, selectListName, selectListDate, getList, selectState, selectError, changeErrorMessage
 } from '../store/reducers/historyListSlice';
 import CategoryItems from '../components/CategoryItems';
 import CalendarDetail from '../components/CalendarDetail';
 import Loader from '../components/Loader';
+import Message from '../components/Message';
 import '../sass/buttons.scss';
 import '../sass/HistoryPage.scss';
 
@@ -17,6 +18,7 @@ const HistoryListPage = () => {
   const name = useSelector(selectListName);
   const date = useSelector(selectListDate);
   const state = useSelector(selectState);
+  const error = useSelector(selectError);
   const history = useHistory();
   const dispatch = useDispatch();
   const { id } = useParams<{ id: string }>();
@@ -24,6 +26,14 @@ const HistoryListPage = () => {
   useEffect(() => {
     dispatch(getList(Number(id)));
   }, [dispatch, id])
+
+  useEffect(() => {
+    if (error) {
+      setInterval(() => {
+      dispatch(changeErrorMessage());
+      }, 1500)
+    }
+  }, [dispatch, error]);
 
   const cats = items.map((cat: any) => <div className="items__category" key={cat.category}>
     <h4 className="subheading subheading--items">{cat.category}</h4>
@@ -33,6 +43,7 @@ const HistoryListPage = () => {
 
   return (
       <div className="history">
+        {error && <Message error>{error}</Message>}
         {state === 'loading' ? <Loader /> : <>
           <button className="btn btn--bright-text" onClick={() => history.go(-1)}><TrendingFlatOutlinedIcon className="arrow" />back</button>
           <div className="history__header">

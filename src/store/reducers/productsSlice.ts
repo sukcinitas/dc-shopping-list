@@ -21,6 +21,7 @@ interface ProductsState {
     selectedProduct: Product|null;
     isSidePanelShown: boolean;
     addProductError: string;
+    addProductMessage: string;
 }
 
 const initialState: ProductsState =  {
@@ -33,6 +34,7 @@ const initialState: ProductsState =  {
     selectedProduct: null,
     isSidePanelShown: false,
     addProductError: '',
+    addProductMessage: '',
 };
 
 // thunks
@@ -43,7 +45,10 @@ export const addProduct = createAsyncThunk('products/add', async (productToAdd: 
         const result = await api.addProduct({...productToAdd});
         return { product: result.product};
     } catch (err: any) {
-        return rejectWithValue(err.response.data);
+        if (!('data' in err)) {
+            return rejectWithValue({ message: 'Something went wrong! Try again later!'});
+        }
+        return rejectWithValue('message' in err.response.data ? err.response.data : { message: 'Something went wrong! Try again later!'});
     }
 });
 
@@ -59,7 +64,19 @@ export const productsSlice = createSlice({
     changeErrorMessage: (state) => {
         return {
             ...state,
+            products: {...state.products, error: ''}
+        }
+    },
+    changeAddErrorMessage: (state) => {
+        return {
+            ...state,
             addProductError: '',
+        }
+    },
+    changeAddMessage: (state) => {
+        return {
+            ...state,
+            addProductMessage: '',
         }
     },
     selectProduct: (state, { payload: { item }} ) => {
@@ -118,6 +135,7 @@ export const productsSlice = createSlice({
                 ...state,
                 products: {...state.products, items: [...state.products.items, {...action.payload.product }]},
                 filteredItems: [...state.products.items, {...action.payload.product }],
+                addProductMessage: 'Product has been successfully added!'
             }
         })
         .addCase(addProduct.rejected, (state, action: any) => {
@@ -178,6 +196,10 @@ export const selectState = ({ products: { products: { state } }}: RootState) => 
 
 export const selectAddError = ({ products: { addProductError }}: RootState) => addProductError;
 
-export const { selectProduct, search, toggleSidePanel, changeErrorMessage } = productsSlice.actions;
+export const selectAddMessage = ({ products: { addProductMessage }}: RootState) => addProductMessage;
+
+export const selectError = ({ products: { products: { error } }}: RootState) => error;
+
+export const { selectProduct, search, toggleSidePanel, changeErrorMessage, changeAddErrorMessage, changeAddMessage } = productsSlice.actions;
 
 export default productsSlice.reducer;
