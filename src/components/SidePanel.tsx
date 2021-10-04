@@ -31,19 +31,19 @@ const SidePanel = () => {
 
   useEffect(() => {
     if (error) {
-      setInterval(() => {
+      const timer = setInterval(() => {
       dispatch(changeAddErrorMessage());
       }, 2000)
-
+      return () => clearInterval(timer);
     }
   }, [dispatch, error]);
 
   useEffect(() => {
     if (message) {
-      setInterval(() => {
+      const timer = setInterval(() => {
       dispatch(changeAddMessage());
       }, 2000)
-
+      return () => clearInterval(timer);
     }
   }, [dispatch, message]);
 

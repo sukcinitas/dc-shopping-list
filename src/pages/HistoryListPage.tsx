@@ -29,9 +29,10 @@ const HistoryListPage = () => {
 
   useEffect(() => {
     if (error) {
-      setInterval(() => {
+      const timer = setInterval(() => {
       dispatch(changeErrorMessage());
       }, 1500)
+      return () => clearInterval(timer);
     }
   }, [dispatch, error]);
 

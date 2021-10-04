@@ -1,5 +1,10 @@
 @use 'variables';
 
+@keyframes fade-in {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
 .message {
     padding: 10px;
     margin: 10px 0;
@@ -10,6 +15,10 @@
     position: fixed;
     bottom: 10px;
     z-index: 10;
+    opacity: 0;
+    animation-name: fade-in;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
 
     & p {
         font-family: variables.$font-1;

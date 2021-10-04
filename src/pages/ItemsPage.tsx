@@ -24,9 +24,10 @@ const ItemsPage = () => {
 
   useEffect(() => {
     if (addError) {
-      setInterval(() => {
+      const timer = setInterval(() => {
       dispatch(changeAddErrorMessage());
       }, 1500)
+      return () => clearInterval(timer);
     }
   }, [dispatch, addError]);
 
