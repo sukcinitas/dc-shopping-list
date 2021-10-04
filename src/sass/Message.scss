@@ -1,0 +1,30 @@
+@use 'variables';
+
+.message {
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    position: fixed;
+    bottom: 10px;
+    z-index: 10;
+
+    & p {
+        font-family: variables.$font-1;
+        font-size: variables.$s16;
+        padding: 0px 10px;
+    }
+
+    &--error {
+        background-color: variables.$danger-1;
+        color: variables.$light-1;
+    }
+
+    &--success {
+        background-color: variables.$blue-1-lighter;
+        color: variables.$grey-7;
+    }
+}
+
