@@ -19,6 +19,7 @@ interface ListState {
     }
     status: string;
     error: string;
+    message: string;
 }
 
 const initialState: ListState = {
@@ -30,6 +31,7 @@ const initialState: ListState = {
     },
     status: 'idle',
     error: '',
+    message: '',
 }
 
 // thunks
@@ -62,6 +64,9 @@ export const listSlice = createSlice({
     name: 'items',
     initialState,
     reducers: {
+        changeMessage: (state) => {
+            return {...state, message: ''};
+        },
         editState: (state, action) => {
             return {...state, list: {...state.list, state: action.payload.state }};
         },
@@ -161,6 +166,7 @@ export const listSlice = createSlice({
                     },
                     error: '',
                     status: 'idle',
+                    message: 'List has been successfully saved!',
                 }
             })
             .addCase(toggleItemCompletion.fulfilled, (state, action) => {
@@ -216,6 +222,8 @@ export const selectInEditState = (state: RootState) => state.list.list.state ===
 
 export const selectStatus = (state: RootState) => state.list.status;
 
-export const { addItem, removeItem, increaseAmount, decreaseAmount, editState } = listSlice.actions;
+export const selectMessage = (state: RootState) => state.list.message;
+
+export const { addItem, removeItem, increaseAmount, decreaseAmount, editState, changeMessage } = listSlice.actions;
 
 export default listSlice.reducer;
