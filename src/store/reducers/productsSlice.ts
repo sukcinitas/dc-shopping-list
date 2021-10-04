@@ -181,6 +181,7 @@ export const selectProductsByCategories =  ({ products: { filteredItems } }: Roo
 export const selectCategories = ({ products: { products: { items } } }: RootState) => {
     const map: Array<string> = [];
     for (let i = 0; i < items.length; i++) {
+        if (items[i].deleted_at) continue;
         if (map.indexOf(items[i].category) < 0) {
             map.push(items[i].category);
         }
