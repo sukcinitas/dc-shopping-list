@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import '../sass/ShoppingList.scss';
@@ -65,7 +65,8 @@ const ShoppingList = () => {
     setName('');
   }
 
-  const shoppingList = <><form className="shopping-list">
+  const shoppingList = <>
+  <form className="shopping-list">
     {isCancelling && <ConfirmationBox cb={(e: React.MouseEvent<HTMLElement>) => { changeListState(e, 'cancelled'); setIsCancelling(false)}} close={() => setIsCancelling(false)} />}
     <div className="shopping-list__add-item">
         <div className="shopping-list__qs">
@@ -92,7 +93,10 @@ const ShoppingList = () => {
         <button disabled={list.length === 0} className={list.length > 0 ? 'btn btn--blue' : 'btn btn--blue-lighter'} type="button" onClick={(e) => changeListState(e, 'completed')}>Complete</button>
     </div>
     }</>;
-  return isAdding ? <AddItemCard cb={() => setIsAdding(false)} /> : shoppingList;
+  return <>
+    {isAdding ? <AddItemCard cb={() => setIsAdding(false)} /> : shoppingList}
+  </>
+
 };
 
 export default ShoppingList;

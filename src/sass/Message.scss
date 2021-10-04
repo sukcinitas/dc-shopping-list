@@ -20,11 +20,28 @@
     &--error {
         background-color: variables.$danger-1;
         color: variables.$light-1;
+
+        &--full-width {
+            background-color: variables.$danger-1;
+            color: variables.$light-1;
+            position: absolute;
+            left: 14px;
+            right: 14px;
+        }
     }
 
     &--success {
         background-color: variables.$blue-1-lighter;
         color: variables.$grey-7;
+
+        &--full-width {
+            background-color: variables.$blue-1-lighter;
+            color: variables.$grey-7;
+            position: absolute;
+            margin: 0 20px;
+            left: 14px;
+            right: 14px;
+        }
     }
 }
 

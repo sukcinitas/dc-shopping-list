@@ -20,6 +20,7 @@ interface ProductsState {
     filteredItems: Array<Product>;
     selectedProduct: Product|null;
     isSidePanelShown: boolean;
+    addProductError: string;
 }
 
 const initialState: ProductsState =  {
@@ -31,14 +32,19 @@ const initialState: ProductsState =  {
     filteredItems: [],
     selectedProduct: null,
     isSidePanelShown: false,
+    addProductError: '',
 };
 
 // thunks
 export const getProducts = createAsyncThunk('products/loadProducts', async (): Promise<any> => await api.getProducts());
 
-export const addProduct = createAsyncThunk('products/add', async (productToAdd: ProductToAdd): Promise<any>=> {
-    const result = await api.addProduct({...productToAdd});
-    return { product: result.product};
+export const addProduct = createAsyncThunk('products/add', async (productToAdd: ProductToAdd, {rejectWithValue}: {rejectWithValue: any}): Promise<any>=> {
+    try {
+        const result = await api.addProduct({...productToAdd});
+        return { product: result.product};
+    } catch (err: any) {
+        return rejectWithValue(err.response.data);
+    }
 });
 
 export const removeProduct = createAsyncThunk('products/remove', async (id: number): Promise<{id: number}> => {
@@ -50,6 +56,12 @@ export const productsSlice = createSlice({
   name: 'products',
   initialState,
   reducers: {
+    changeErrorMessage: (state) => {
+        return {
+            ...state,
+            addProductError: '',
+        }
+    },
     selectProduct: (state, { payload: { item }} ) => {
         if (!item) {
             return {
@@ -100,15 +112,18 @@ export const productsSlice = createSlice({
             state.products.error = 'Something went wrong! Try again later!';
             state.products.items = [];
             state.filteredItems = [];
-            // setInterval(() => {
-            //     state.products.error = '';
-            // }, 400);
         })
         .addCase(addProduct.fulfilled, (state, action) => {
             return {
                 ...state,
                 products: {...state.products, items: [...state.products.items, {...action.payload.product }]},
                 filteredItems: [...state.products.items, {...action.payload.product }],
+            }
+        })
+        .addCase(addProduct.rejected, (state, action: any) => {
+            return {
+                ...state,
+                addProductError: action.payload.message
             }
         })
         .addCase(removeProduct.fulfilled, (state, action) => {
@@ -161,6 +176,8 @@ export const selectIsSidePanelShown = ({ products: { isSidePanelShown }}: RootSt
 
 export const selectState = ({ products: { products: { state } }}: RootState) => state;
 
-export const { selectProduct, search, toggleSidePanel } = productsSlice.actions;
+export const selectAddError = ({ products: { addProductError }}: RootState) => addProductError;
+
+export const { selectProduct, search, toggleSidePanel, changeErrorMessage } = productsSlice.actions;
 
 export default productsSlice.reducer;
