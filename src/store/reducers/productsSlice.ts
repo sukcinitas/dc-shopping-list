@@ -40,15 +40,18 @@ const initialState: ProductsState =  {
 // thunks
 export const getProducts = createAsyncThunk('products/loadProducts', async (): Promise<{ products: Array<Product>}> => await api.getProducts());
 
-export const addProduct = createAsyncThunk('products/add', async (productToAdd: ProductToAdd, {rejectWithValue}: {rejectWithValue: any})=> {
+export const addProduct = createAsyncThunk('products/add', async (productToAdd: ProductToAdd, {rejectWithValue})=> {
     try {
         const result = await api.addProduct({...productToAdd});
         return { product: result.product};
     } catch (err: any) {
-        if (!('data' in err)) {
-            return rejectWithValue({ message: 'Something went wrong! Try again later!'});
+        if (err) {
+            if ('response' in err) {
+                return rejectWithValue(err.response.data);
+            } else {
+                return rejectWithValue({ message: 'Something went wrong! Try again later!'});
+            }
         }
-        return rejectWithValue('message' in err.response.data ? err.response.data : { message: 'Something went wrong! Try again later!'});
     }
 });
 
@@ -132,6 +135,7 @@ export const productsSlice = createSlice({
             state.filteredItems = [];
         })
         .addCase(addProduct.fulfilled, (state, action) => {
+            if (!action.payload) return {...state};
             return {
                 ...state,
                 products: {...state.products, items: [...state.products.items, {...action.payload.product }]},
