@@ -3,7 +3,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import {
   removeProduct,
   selectProduct,
-  selectSelectedItem
+  selectSelectedItem,
+  toggleSidePanel
 } from '../store/reducers/productsSlice';
 import {
   addItem,
@@ -36,10 +37,18 @@ const ItemInfoCard = () => {
     }));
   };
 
+  const goBack = () => {
+    dispatch(selectProduct({item: null}));
+    dispatch(toggleSidePanel());
+  }
+
   return (
   <article className="item-info-card">
     <div className="item-info-card__main">
-      <button className="btn btn--bright-text" onClick={() => dispatch(selectProduct({item: null}))}><TrendingFlatOutlinedIcon className="arrow"/>back</button>
+      <button className="btn btn--bright-text" onClick={() => goBack()}>
+        <TrendingFlatOutlinedIcon className="arrow"/>
+        back
+      </button>
         {url && <img
           className="item-info-card__img"
           src={url}

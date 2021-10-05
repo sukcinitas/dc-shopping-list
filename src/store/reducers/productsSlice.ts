@@ -95,7 +95,8 @@ export const productsSlice = createSlice({
                     description, 
                     category,
                     url,
-                }
+                },
+                isSidePanelShown: true,
             }
         }
     },
