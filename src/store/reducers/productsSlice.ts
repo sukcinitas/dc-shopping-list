@@ -8,7 +8,7 @@ interface ProductToAdd {
 }
 
 interface Product extends ProductToAdd {
-    id: number; deleted_at: string|null; user_id: number;
+    id: number; deleted_at: string|null;
 }
 
 interface ProductsState {
@@ -38,9 +38,9 @@ const initialState: ProductsState =  {
 };
 
 // thunks
-export const getProducts = createAsyncThunk('products/loadProducts', async (): Promise<any> => await api.getProducts());
+export const getProducts = createAsyncThunk('products/loadProducts', async (): Promise<{ products: Array<Product>}> => await api.getProducts());
 
-export const addProduct = createAsyncThunk('products/add', async (productToAdd: ProductToAdd, {rejectWithValue}: {rejectWithValue: any}): Promise<any>=> {
+export const addProduct = createAsyncThunk('products/add', async (productToAdd: ProductToAdd, {rejectWithValue}: {rejectWithValue: any})=> {
     try {
         const result = await api.addProduct({...productToAdd});
         return { product: result.product};
@@ -139,7 +139,7 @@ export const productsSlice = createSlice({
                 addProductMessage: 'Product has been successfully added!'
             }
         })
-        .addCase(addProduct.rejected, (state, action: any) => {
+        .addCase(addProduct.rejected, (state, action:any) => {
             return {
                 ...state,
                 addProductError: action.payload.message

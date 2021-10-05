@@ -38,7 +38,7 @@ const initialState: HistoryListState = {
 
 // thunks
 export const getList = createAsyncThunk('products/loadList', async (id: number) => {
-    const response: any = await api.getList(id);
+    const response = await api.getList(id);
     return response;
 });
 

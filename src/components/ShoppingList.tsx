@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import '../sass/ShoppingList.scss';
@@ -12,7 +12,17 @@ import PiecesDetail from './PiecesDetail';
 import EditIcon from '@material-ui/icons/Edit';
 import Loader from './Loader';
 import {
-  changeActiveListState, selectStatus, removeItem, selectItemsByCategories, selectListName, increaseAmount, decreaseAmount, saveList, selectInEditState, editState, toggleItemCompletion
+  changeActiveListState, 
+  selectStatus, 
+  removeItem, 
+  selectItemsByCategories, 
+  selectListName, 
+  increaseAmount, 
+  decreaseAmount, 
+  saveList, 
+  selectInEditState, 
+  editState, 
+  toggleItemCompletion
 } from '../store/reducers/listSlice';
 import CheckBoxOutlineBlankOutlinedIcon from '@material-ui/icons/CheckBoxOutlineBlankOutlined';
 import CheckBoxOutlinedIcon from '@material-ui/icons/CheckBoxOutlined';

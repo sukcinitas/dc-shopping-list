@@ -22,8 +22,19 @@ const initialState: HistoryState = {
 
 // thunks
 export const getLists = createAsyncThunk('products/loadLists', async () => {
-    const response: any = await api.getLists();
-    return response.filter((list: any) => list.state !== 'active');
+    const response: Array<{
+        id: number;
+        name: string;
+        state: string;
+        updated_at: string;
+        user_id: number;
+    }> = await api.getLists();
+    console.log(response)
+    return response.filter((list: {id: number;
+        name: string;
+        state: string;
+        updated_at: string;
+        user_id: number}) => list.state !== 'active');
 });
 
 export const historySlice = createSlice({

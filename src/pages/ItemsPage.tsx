@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import {
-  selectProductsByCategories, getProducts, selectState, selectError, changeErrorMessage, changeAddErrorMessage, selectAddError
+  selectProductsByCategories, getProducts, selectState, selectError, changeAddErrorMessage, selectAddError
 } from '../store/reducers/productsSlice';
 import '../sass/ItemsPage.scss';
 import '../sass/headings.scss';

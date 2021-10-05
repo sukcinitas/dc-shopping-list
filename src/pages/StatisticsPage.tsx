@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { selectTopCategories, selectTopItems, getStatisticsInfo, selectState, selectError, changeErrorMessage } from '../store/reducers/statisticsSlice';
+import { selectTopCategories, selectTopItems, getStatisticsInfo, selectState, selectError } from '../store/reducers/statisticsSlice';
 import TopStatistics from '../components/TopStatistics';
 import MonthlySummary from '../components/MonthlySummary';
 import Loader from '../components/Loader';

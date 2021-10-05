@@ -4,7 +4,7 @@ import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 
 import '../sass/Message.scss';
 
-const Message = ({children, success, error, fullWidth}: {children: any, success?: boolean; error?: boolean, fullWidth?: boolean}) => {
+const Message = ({children, success, error, fullWidth}: {children: React.ReactNode, success?: boolean; error?: boolean, fullWidth?: boolean}) => {
     return  <div className={`message message--${error ? 'error' : ''}${success ? 'success' : ''}${fullWidth ? '--full-width' : ''}`}>
                 {error && <ErrorOutlineIcon />}
                 {success && <CheckIcon />}

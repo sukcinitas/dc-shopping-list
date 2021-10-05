@@ -36,6 +36,23 @@ const HistoryListPage = () => {
     }
   }, [dispatch, error]);
 
+  console.log(items);
+
+  interface HistoryCategories {
+    accumLength: number;
+    category: string;
+    items: Array<{
+      id: number;
+      product_id: number;
+      name: string;
+      description: string;
+      url: string;
+      category: string;
+      completed: boolean;
+      pieces: number;
+    }>
+  }
+
   const cats = items.map((cat: any) => <div className="items__category" key={cat.category}>
     <h4 className="subheading subheading--items">{cat.category}</h4>
     <CategoryItems items={cat.items} add={false} ac={cat.accumLength} />

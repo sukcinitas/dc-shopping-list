@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import {
-  selectListsByDate, getLists, selectState, selectError, changeErrorMessage
+  selectListsByDate, getLists, selectState, selectError
 } from '../store/reducers/historySlice';
 import '../components/HistoryMonth';
 import HistoryMonth from '../components/HistoryMonth';

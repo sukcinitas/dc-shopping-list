@@ -20,6 +20,20 @@ interface SimpleList {
   items: [];
 }
 
+interface ActiveList {
+  id: number|undefined;
+  name: string;
+  items: Array<{
+      id: number|undefined;
+      product_id: number;
+      name: string;
+      pieces: number;
+      completed: boolean;
+      category: string;
+  }>;
+  state: string;
+}
+
 const getProducts = async (): Promise<{ products: Array<Product>}> => {
   const { data } = await axios.get('/api/products');
   return { products: data };
@@ -32,7 +46,13 @@ const addProduct = async (product: ProductToAdd): Promise<{product: Product}> =>
 
 const removeProduct = async (id: number) => await axios.delete(`/api/products/${id}`);
 
-const getLists = async (): Promise<Array<SimpleList>> => {
+const getLists = async (): Promise<Array<{
+  id: number;
+  name: string;
+  state: string;
+  updated_at: string;
+  user_id: number;
+}>> => {
     const { data } = await axios.get('/api/lists');
     return data;
 };
@@ -42,7 +62,16 @@ const getList = async (id: number): Promise<any> => {
     return data;
 };
 
-const saveActiveList = async ({ name, state, id, items }: any) => {
+const saveActiveList = async ({ name, state, id, items }:
+   {name: string; state: string; id: number|undefined; items: Array<{
+    id: number|undefined;
+    product_id: number;
+    name: string;
+    units: number;
+    completed: string;
+    category: string;
+}>}) => {
+  console.log(name, state, id, items);
   const { data } = await axios.put('/api/lists/save-list', { name, state, id, items });
   return data;
 };
