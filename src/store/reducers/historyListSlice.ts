@@ -9,6 +9,7 @@ interface HistoryListState {
         name: string;
         updated_at: string;
         state: string;
+        user_id: number|null;
         items: Array<{
             id: number;
             product_id: number;
@@ -30,6 +31,7 @@ const initialState: HistoryListState = {
         name: '',
         updated_at: '',
         state: '',
+        user_id: null,
         items: []
     },
     status: 'idle',

@@ -17,7 +17,7 @@ import '../sass/buttons.scss';
 const ItemInfoCard = () => {
   let item = useSelector(selectSelectedItem);
   if (!item) {
-    item = { id: 0, name: '', category: '', description: '', url: '', deleted_at: null, user_id: 0 };
+    item = { id: 0, name: '', category: '', description: '', url: '', deleted_at: null };
   }
   const { id, name, category, description, url } = item;
 

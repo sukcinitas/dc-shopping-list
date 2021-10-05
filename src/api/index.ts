@@ -13,27 +13,6 @@ interface Product {
   deleted_at: null;
 }
 
-interface SimpleList {
-  name:string;
-  id: number;
-  state: string;
-  items: [];
-}
-
-interface ActiveList {
-  id: number|undefined;
-  name: string;
-  items: Array<{
-      id: number|undefined;
-      product_id: number;
-      name: string;
-      pieces: number;
-      completed: boolean;
-      category: string;
-  }>;
-  state: string;
-}
-
 const getProducts = async (): Promise<{ products: Array<Product>}> => {
   const { data } = await axios.get('/api/products');
   return { products: data };
@@ -57,7 +36,7 @@ const getLists = async (): Promise<Array<{
     return data;
 };
 
-const getList = async (id: number): Promise<any> => {
+const getList = async (id: number) => {
     const { data } = await axios.get(`/api/lists/${id}`);
     return data;
 };
@@ -71,7 +50,6 @@ const saveActiveList = async ({ name, state, id, items }:
     completed: string;
     category: string;
 }>}) => {
-  console.log(name, state, id, items);
   const { data } = await axios.put('/api/lists/save-list', { name, state, id, items });
   return data;
 };
