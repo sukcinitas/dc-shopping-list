@@ -20,6 +20,7 @@ interface ListState {
     status: string;
     error: string;
     message: string;
+    itemPiecesMessage: string;
 }
 
 const initialState: ListState = {
@@ -32,6 +33,7 @@ const initialState: ListState = {
     status: 'idle',
     error: '',
     message: '',
+    itemPiecesMessage: '',
 }
 
 // thunks
@@ -67,11 +69,15 @@ export const listSlice = createSlice({
         changeMessage: (state) => {
             return {...state, message: ''};
         },
+        changeItemPiecesMessage: (state) => {
+            return {...state, itemPiecesMessage: ''};
+        },
         editState: (state, action) => {
             return {...state, list: {...state.list, state: action.payload.state }};
         },
         addItem: (state, action) => {
-            if (state.list.items.find((item) => item.product_id === action.payload.item.id )) {
+            const item = state.list.items.find((item) => item.product_id === action.payload.item.id);
+            if (item) {
                 return {
                     ...state,
                     list: {
@@ -83,8 +89,9 @@ export const listSlice = createSlice({
                             } else {
                                 return {...item};
                             }
-                        })
-                    }
+                        }),
+                    },
+                    itemPiecesMessage: `${item.name}: ${item.pieces + 1} pcs`,
                 }
             }
             return {
@@ -92,8 +99,9 @@ export const listSlice = createSlice({
                 list: {
                     ...state.list,
                     state: 'edit',
-                    items: [...state.list.items, {...action.payload.item, product_id: action.payload.item.id, id: undefined, pieces: 1, completed: false }]
-                }
+                    items: [...state.list.items, {...action.payload.item, product_id: action.payload.item.id, id: undefined, pieces: 1, completed: false }],
+                },
+                itemPiecesMessage: `${action.payload.item.name} added to the list!`,
             }
         },
         removeItem: (state, action) => {
@@ -102,10 +110,11 @@ export const listSlice = createSlice({
                 list: {
                     ...state.list,
                     items: state.list.items.filter((item) => item.product_id !== action.payload.id),
-                }
+                },
             }
         },
         increaseAmount: (state, action) => {
+            const item = state.list.items.find((item) => item.product_id === action.payload.id);
             return {
                 ...state,
                 list: {
@@ -116,11 +125,12 @@ export const listSlice = createSlice({
                         } else {
                             return item;
                         }
-                    })
-                }
+                    }),
+                },
             }
         },
         decreaseAmount: (state, action) => {
+            const item = state.list.items.find((item) => item.product_id === action.payload.id);
             return {
                 ...state,
                 list: {
@@ -135,7 +145,7 @@ export const listSlice = createSlice({
                             return item;
                         }
                     })
-                }
+                },
             }
         },
     },
@@ -150,7 +160,8 @@ export const listSlice = createSlice({
             .addCase(getActiveList.rejected, (state) => {
                 return {...state, status: 'idle', error: 'Something went wrong!'}
             })
-            .addCase(saveList.fulfilled, (state, action) => {
+            .addCase(saveList.fulfilled, (state, action: any) => {
+                console.log(action, 'action')
                 return {
                     ...state,
                     list: {...action.payload.list, state: 'active'}
@@ -167,6 +178,7 @@ export const listSlice = createSlice({
                     error: '',
                     status: 'idle',
                     message: 'List has been successfully saved!',
+                    itemPiecesMessage: '',
                 }
             })
             .addCase(toggleItemCompletion.fulfilled, (state, action) => {
@@ -224,6 +236,8 @@ export const selectStatus = (state: RootState) => state.list.status;
 
 export const selectMessage = (state: RootState) => state.list.message;
 
-export const { addItem, removeItem, increaseAmount, decreaseAmount, editState, changeMessage } = listSlice.actions;
+export const selectItemPiecesMessage = (state: RootState) => state.list.itemPiecesMessage;
+
+export const { addItem, removeItem, increaseAmount, decreaseAmount, editState, changeMessage, changeItemPiecesMessage } = listSlice.actions;
 
 export default listSlice.reducer;

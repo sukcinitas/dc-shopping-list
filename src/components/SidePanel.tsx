@@ -9,7 +9,7 @@ import {
   selectAddMessage, changeAddMessage
 } from '../store/reducers/productsSlice';
 import {
-  selectMessage, changeMessage
+  selectMessage, changeMessage,
 } from '../store/reducers/listSlice';
 import Message from './Message';
 import {
@@ -59,7 +59,7 @@ const SidePanel = () => {
       return () => clearInterval(timer);
     }
   }, [dispatch, stateMessage]);
-console.log(stateMessage)
+
   return (
   <div className={shown ? 'side-panel' : 'side-panel side-panel--hidden'}>
       {error && <Message error fullWidth>{error}</Message>}

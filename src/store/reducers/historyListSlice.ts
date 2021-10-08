@@ -57,7 +57,7 @@ export const historyListSlice = createSlice({
     },
     extraReducers: builder => {
         builder
-            .addCase(getList.fulfilled, (state, action) => {
+            .addCase(getList.fulfilled, (state, action: any) => {
                 return {...state, status: 'idle', error: '', list: action.payload }
             })
             .addCase(getList.pending, (state) => {

@@ -31,7 +31,7 @@
         &:hover {
             cursor: zoom-in;
             transition: none;    
-            border: none;
+            border: 2px solid transparent;
             color: variables.$yellow-1;
             padding: 0px 4px;
         }
