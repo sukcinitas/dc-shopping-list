@@ -1,13 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
-  addProduct, selectCategories
+  addProduct, selectCategories, editProduct,
 } from '../store/reducers/productsSlice';
 import '../sass/AddItemCard.scss';
 import '../sass/buttons.scss';
 import '../sass/inputs.scss';
 
-const AddItemCard = ({ cb }: { cb: () => void }) => {
+const AddItemCard = ({ cb, edit, item }: { cb: () => void; edit?: boolean; item?: {
+  url: string;
+  name: string;
+  description: string;
+  category: string;
+  id: number;
+} }) => {
   const categories = useSelector(selectCategories);
   const dispatch = useDispatch();
   const [name, setName] = useState('');
@@ -24,19 +30,39 @@ const AddItemCard = ({ cb }: { cb: () => void }) => {
 
   const addItem = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
+    edit && item ? 
+    dispatch(editProduct({ 
+      productToAdd: {
+        name,
+        description,
+        url,
+        category
+      },
+      id: item.id
+    }))
+    :
     dispatch(addProduct({
         name,
         description,
         url,
         category
-      }));
+      }))
     cb();
   };
 
+  useEffect(() => {
+    if (edit && item) {
+      setName(item.name);
+      setDescription(item.description);
+      setUrl(item.url);
+      setCategory(item.category);
+    }
+  }, [edit, item]);
+
   return (
-  <form className="add-item-card">
+  <form className={edit ? 'add-item-card--edit add-item-card' : 'add-item-card'}>
       <div className="add-item-card__main">
-        <h2 className="heading">Add a new item</h2>
+        <h2 className="heading">{edit? `Edit item` : 'Add a new item'}</h2>
         <div>
           <label htmlFor="name" className="add-item-card__tag">Name</label>
           <input id="name" placeholder="Enter a name" className="inpt" value={name} onChange={(e) => setName(e.target.value)} />

@@ -106,7 +106,6 @@ const ShoppingList = () => {
   return <>
     {isAdding ? <AddItemCard cb={() => setIsAdding(false)} /> : shoppingList}
   </>
-
 };
 
 export default ShoppingList;

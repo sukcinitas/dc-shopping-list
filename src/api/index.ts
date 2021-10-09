@@ -23,6 +23,11 @@ const addProduct = async (product: ProductToAdd): Promise<{product: Product}> =>
     return { product: {...product, id, deleted_at: null }};
 }; 
 
+const editProduct = async (product: ProductToAdd, id: number): Promise<{product: Product}> => {
+  const { data }: any = await axios.put(`/api/products/${id}`, { ...product });
+  return { product: {...product, id, deleted_at: null }};
+}; 
+
 const removeProduct = async (id: number) => await axios.delete(`/api/products/${id}`);
 
 const getLists = async (): Promise<Array<{
@@ -83,6 +88,7 @@ const getTopCategories = async (): Promise<Array<{name: string; percent: number}
 
 export default {
   addProduct,
+  editProduct,
   removeProduct,
   getProducts,
   getList,

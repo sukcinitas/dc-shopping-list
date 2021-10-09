@@ -25,6 +25,12 @@
     }
 }
 
+.btn-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
 .btn {
     font-size: variables.$s16;
     font-family: variables.$font-1;
@@ -43,6 +49,15 @@
 
     &--bright-text {
         color: variables.$yellow-1; 
+        height: 40px;
+        font-size: variables.$s14;
+        align-self: flex-start;
+        padding: 0px 0px;
+        position: relative;
+    }
+
+    &--blue-text {
+        color: variables.$blue-1; 
         height: 40px;
         font-size: variables.$s14;
         align-self: flex-start;
