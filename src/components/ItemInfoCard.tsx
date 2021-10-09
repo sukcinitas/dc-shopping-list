@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import TrendingFlatOutlinedIcon from '@material-ui/icons/TrendingFlatOutlined';
+import EditIcon from '@material-ui/icons/Edit';
 import {
   removeProduct,
   selectProduct,
@@ -55,7 +56,7 @@ const ItemInfoCard = () => {
               back
             </button>
             <button className="btn btn--blue-text" onClick={() => setIsEditing(true)}>
-              edit
+              <EditIcon className="arrow"/>
             </button>
           </div>
             {url && <img
