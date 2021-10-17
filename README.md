@@ -35,7 +35,7 @@
 
 ## Overview
 
-An app to create shopping lists, review your shopping history and statistics. This was created mainly to practise using Redux (Redux Toolkit approach).
+An app to create shopping lists, review your shopping history and statistics. This was created mainly to practise using Redux (Redux Toolkit approach). In this project user system is not implemented, thus all information belongs to one default user.
 
 ![](https://github.com/sukcinitas/media/blob/master/sh/sh-1.gif)
 ![](https://github.com/sukcinitas/media/blob/master/sh/sh-2.gif)
