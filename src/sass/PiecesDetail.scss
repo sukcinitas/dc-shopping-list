@@ -7,8 +7,8 @@
     font-size: variables.$s12;
     border-radius: 24px;
     padding: 7px 20px;
-    transition: color, border;
-    transition-duration: 0.15s;
+    // transition: color, border;
+    // transition-duration: 0.15s;
 
     &:hover {
         color: lighten(variables.$yellow-1, 10%);
@@ -31,7 +31,7 @@
         &:hover {
             cursor: zoom-in;
             transition: none;    
-            border: 2px solid transparent;
+            border: none;
             color: variables.$yellow-1;
             padding: 0px 4px;
         }
@@ -86,8 +86,8 @@
             &:hover {
                 color: variables.$yellow-1;
                 background-color: variables.$light-1;
-                transition: color, background-color;
-                transition-duration: 0.15s;
+                // transition: color, background-color;
+                // transition-duration: 0.15s;
             }
         }
 
