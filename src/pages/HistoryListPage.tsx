@@ -4,7 +4,13 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 
 import {
-  selectItemsByCategories, selectListName, selectListDate, getList, selectState, selectError, changeErrorMessage
+  selectItemsByCategories,
+  selectListName,
+  selectListDate,
+  getList,
+  selectState,
+  selectError,
+  changeErrorMessage,
 } from '../store/reducers/historyListSlice';
 import CategoryItems from '../components/CategoryItems';
 import CalendarDetail from '../components/CalendarDetail';
@@ -25,51 +31,59 @@ const HistoryListPage = () => {
 
   useEffect(() => {
     dispatch(getList(Number(id)));
-  }, [dispatch, id])
+  }, [dispatch, id]);
 
   useEffect(() => {
     if (error) {
       const timer = setInterval(() => {
-      dispatch(changeErrorMessage());
-      }, 1500)
+        dispatch(changeErrorMessage());
+      }, 1500);
       return () => clearInterval(timer);
     }
   }, [dispatch, error]);
 
-  console.log(items);
-
-  interface HistoryCategories { 
-    category: string; 
-    items: { 
-      product_id: number; 
-      name: string; 
-      description: string; 
-      url: string; category: string; 
-    }[]; 
-    accumLength: number; 
+  interface HistoryCategories {
+    category: string;
+    items: {
+      product_id: number;
+      name: string;
+      description: string;
+      url: string;
+      category: string;
+    }[];
+    accumLength: number;
   }
 
-  const cats = items.map((cat: HistoryCategories) => <div className="items__category" key={cat.category}>
-    <h4 className="subheading subheading--items">{cat.category}</h4>
-    <CategoryItems items={cat.items} add={false} ac={cat.accumLength} />
-  </div>
-  );
+  const cats = items.map((cat: HistoryCategories) => (
+    <div className="items__category" key={cat.category}>
+      <h4 className="subheading subheading--items">{cat.category}</h4>
+      <CategoryItems items={cat.items} add={false} ac={cat.accumLength} />
+    </div>
+  ));
 
   return (
-      <div className="history">
-        {error && <Message error>{error}</Message>}
-        {state === 'loading' ? <Loader /> : <>
-          <button className="btn btn--bright-text" onClick={() => history.go(-1)}><TrendingFlatOutlinedIcon className="arrow" />back</button>
+    <div className="history">
+      {error && <Message error>{error}</Message>}
+      {state === 'loading' ? (
+        <Loader />
+      ) : (
+        <>
+          <button
+            className="btn btn--bright-text"
+            onClick={() => history.go(-1)}
+          >
+            <TrendingFlatOutlinedIcon className="arrow" />
+            back
+          </button>
           <div className="history__header">
             <h1 className="heading">{name}</h1>
             <CalendarDetail date={date} />
           </div>
-          <div className="history__items">
-              {cats}
-          </div>
-        </>}
-      </div>
-    )
-}
+          <div className="history__items">{cats}</div>
+        </>
+      )}
+    </div>
+  );
+};
 
 export default HistoryListPage;

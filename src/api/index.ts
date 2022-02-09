@@ -1,7 +1,10 @@
 import axios from 'axios';
 
 interface ProductToAdd {
-  name: string; category: string; url: string; description: string;
+  name: string;
+  category: string;
+  url: string;
+  description: string;
 }
 
 interface Product {
@@ -13,77 +16,121 @@ interface Product {
   deleted_at: null;
 }
 
-const getProducts = async (): Promise<{ products: Array<Product>}> => {
+const getProducts = async (): Promise<{ products: Array<Product> }> => {
   const { data } = await axios.get('/api/products');
   return { products: data };
 };
 
-const addProduct = async (product: ProductToAdd): Promise<{product: Product}> => {
-    const { data: { id } }: any = await axios.post('/api/products', { ...product });
-    return { product: {...product, id, deleted_at: null }};
-}; 
+const addProduct = async (
+  product: ProductToAdd
+): Promise<{ product: Product }> => {
+  const {
+    data: { id },
+  }: any = await axios.post('/api/products', { ...product });
+  return { product: { ...product, id, deleted_at: null } };
+};
 
-const editProduct = async (product: ProductToAdd, id: number): Promise<{product: Product}> => {
-  const { data }: any = await axios.put(`/api/products/${id}`, { ...product });
-  return { product: {...product, id, deleted_at: null }};
-}; 
+const editProduct = async (
+  product: ProductToAdd,
+  id: number
+): Promise<{ product: Product }> => {
+  await axios.put(`/api/products/${id}`, { ...product });
+  return { product: { ...product, id, deleted_at: null } };
+};
 
-const removeProduct = async (id: number) => await axios.delete(`/api/products/${id}`);
+const removeProduct = async (id: number) =>
+  await axios.delete(`/api/products/${id}`);
 
-const getLists = async (): Promise<Array<{
-  id: number;
-  name: string;
-  state: string;
-  updated_at: string;
-  user_id: number;
-}>> => {
-    const { data } = await axios.get('/api/lists');
-    return data;
+const getLists = async (): Promise<
+  Array<{
+    id: number;
+    name: string;
+    state: string;
+    updated_at: string;
+    user_id: number;
+  }>
+> => {
+  const { data } = await axios.get('/api/lists');
+  return data;
 };
 
 const getList = async (id: number) => {
-    const { data } = await axios.get(`/api/lists/${id}`);
-    return data;
+  const { data } = await axios.get(`/api/lists/${id}`);
+  return data;
 };
 
-const saveActiveList = async ({ name, state, id, items }:
-   {name: string; state: string; id: number|undefined; items: Array<{
-    id: number|undefined;
+const saveActiveList = async ({
+  name,
+  state,
+  id,
+  items,
+}: {
+  name: string;
+  state: string;
+  id: number | undefined;
+  items: Array<{
+    id: number | undefined;
     product_id: number;
     name: string;
     units: number;
     completed: string;
     category: string;
-}>}) => {
-  const { data } = await axios.put('/api/lists/save-list', { name, state, id, items });
+  }>;
+}) => {
+  const { data } = await axios.put('/api/lists/save-list', {
+    name,
+    state,
+    id,
+    items,
+  });
   return data;
 };
 
 const getActiveList = async () => {
   const { data } = await axios.get(`/api/lists/active`);
   return data;
-}; 
+};
 
-const toggleItemCompletion = async (list_id: number|undefined, id: number|undefined, completed: string) => {
-  const { data } = await axios.put(`/api/lists/${list_id}/toggle-item-completion`, { id, completed });
+const toggleItemCompletion = async (
+  list_id: number | undefined,
+  id: number | undefined,
+  completed: string
+) => {
+  const { data } = await axios.put(
+    `/api/lists/${list_id}/toggle-item-completion`,
+    { id, completed }
+  );
   return data;
 };
 
-const changeActiveListState = async (id: number|undefined, state: 'cancelled'|'completed') => await axios.put(`/api/lists/${id}`, { state });
+const changeActiveListState = async (
+  id: number | undefined,
+  state: 'cancelled' | 'completed'
+) => await axios.put(`/api/lists/${id}`, { state });
 
-const getMontlyStatistics = async (): Promise<Array<{month: string; items: number}>> => {
-    const { data: monthlyStatistics } = await axios.get('/api/statistics/monthly-statistics');
-    return monthlyStatistics;
+const getMontlyStatistics = async (): Promise<
+  Array<{ month: string; items: number }>
+> => {
+  const { data: monthlyStatistics } = await axios.get(
+    '/api/statistics/monthly-statistics'
+  );
+  return monthlyStatistics;
 };
 
-const getTopItems = async (): Promise<Array<{name: string, percent: number}>> => {
-    const { data: topItems } = await axios.get('/api/statistics/top-items');
-    return topItems;
+const getTopItems = async (): Promise<
+  Array<{ name: string; percent: number }>
+> => {
+  const { data: topItems } = await axios.get('/api/statistics/top-items');
+  return topItems;
 };
 
-const getTopCategories = async (): Promise<Array<{name: string; percent: number}>> => {
-    const { data: topCategories } = await axios.get('/api/statistics/top-categories');
-    return topCategories;
+const getTopCategories = async (): Promise<
+  Array<{ name: string; percent: number }>
+> => {
+  const { data: topCategories } = await axios.get(
+    '/api/statistics/top-categories'
+  );
+  return topCategories;
 };
 
 export default {
@@ -100,4 +147,4 @@ export default {
   getMontlyStatistics,
   getTopCategories,
   getTopItems,
-}
+};

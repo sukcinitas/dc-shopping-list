@@ -29,7 +29,7 @@ export const getLists = createAsyncThunk('products/loadLists', async () => {
         updated_at: string;
         user_id: number;
     }> = await api.getLists();
-    console.log(response)
+
     return response.filter((list: {id: number;
         name: string;
         state: string;

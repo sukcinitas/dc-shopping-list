@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import Header from './components/Header';
@@ -11,19 +11,19 @@ import './sass/App.scss';
 
 const App = () => {
   return (
-      <Router>
-          <div className="main"> 
-            <Header />
-            <Switch>
-              <Route exact path="/history/:id" component={HistoryListPage} />
-              <Route path="/history" component={HistoryPage} />
-              <Route path="/statistics" component={StatisticsPage} />
-              <Route exact path="/" component={ItemsPage}/>
-            </Switch>
-            <SidePanel />
-          </div>
-      </Router>
-  )
+    <Router>
+      <div className="main">
+        <Header />
+        <Switch>
+          <Route exact path="/history/:id" component={HistoryListPage} />
+          <Route path="/history" component={HistoryPage} />
+          <Route path="/statistics" component={StatisticsPage} />
+          <Route exact path="/" component={ItemsPage} />
+        </Switch>
+        <SidePanel />
+      </div>
+    </Router>
+  );
 };
 
 export default App;

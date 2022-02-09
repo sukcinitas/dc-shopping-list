@@ -1,20 +1,18 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
+import { getActiveList } from '../store/reducers/listSlice';
 import {
-  getActiveList,
-} from '../store/reducers/listSlice';
-import {
-  selectAddError, changeAddErrorMessage,
-  selectAddMessage, changeAddMessage
+  selectAddError,
+  changeAddErrorMessage,
+  selectAddMessage,
+  changeAddMessage,
 } from '../store/reducers/productsSlice';
-import {
-  selectMessage, changeMessage,
-} from '../store/reducers/listSlice';
+import { selectMessage, changeMessage } from '../store/reducers/listSlice';
 import Message from './Message';
 import {
   selectSelectedItem,
-  selectIsSidePanelShown
+  selectIsSidePanelShown,
 } from '../store/reducers/productsSlice';
 import ItemInfoCard from './ItemInfoCard';
 import ShoppingList from './ShoppingList';
@@ -32,12 +30,11 @@ const SidePanel = () => {
     dispatch(getActiveList());
   }, [dispatch]);
 
-
   useEffect(() => {
     if (error) {
       const timer = setInterval(() => {
         dispatch(changeAddErrorMessage());
-      }, 2000)
+      }, 2000);
       return () => clearInterval(timer);
     }
   }, [dispatch, error]);
@@ -46,7 +43,7 @@ const SidePanel = () => {
     if (message) {
       const timer = setInterval(() => {
         dispatch(changeAddMessage());
-      }, 2000)
+      }, 2000);
       return () => clearInterval(timer);
     }
   }, [dispatch, message]);
@@ -55,20 +52,32 @@ const SidePanel = () => {
     if (stateMessage) {
       const timer = setInterval(() => {
         dispatch(changeMessage());
-      }, 2000)
+      }, 2000);
       return () => clearInterval(timer);
     }
   }, [dispatch, stateMessage]);
 
   return (
-  <div className={shown ? 'side-panel' : 'side-panel side-panel--hidden'}>
-      {error && <Message error fullWidth>{error}</Message>}
-      {message && <Message success fullWidth>{message}</Message>}
-      {stateMessage && <Message success fullWidth>{stateMessage}</Message>}
+    <div className={shown ? 'side-panel' : 'side-panel side-panel--hidden'}>
+      {error && (
+        <Message error fullWidth>
+          {error}
+        </Message>
+      )}
+      {message && (
+        <Message success fullWidth>
+          {message}
+        </Message>
+      )}
+      {stateMessage && (
+        <Message success fullWidth>
+          {stateMessage}
+        </Message>
+      )}
       <ShoppingList />
-      { item && <ItemInfoCard /> }
-  </div>
-)
+      {item && <ItemInfoCard />}
+    </div>
+  );
 };
 
 export default SidePanel;
