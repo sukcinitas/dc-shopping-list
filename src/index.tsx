@@ -4,7 +4,6 @@ import { Provider } from 'react-redux';
 
 import store from './store';
 import axios from 'axios';
-
 import App from './App';
 
 const location =

@@ -47,48 +47,35 @@ export const getProducts = createAsyncThunk(
   async (): Promise<{ products: Array<Product> }> => await api.getProducts()
 );
 
-export const addProduct = createAsyncThunk(
-  'products/add',
-  async (productToAdd: ProductToAdd, { rejectWithValue }) => {
-    try {
-      const result = await api.addProduct({ ...productToAdd });
-      return { product: result.product };
-    } catch (err: any) {
-      if (err) {
-        if ('response' in err) {
-          return rejectWithValue(err.response.data);
-        } else {
-          return rejectWithValue({
-            message: 'Something went wrong! Try again later!',
-          });
-        }
-      }
-    }
+export const addProduct = createAsyncThunk<
+  { product: Product },
+  ProductToAdd,
+  { rejectValue: { message: string } }
+>('products/add', async (productToAdd: ProductToAdd, { rejectWithValue }) => {
+  try {
+    const result = await api.addProduct({ ...productToAdd });
+    return { product: result.product };
+  } catch (err: unknown) {
+    return rejectWithValue({
+      message: 'Something went wrong! Try again later!',
+    } as { message: string });
   }
-);
+});
 
-export const editProduct = createAsyncThunk(
-  'products/edit',
-  async (
-    { productToAdd, id }: { productToAdd: ProductToAdd; id: number },
-    { rejectWithValue }
-  ) => {
-    try {
-      const result = await api.editProduct({ ...productToAdd }, id);
-      return { product: result.product };
-    } catch (err: any) {
-      if (err) {
-        if ('response' in err) {
-          return rejectWithValue(err.response.data);
-        } else {
-          return rejectWithValue({
-            message: 'Something went wrong! Try again later!',
-          });
-        }
-      }
-    }
+export const editProduct = createAsyncThunk<
+  { product: Product },
+  { productToAdd: ProductToAdd; id: number },
+  { rejectValue: { message: string } }
+>('products/edit', async ({ productToAdd, id }, { rejectWithValue }) => {
+  try {
+    const result = await api.editProduct({ ...productToAdd }, id);
+    return { product: result.product } as { product: Product };
+  } catch (err: unknown) {
+    return rejectWithValue({
+      message: 'Something went wrong! Try again later!',
+    } as { message: string });
   }
-);
+});
 
 export const removeProduct = createAsyncThunk(
   'products/remove',
@@ -189,15 +176,16 @@ export const productsSlice = createSlice({
           addProductMessage: 'Product has been successfully added!',
         };
       })
-      .addCase(addProduct.rejected, (state, action: any) => {
+      .addCase(addProduct.rejected, (state, action) => {
+        if (!action.payload) return { ...state };
         return {
           ...state,
           addProductError: action.payload.message,
         };
       })
-      .addCase(editProduct.fulfilled, (state, action: any) => {
+      .addCase(editProduct.fulfilled, (state, action) => {
         if (!action.payload) return { ...state };
-        const items: any = state.products.items.map((item) => {
+        const items = state.products.items.map((item) => {
           return item.id === action.payload.product.id
             ? action.payload.product
             : item;
@@ -210,11 +198,15 @@ export const productsSlice = createSlice({
           selectedProduct: action.payload.product,
         };
       })
-      .addCase(editProduct.rejected, (state, action: any) => {
-        return {
-          ...state,
-          addProductError: action.payload.message,
-        };
+      .addCase(editProduct.rejected, (state, action) => {
+        if (action.payload) {
+          return {
+            ...state,
+            addProductError: action.payload.message,
+          };
+        } else {
+          return { ...state };
+        }
       })
       .addCase(removeProduct.fulfilled, (state, action) => {
         return {

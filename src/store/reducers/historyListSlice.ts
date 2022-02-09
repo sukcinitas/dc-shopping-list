@@ -3,24 +3,26 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import type { RootState } from '../index';
 import api from '../../api';
 
-interface HistoryListState {
-  list: {
+interface HistoryList {
+  id: number;
+  name: string;
+  updated_at: string;
+  state: string;
+  user_id: number | null;
+  items: Array<{
     id: number;
+    product_id: number;
     name: string;
-    updated_at: string;
-    state: string;
-    user_id: number | null;
-    items: Array<{
-      id: number;
-      product_id: number;
-      name: string;
-      description: string;
-      url: string;
-      category: string;
-      completed: boolean;
-      pieces: number;
-    }>;
-  };
+    description: string;
+    url: string;
+    category: string;
+    completed: boolean;
+    pieces: number;
+  }>;
+}
+
+interface HistoryListState {
+  list: HistoryList;
   status: string;
   error: string;
 }
@@ -43,7 +45,7 @@ export const getList = createAsyncThunk(
   'products/loadList',
   async (id: number) => {
     const response = await api.getList(id);
-    return response;
+    return response as HistoryList;
   }
 );
 
@@ -60,7 +62,7 @@ export const historyListSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(getList.fulfilled, (state, action: any) => {
+      .addCase(getList.fulfilled, (state, action) => {
         return { ...state, status: 'idle', error: '', list: action.payload };
       })
       .addCase(getList.pending, (state) => {

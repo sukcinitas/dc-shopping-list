@@ -26,7 +26,7 @@ const addProduct = async (
 ): Promise<{ product: Product }> => {
   const {
     data: { id },
-  }: any = await axios.post('/api/products', { ...product });
+  } = await axios.post('/api/products', { ...product });
   return { product: { ...product, id, deleted_at: null } };
 };
 

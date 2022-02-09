@@ -160,9 +160,6 @@ export const listSlice = createSlice({
       };
     },
     increaseAmount: (state, action) => {
-      const item = state.list.items.find(
-        (item) => item.product_id === action.payload.id
-      );
       return {
         ...state,
         list: {
@@ -178,9 +175,6 @@ export const listSlice = createSlice({
       };
     },
     decreaseAmount: (state, action) => {
-      const item = state.list.items.find(
-        (item) => item.product_id === action.payload.id
-      );
       return {
         ...state,
         list: {
@@ -214,7 +208,7 @@ export const listSlice = createSlice({
       .addCase(getActiveList.rejected, (state) => {
         return { ...state, status: 'idle', error: 'Something went wrong!' };
       })
-      .addCase(saveList.fulfilled, (state, action: any) => {
+      .addCase(saveList.fulfilled, (state, action) => {
         return {
           ...state,
           list: { ...action.payload.list, state: 'active' },
