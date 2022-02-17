@@ -7,8 +7,6 @@
     font-size: variables.$s12;
     border-radius: 24px;
     padding: 7px 20px;
-    // transition: color, border;
-    // transition-duration: 0.15s;
 
     &:hover {
         color: lighten(variables.$yellow-1, 10%);
@@ -87,8 +85,6 @@
             &:hover {
                 color: variables.$yellow-1;
                 background-color: variables.$light-1;
-                // transition: color, background-color;
-                // transition-duration: 0.15s;
             }
         }
 
@@ -103,6 +99,19 @@
             color: lighten(variables.$yellow-1, 10%);
             transition: color;
             transition-duration: 0.15s;
+        }
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .pieces {
+        &__panel {
+            flex-shrink: 1;
+            width: 170px;
+        }
+
+        &--panel {
+            padding: 7px 10px;
         }
     }
 }

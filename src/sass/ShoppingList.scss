@@ -131,6 +131,10 @@
             font-size: variables.$s14;
             overflow: hidden;
             text-overflow: ellipsis;
+
+            &--edit {
+                min-width: 60px;
+            }
         }
 
         &__img--low {
