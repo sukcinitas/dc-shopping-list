@@ -23,11 +23,6 @@
         display: flex;
         flex-direction: row;
         align-items: center;
-        max-width: 200px;
-
-        &--edit {
-            max-width: 90px;
-        }
 
         & span {
             overflow: hidden;
@@ -136,10 +131,6 @@
             font-size: variables.$s14;
             overflow: hidden;
             text-overflow: ellipsis;
-
-            &--edit {
-                max-width: 60px;
-            }
         }
 
         &__img--low {

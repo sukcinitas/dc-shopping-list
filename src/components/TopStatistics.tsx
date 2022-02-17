@@ -10,7 +10,7 @@ const TopStatistics = ({
   title: string;
   items?: { name: string; percent: number }[];
 }) => {
-  if (!items) return <h1></h1>;
+  if (!items) return null;
   return (
     <div className="top-statistics">
       <h1 className="heading">{title}</h1>

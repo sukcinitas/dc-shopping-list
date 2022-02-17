@@ -57,6 +57,7 @@
         align-items: center;
         position: relative;
         width: 200px;
+        flex-shrink: 0;
     }
 
     &__icon {
