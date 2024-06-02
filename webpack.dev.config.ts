@@ -1,4 +1,4 @@
-import path from "path";
+
 import webpack from "webpack";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
@@ -71,12 +71,10 @@ const config: webpack.Configuration = {
     historyApiFallback: true,
     port: 4000,
     open: true,
-    proxy: {
-      '/api/*': {
-        target: 'http://localhost:8000/',
-        secure: false,
-      },
-    },
+    proxy: [{
+      context: '/api/*',
+      target: 'http://localhost:8000/',
+    }],
   },
 };
 
