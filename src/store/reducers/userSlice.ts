@@ -2,11 +2,11 @@ import { createSlice } from '@reduxjs/toolkit';
 import type { RootState } from '../index';
 
 interface UserState {
-  id: number;
+  user_id: number;
 }
 
 const initialState: UserState = {
-  id: 1,
+  user_id: 1,
 };
 
 export const userSlice = createSlice({
@@ -15,7 +15,7 @@ export const userSlice = createSlice({
   reducers: {},
 });
 
-export const selectUser = ({ user: { id } }: RootState) => id;
+export const selectUser = ({ user: { user_id } }: RootState) => user_id;
 
 export const {} = userSlice.actions;
 

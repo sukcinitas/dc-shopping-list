@@ -14,15 +14,15 @@ const HistoryMonth = ({
   items,
 }: {
   month: string;
-  items: { id: number; updated_at: string; name: string; state: string }[];
+  items: { list_id: number; updated_at: string; name: string; state: string }[];
 }) => {
   return (
     <div className="history__month">
       <h4 className="subheading subheading--date">{month}</h4>
       <div className="history__items">
-        {items.map(({ name, state, updated_at, id }, idx) => (
+        {items.map(({ name, state, updated_at, list_id }, idx) => (
           <div
-            key={id}
+            key={list_id}
             className="history__item"
             style={{ animationDelay: idx * 0.1 + 's' }}
           >
@@ -32,7 +32,7 @@ const HistoryMonth = ({
               <CompletedDetail completed={state === 'completed'} />
             </div>
             <button className="btn btn--arrow">
-              <Link to={`history/${id}`}>
+              <Link to={`history/${list_id}`}>
                 <ArrowForwardIosIcon />
               </Link>
             </button>

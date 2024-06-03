@@ -31,7 +31,7 @@ const Header = () => {
               activeClassName="icon--selected"
               exact={true}
             >
-              <FormatListBulletedOutlinedIcon fontSize="default" />
+              <FormatListBulletedOutlinedIcon fontSize="medium" />
               <Tooltip>items</Tooltip>
             </Link>
           </li>
@@ -41,7 +41,7 @@ const Header = () => {
               className="icon"
               activeClassName="icon--selected"
             >
-              <ReplayIcon fontSize="default" />
+              <ReplayIcon fontSize="medium" />
               <Tooltip>history</Tooltip>
             </Link>
           </li>
@@ -51,7 +51,7 @@ const Header = () => {
               className="icon"
               activeClassName="icon--selected"
             >
-              <AssessmentOutlinedIcon fontSize="default" />
+              <AssessmentOutlinedIcon fontSize="medium" />
               <Tooltip>statistics</Tooltip>
             </Link>
           </li>

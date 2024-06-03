@@ -5,7 +5,7 @@ import api from '../../api';
 
 interface HistoryState {
     lists: Array<{
-        id: number;
+        list_id: number;
         name: string;
         state: string;
         updated_at: string;
@@ -23,14 +23,15 @@ const initialState: HistoryState = {
 // thunks
 export const getLists = createAsyncThunk('products/loadLists', async () => {
     const response: Array<{
-        id: number;
+        list_id: number;
         name: string;
         state: string;
         updated_at: string;
         user_id: number;
     }> = await api.getLists();
 
-    return response.filter((list: {id: number;
+    return response.filter((list: {
+        list_id: number;
         name: string;
         state: string;
         updated_at: string;
@@ -67,7 +68,7 @@ export const historySlice = createSlice({
 const monthsMap = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 export const selectListsByDate = ({ history: { lists }}: RootState) => {
     const map: {[key: string]: Array<{
-        id: number;
+        list_id: number;
         name: string;
         state: string;
         updated_at: string;

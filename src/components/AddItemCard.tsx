@@ -21,7 +21,7 @@ const AddItemCard = ({
     name: string;
     description: string;
     category: string;
-    id: number;
+    product_id: number;
   };
 }) => {
   const categories = useSelector(selectCategories);
@@ -52,7 +52,7 @@ const AddItemCard = ({
               url,
               category,
             },
-            id: item.id,
+            product_id: item.product_id,
           })
         )
       : dispatch(

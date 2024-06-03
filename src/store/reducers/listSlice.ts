@@ -5,7 +5,7 @@ import api from '../../api';
 
 interface ListState {
   list: {
-    id: number | undefined;
+    list_id: number | undefined;
     name: string;
     items: Array<{
       id: number | undefined;
@@ -25,7 +25,7 @@ interface ListState {
 
 const initialState: ListState = {
   list: {
-    id: undefined,
+    list_id: undefined,
     name: '',
     items: [],
     state: 'edit', // edit | active
@@ -51,8 +51,7 @@ export const saveList = createAsyncThunk(
     const { list } = getState() as RootState;
     const items = list.list.items;
     const newItems = items.map(
-      ({ id, pieces, product_id, completed, name, category }) => ({
-        id,
+      ({ pieces, product_id, completed, name, category }) => ({
         units: pieces,
         product_id,
         completed: completed ? '1' : '0',
@@ -74,7 +73,7 @@ export const changeActiveListState = createAsyncThunk(
   'products/changeListState',
   async (state: 'cancelled' | 'completed', { getState }) => {
     const { list } = getState() as RootState;
-    await api.changeActiveListState(list.list.id, state);
+    await api.changeActiveListState(list.list.list_id, state);
     return;
   }
 );
@@ -87,7 +86,7 @@ export const toggleItemCompletion = createAsyncThunk(
   ) => {
     const { list } = getState() as RootState;
     await api.toggleItemCompletion(
-      list.list.id,
+      list.list.list_id,
       state.id,
       state.completed ? '1' : '0'
     );
@@ -110,7 +109,7 @@ export const listSlice = createSlice({
     },
     addItem: (state, action) => {
       const item = state.list.items.find(
-        (item) => item.product_id === action.payload.item.id
+        (item) => item.product_id === action.payload.item.product_id
       );
       if (item) {
         return {
@@ -119,7 +118,7 @@ export const listSlice = createSlice({
             ...state.list,
             state: 'edit',
             items: state.list.items.map((item) => {
-              if (item.product_id === action.payload.item.id) {
+              if (item.product_id === action.payload.item.product_id) {
                 return { ...item, pieces: item.pieces + 1 };
               } else {
                 return { ...item };
@@ -138,7 +137,7 @@ export const listSlice = createSlice({
             ...state.list.items,
             {
               ...action.payload.item,
-              product_id: action.payload.item.id,
+              product_id: action.payload.item.product_id,
               id: undefined,
               pieces: 1,
               completed: false,
@@ -217,7 +216,7 @@ export const listSlice = createSlice({
       .addCase(changeActiveListState.fulfilled, () => {
         return {
           list: {
-            id: undefined,
+            list_id: undefined,
             name: '',
             items: [],
             state: 'edit', // edit | active
@@ -271,6 +270,9 @@ export const selectItemsByCategories = ({ list }: RootState) => {
 };
 
 export const selectNonCompletedAmount = ({ list }: RootState) => {
+  if (!list?.list?.items) {
+    return 0;
+  }
   let count = 0;
   for (let i = 0; i < list.list.items.length; i++) {
     if (!list.list.items[i].completed) {
