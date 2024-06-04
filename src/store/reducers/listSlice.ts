@@ -1,7 +1,7 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-import type { RootState } from '../index';
-import api from '../../api';
+import type { RootState } from "../index";
+import api from "../../api";
 
 interface ListState {
   list: {
@@ -26,19 +26,19 @@ interface ListState {
 const initialState: ListState = {
   list: {
     list_id: undefined,
-    name: '',
+    name: "",
     items: [],
-    state: 'edit', // edit | active
+    state: "edit", // edit | active
   },
-  status: 'idle',
-  error: '',
-  message: '',
-  itemPiecesMessage: '',
+  status: "idle",
+  error: "",
+  message: "",
+  itemPiecesMessage: "",
 };
 
 // thunks
 export const getActiveList = createAsyncThunk(
-  'products/loadActiveList',
+  "products/loadActiveList",
   async () => {
     const response = await api.getActiveList();
     return response;
@@ -46,7 +46,7 @@ export const getActiveList = createAsyncThunk(
 );
 
 export const saveList = createAsyncThunk(
-  'products/saveActiveList',
+  "products/saveActiveList",
   async (name: string, { getState }) => {
     const { list } = getState() as RootState;
     const items = list.list.items;
@@ -54,7 +54,7 @@ export const saveList = createAsyncThunk(
       ({ pieces, product_id, completed, name, category }) => ({
         units: pieces,
         product_id,
-        completed: completed ? '1' : '0',
+        completed: completed ? "1" : "0",
         name,
         category,
       })
@@ -63,15 +63,15 @@ export const saveList = createAsyncThunk(
       ...list.list,
       items: newItems,
       name,
-      state: 'active',
+      state: "active",
     });
     return response;
   }
 );
 
 export const changeActiveListState = createAsyncThunk(
-  'products/changeListState',
-  async (state: 'cancelled' | 'completed', { getState }) => {
+  "products/changeListState",
+  async (state: "cancelled" | "completed", { getState }) => {
     const { list } = getState() as RootState;
     await api.changeActiveListState(list.list.list_id, state);
     return;
@@ -79,7 +79,7 @@ export const changeActiveListState = createAsyncThunk(
 );
 
 export const toggleItemCompletion = createAsyncThunk(
-  'products/toggleCompletion',
+  "products/toggleCompletion",
   async (
     state: { id: number | undefined; completed: true | false },
     { getState }
@@ -88,21 +88,21 @@ export const toggleItemCompletion = createAsyncThunk(
     await api.toggleItemCompletion(
       list.list.list_id,
       state.id,
-      state.completed ? '1' : '0'
+      state.completed ? "1" : "0"
     );
     return { id: state.id };
   }
 );
 
 export const listSlice = createSlice({
-  name: 'items',
+  name: "items",
   initialState,
   reducers: {
     changeMessage: (state) => {
-      return { ...state, message: '' };
+      return { ...state, message: "" };
     },
     changeItemPiecesMessage: (state) => {
-      return { ...state, itemPiecesMessage: '' };
+      return { ...state, itemPiecesMessage: "" };
     },
     editState: (state, action) => {
       return { ...state, list: { ...state.list, state: action.payload.state } };
@@ -116,7 +116,7 @@ export const listSlice = createSlice({
           ...state,
           list: {
             ...state.list,
-            state: 'edit',
+            state: "edit",
             items: state.list.items.map((item) => {
               if (item.product_id === action.payload.item.product_id) {
                 return { ...item, pieces: item.pieces + 1 };
@@ -132,7 +132,7 @@ export const listSlice = createSlice({
         ...state,
         list: {
           ...state.list,
-          state: 'edit',
+          state: "edit",
           items: [
             ...state.list.items,
             {
@@ -195,36 +195,36 @@ export const listSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getActiveList.pending, (state) => {
-        return { ...state, status: 'loading' };
+        return { ...state, status: "loading" };
       })
       .addCase(getActiveList.fulfilled, (state, action) => {
         return {
           ...state,
-          list: { ...state.list, ...action.payload, state: 'active' },
-          status: 'idle',
+          list: { ...state.list, ...action.payload, state: "active" },
+          status: "idle",
         };
       })
       .addCase(getActiveList.rejected, (state) => {
-        return { ...state, status: 'idle', error: 'Something went wrong!' };
+        return { ...state, status: "idle", error: "Something went wrong!" };
       })
       .addCase(saveList.fulfilled, (state, action) => {
         return {
           ...state,
-          list: { ...action.payload.list, state: 'active' },
+          list: { ...action.payload.list, state: "active" },
         };
       })
       .addCase(changeActiveListState.fulfilled, () => {
         return {
           list: {
             list_id: undefined,
-            name: '',
+            name: "",
             items: [],
-            state: 'edit', // edit | active
+            state: "edit", // edit | active
           },
-          error: '',
-          status: 'idle',
-          message: 'List has been successfully saved!',
-          itemPiecesMessage: '',
+          error: "",
+          status: "idle",
+          message: "List has been successfully saved!",
+          itemPiecesMessage: "",
         };
       })
       .addCase(toggleItemCompletion.fulfilled, (state, action) => {
@@ -285,7 +285,7 @@ export const selectNonCompletedAmount = ({ list }: RootState) => {
 export const selectListName = (state: RootState) => state.list.list.name;
 
 export const selectInEditState = (state: RootState) =>
-  state.list.list.state === 'edit';
+  state.list.list.state === "edit";
 
 export const selectStatus = (state: RootState) => state.list.status;
 

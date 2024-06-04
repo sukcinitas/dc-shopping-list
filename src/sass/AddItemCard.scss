@@ -22,7 +22,7 @@
     &__main {
         display: flex;
         flex-direction: column;
-        row-gap: 20px;
+        row-gap: 5px;
         height: 100%;
         overflow-y: auto;  
         padding-bottom: 128px;
@@ -36,10 +36,18 @@
 
     &__tag {
         color: variables.$dark-2;
-        font-size: variables.$s14;
+        font-size: variables.$s16;
         font-family: variables.$font-1;
         margin-bottom: 6px;
         display: block;
+
+        &.error {
+            color: red;
+        }
+
+        .add-item-card__tag {
+            display: inline-block;
+        }
     }  
 
     &__list {
@@ -64,6 +72,26 @@
             background-color: variables.$grey-8;
         }
     }
+
+    &--center {
+        height: unset;
+        min-width: 380px;
+        width: 400px;
+        border-radius: 20px;
+        background-color: variables.$yellow-2;
+    }
+
+    &.add-item-card--center {
+        .add-item-card__main {
+            padding-bottom: 40px;
+        }
+    }
+}
+
+.add-item-card-wrapper {
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
 }
 
 .heading {

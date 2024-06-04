@@ -1,16 +1,16 @@
-import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 
-import '../sass/ShoppingList.scss';
-import '../sass/buttons.scss';
-import '../sass/inputs.scss';
-import '../sass/headings.scss';
-import ConfirmationBox from './ConfirmationBox';
-import image from '../assets/source.svg';
-import AddItemCard from './AddItemCard';
-import PiecesDetail from './PiecesDetail';
-import EditIcon from '@material-ui/icons/Edit';
-import Loader from './Loader';
+import "../sass/ShoppingList.scss";
+import "../sass/buttons.scss";
+import "../sass/inputs.scss";
+import "../sass/headings.scss";
+import ConfirmationBox from "./ConfirmationBox";
+import image from "../assets/source.svg";
+import AddItemCard from "./AddItemCard";
+import PiecesDetail from "./PiecesDetail";
+import EditIcon from "@material-ui/icons/Edit";
+import Loader from "./Loader";
 import {
   changeActiveListState,
   selectStatus,
@@ -23,9 +23,9 @@ import {
   selectInEditState,
   editState,
   toggleItemCompletion,
-} from '../store/reducers/listSlice';
-import CheckBoxOutlineBlankOutlinedIcon from '@material-ui/icons/CheckBoxOutlineBlankOutlined';
-import CheckBoxOutlinedIcon from '@material-ui/icons/CheckBoxOutlined';
+} from "../store/reducers/listSlice";
+import CheckBoxOutlineBlankOutlinedIcon from "@material-ui/icons/CheckBoxOutlineBlankOutlined";
+import CheckBoxOutlinedIcon from "@material-ui/icons/CheckBoxOutlined";
 
 const ShoppingList = () => {
   const dispatch = useDispatch();
@@ -68,7 +68,7 @@ const ShoppingList = () => {
                           className="shopping-list__icon"
                         />
                       )}
-                      <span className={isInEdit ? '' : 'linethrough'}>
+                      <span className={isInEdit ? "" : "linethrough"}>
                         {product.name}
                       </span>
                     </span>
@@ -76,8 +76,8 @@ const ShoppingList = () => {
                     <span
                       className={
                         isInEdit
-                          ? 'shopping-list__tag shopping-list__tag--edit'
-                          : 'shopping-list__tag'
+                          ? "shopping-list__tag shopping-list__tag--edit"
+                          : "shopping-list__tag"
                       }
                     >
                       {!isInEdit && (
@@ -128,11 +128,11 @@ const ShoppingList = () => {
 
   const changeListState = (
     e: React.MouseEvent<HTMLElement>,
-    state: 'completed' | 'cancelled'
+    state: "completed" | "cancelled"
   ) => {
     e.preventDefault();
     dispatch(changeActiveListState(state));
-    setName('');
+    setName("");
   };
 
   const shoppingList = (
@@ -141,7 +141,7 @@ const ShoppingList = () => {
         {isCancelling && (
           <ConfirmationBox
             cb={(e: React.MouseEvent<HTMLElement>) => {
-              changeListState(e, 'cancelled');
+              changeListState(e, "cancelled");
               setIsCancelling(false);
             }}
             close={() => setIsCancelling(false)}
@@ -159,24 +159,24 @@ const ShoppingList = () => {
             </button>
           </div>
         </div>
-        {status === 'loading' ? (
+        {status === "loading" ? (
           <Loader style="dots" />
         ) : (
           <div
             className={
               Object.keys(initialList).length === 0
-                ? 'shopping-list__main shopping-list__main--no-items'
-                : 'shopping-list__main'
+                ? "shopping-list__main shopping-list__main--no-items"
+                : "shopping-list__main"
             }
           >
             {title && (
               <h2 className="subheading subheading--title">
                 {title}
                 {isInEdit ? (
-                  ''
+                  ""
                 ) : (
                   <EditIcon
-                    onClick={() => dispatch(editState({ state: 'edit' }))}
+                    onClick={() => dispatch(editState({ state: "edit" }))}
                     className="subheading__icon"
                   />
                 )}
@@ -196,13 +196,13 @@ const ShoppingList = () => {
       {isInEdit ? (
         <div className="inpts">
           <input
-            className={title ? 'inpt inpt--bright' : 'inpt inpt--grey'}
+            className={title ? "inpt inpt--bright" : "inpt inpt--grey"}
             placeholder="Enter a name"
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
           <button
-            className={title ? 'btn btn--bright-input' : 'btn btn--grey-input'}
+            className={title ? "btn btn--bright-input" : "btn btn--grey-input"}
             type="submit"
             disabled={!name}
             onClick={(e) => save(e)}
@@ -222,10 +222,10 @@ const ShoppingList = () => {
           <button
             disabled={list.length === 0}
             className={
-              list.length > 0 ? 'btn btn--blue' : 'btn btn--blue-lighter'
+              list.length > 0 ? "btn btn--blue" : "btn btn--blue-lighter"
             }
             type="button"
-            onClick={(e) => changeListState(e, 'completed')}
+            onClick={(e) => changeListState(e, "completed")}
           >
             Complete
           </button>

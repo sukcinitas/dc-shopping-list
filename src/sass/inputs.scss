@@ -6,6 +6,7 @@
     color: darken(variables.$grey-3, 30%);
     font-family: variables.$font-1;
     padding: 18px 22px;
+    margin-bottom: 15px;
     width: 100%;
     background-color: transparent;
     font-size: variables.$s14;
@@ -40,6 +41,10 @@
         width: 275px;
         background-color: variables.$light-1;
         padding-right: 60px;
+    }
+
+    &--error {
+        border-color: red;
     }
 
     &:focus, &:hover {
