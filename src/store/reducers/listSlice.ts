@@ -198,9 +198,15 @@ export const listSlice = createSlice({
         return { ...state, status: "loading" };
       })
       .addCase(getActiveList.fulfilled, (state, action) => {
+        const list = action.payload || {
+          list_id: undefined,
+          name: "",
+          items: [],
+          state: "edit", // edit | active
+        };
         return {
           ...state,
-          list: { ...state.list, ...action.payload, state: "active" },
+          list: { ...list, state: "active" },
           status: "idle",
         };
       })
