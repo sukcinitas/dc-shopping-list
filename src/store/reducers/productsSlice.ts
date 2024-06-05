@@ -11,7 +11,7 @@ interface ProductToAdd {
 }
 
 interface Product extends ProductToAdd {
-  id: number;
+  product_id: number;
   deleted_at: string | null;
 }
 
@@ -64,11 +64,11 @@ export const addProduct = createAsyncThunk<
 
 export const editProduct = createAsyncThunk<
   { product: Product },
-  { productToAdd: ProductToAdd; id: number },
+  { productToAdd: ProductToAdd; product_id: number },
   { rejectValue: { message: string } }
->('products/edit', async ({ productToAdd, id }, { rejectWithValue }) => {
+>('products/edit', async ({ productToAdd, product_id }, { rejectWithValue }) => {
   try {
-    const result = await api.editProduct({ ...productToAdd }, id);
+    const result = await api.editProduct({ ...productToAdd }, product_id);
     return { product: result.product } as { product: Product };
   } catch (err: unknown) {
     return rejectWithValue({
@@ -79,9 +79,9 @@ export const editProduct = createAsyncThunk<
 
 export const removeProduct = createAsyncThunk(
   'products/remove',
-  async (id: number): Promise<{ id: number }> => {
-    await api.removeProduct(id);
-    return { id };
+  async (product_id: number): Promise<{ product_id: number }> => {
+    await api.removeProduct(product_id);
+    return { product_id };
   }
 );
 
@@ -114,11 +114,11 @@ export const productsSlice = createSlice({
           selectedProduct: item,
         };
       } else {
-        const { id, name, description, url, category } = item;
+        const { product_id, name, description, url, category } = item;
         return {
           ...state,
           selectedProduct: {
-            id,
+            product_id,
             name,
             description,
             category,
@@ -186,7 +186,7 @@ export const productsSlice = createSlice({
       .addCase(editProduct.fulfilled, (state, action) => {
         if (!action.payload) return { ...state };
         const items = state.products.items.map((item) => {
-          return item.id === action.payload.product.id
+          return item.product_id === action.payload.product.product_id
             ? action.payload.product
             : item;
         });
@@ -214,11 +214,11 @@ export const productsSlice = createSlice({
           products: {
             ...state.products,
             items: state.products.items.filter(
-              (product) => product.id !== action.payload.id
+              (product) => product.product_id !== action.payload.product_id
             ),
           },
           filteredItems: state.products.items.filter(
-            (product) => product.id !== action.payload.id
+            (product) => product.product_id !== action.payload.product_id
           ),
         };
       });

@@ -71,10 +71,10 @@ const config: webpack.Configuration = {
     historyApiFallback: true,
     port: 4000,
     open: true,
-    proxy: [{
-      context: '/api/*',
-      target: 'http://localhost:8000/',
-    }],
+    // proxy: [{
+    //   context: '/api/*',
+    //   target: 'http://localhost:8000/',
+    // }],
   },
 };
 

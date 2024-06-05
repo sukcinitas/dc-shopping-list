@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import {
   addProduct,
   selectCategories,
   editProduct,
-} from '../store/reducers/productsSlice';
-import '../sass/AddItemCard.scss';
-import '../sass/buttons.scss';
-import '../sass/inputs.scss';
+} from "../store/reducers/productsSlice";
+import "../sass/AddItemCard.scss";
+import "../sass/buttons.scss";
+import "../sass/inputs.scss";
 
 const AddItemCard = ({
   cb,
@@ -21,15 +21,15 @@ const AddItemCard = ({
     name: string;
     description: string;
     category: string;
-    id: number;
+    product_id: number;
   };
 }) => {
   const categories = useSelector(selectCategories);
   const dispatch = useDispatch();
-  const [name, setName] = useState('');
-  const [description, setDescription] = useState('');
-  const [url, setUrl] = useState('');
-  const [category, setCategory] = useState('');
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [url, setUrl] = useState("");
+  const [category, setCategory] = useState("");
 
   const categoryList = categories.map((category: string) => (
     <li
@@ -52,7 +52,7 @@ const AddItemCard = ({
               url,
               category,
             },
-            id: item.id,
+            product_id: item.product_id,
           })
         )
       : dispatch(
@@ -77,10 +77,10 @@ const AddItemCard = ({
 
   return (
     <form
-      className={edit ? 'add-item-card--edit add-item-card' : 'add-item-card'}
+      className={edit ? "add-item-card--edit add-item-card" : "add-item-card"}
     >
       <div className="add-item-card__main">
-        <h2 className="heading">{edit ? `Edit item` : 'Add a new item'}</h2>
+        <h2 className="heading">{edit ? `Edit item` : "Add a new item"}</h2>
         <div>
           <label htmlFor="name" className="add-item-card__tag">
             Name
@@ -135,7 +135,7 @@ const AddItemCard = ({
       </div>
       <div className="btns btns--grey">
         <button className="btn" onClick={cb}>
-          Cancel
+          cancel
         </button>
         <button
           type="submit"
