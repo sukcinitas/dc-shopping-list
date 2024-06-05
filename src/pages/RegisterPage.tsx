@@ -127,15 +127,15 @@ const Login = () => {
             Register
           </button>
 
-          <div>
+          <ul>
             {Array.from(new Set(Object.values(errorMessages))).map(
               (message) => (
-                <span key={message} className="add-item-card__tag error">
+                <li key={message} className="add-item-card__tag error">
                   {message}
-                </span>
+                </li>
               )
             )}
-          </div>
+          </ul>
 
           <span className="add-item-card__tag">
             Already have an account?{" "}

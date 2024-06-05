@@ -21,7 +21,11 @@
     }
     &__link {
         text-align: center; 
-        color: variables.$grey-1;  
+        color: variables.$grey-1;
+        
+        button:hover {
+            cursor: pointer;
+        }
     }
 }
 
@@ -137,9 +141,6 @@
         right: 4px;
     }
 
-    .nav__list {
-        height: 200px;
-    }
 
     .icon {
         margin: 10px auto;

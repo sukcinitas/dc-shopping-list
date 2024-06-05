@@ -43,6 +43,12 @@ const Login = () => {
     );
   };
 
+  const loginAsDefaultUser = (e: React.MouseEvent<HTMLButtonElement>): void => {
+    setUsername("user");
+    setPassword("userPassword");
+    handleSubmit(e);
+  };
+
   return (
     <div className="add-item-card-wrapper">
       <form className="add-item-card add-item-card--center">
@@ -84,13 +90,28 @@ const Login = () => {
             Login
           </button>
 
-          <span className="add-item-card__tag">{errorMessage}</span>
+          <ul>
+            <li key={errorMessage} className="add-item-card__tag error">
+              {errorMessage}
+            </li>
+          </ul>
+
           <span className="add-item-card__tag">
             Do not have an account?{" "}
             <Link to="/register" className="add-item-card__tag">
               Register
             </Link>
           </span>
+
+          <div className="form__alt-box">
+            <button
+              className="btn btn--blue"
+              type="button"
+              onClick={loginAsDefaultUser}
+            >
+              Login as default user
+            </button>
+          </div>
         </div>
       </form>
     </div>
