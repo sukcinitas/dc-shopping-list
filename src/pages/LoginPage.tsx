@@ -24,7 +24,11 @@ const Login = () => {
     setErrorMessage("");
   };
 
-  const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>): void => {
+  const handleSubmit = (
+    e: React.MouseEvent<HTMLButtonElement>,
+    username: string,
+    password: string
+  ): void => {
     e.preventDefault();
     axios.post("/api/users/login", { username, password }).then(
       (res) => {
@@ -44,9 +48,7 @@ const Login = () => {
   };
 
   const loginAsDefaultUser = (e: React.MouseEvent<HTMLButtonElement>): void => {
-    setUsername("user");
-    setPassword("userPassword");
-    handleSubmit(e);
+    handleSubmit(e, "user", "userPassword");
   };
 
   return (
@@ -83,7 +85,7 @@ const Login = () => {
           <button
             data-testid="login-btn"
             type="button"
-            onClick={handleSubmit}
+            onClick={(e) => handleSubmit(e, username, password)}
             className="btn btn--bright"
             disabled={!username || !password}
           >
