@@ -1,11 +1,11 @@
-import React from 'react';
+import React from "react";
 
-import image from '../assets/source.svg';
-import '../sass/Loader.scss';
+import image from "../assets/source.svg";
+import "../sass/Loader.scss";
 
 const Loader = ({ style }: { style?: string }) => (
-  <div className={style === 'dots' ? 'loader--dots loader' : 'loader'}>
-    {style === 'dots' ? (
+  <div className={style === "dots" ? "loader--dots loader" : "loader"}>
+    {style === "dots" ? (
       <div className="loader__dots">
         <div className="loader__dot"></div>
         <div className="loader__dot"></div>

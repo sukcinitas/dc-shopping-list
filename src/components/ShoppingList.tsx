@@ -123,7 +123,7 @@ const ShoppingList = () => {
   const save = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
     dispatch(saveList(name));
-    setName(name);
+    setName("");
   };
 
   const changeListState = (

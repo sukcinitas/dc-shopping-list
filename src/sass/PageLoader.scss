@@ -1,0 +1,21 @@
+@use 'variables';
+
+.page-loader {
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    background-color: variables.$blue-1-lighter;
+    div {
+        margin: 0 auto;
+        position: relative;
+    }
+    .loader {
+        height: 200px;
+        width: auto;
+    }
+    .subheading {
+        margin: 0 auto;
+        text-align: center;
+        max-width: 300px;
+    }
+}
