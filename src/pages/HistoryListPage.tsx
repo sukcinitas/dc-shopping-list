@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import TrendingFlatOutlinedIcon from '@material-ui/icons/TrendingFlatOutlined';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 import {
   selectItemsByCategories,
@@ -25,7 +25,6 @@ const HistoryListPage = () => {
   const date = useSelector(selectListDate);
   const state = useSelector(selectState);
   const error = useSelector(selectError);
-  const history = useHistory();
   const dispatch = useDispatch();
   const { id } = useParams<{ id: string }>();
 

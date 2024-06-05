@@ -8,12 +8,11 @@ import '../sass/PiecesDetail.scss';
 import PiecesDetail from './PiecesDetail';
 
 interface Item {
-  product_id?: number;
+  product_id: number;
   name: string;
   url: string;
   description: string;
   pieces?: number;
-  id?: number | undefined;
 }
 
 const CategoryItems = ({
@@ -43,7 +42,7 @@ const CategoryItems = ({
       {items.map((item, idx) => (
         <div
           className={add ? 'items__item' : 'items__item items__item--history'}
-          key={item.id}
+          key={item.product_id}
           onClick={() => select(item)}
           style={{ animationDelay: (idx + ac) * 0.075 + 's' }}
         >

@@ -19,7 +19,7 @@ const ItemInfoCard = () => {
   let item = useSelector(selectSelectedItem);
   if (!item) {
     item = {
-      id: 0,
+      product_id: 0,
       name: '',
       category: '',
       description: '',
@@ -27,12 +27,12 @@ const ItemInfoCard = () => {
       deleted_at: null,
     };
   }
-  const { id, name, category, description, url } = item;
+  const { product_id, name, category, description, url } = item;
 
   const dispatch = useDispatch();
 
   const addItemToList = (category: string, id: number, name: string) => {
-    dispatch(addItem({ item: { id, name, category } }));
+    dispatch(addItem({ item: { product_id, name, category } }));
     dispatch(
       selectProduct({
         item: null,
@@ -94,12 +94,12 @@ const ItemInfoCard = () => {
           )}
         </div>
         <div className="btns">
-          <button className="btn" onClick={() => removeItemFromList(id)}>
+          <button className="btn" onClick={() => removeItemFromList(product_id)}>
             Delete
           </button>
           <button
             className="btn btn--bright"
-            onClick={() => addItemToList(category, id, name)}
+            onClick={() => addItemToList(category, product_id, name)}
           >
             Add to list
           </button>

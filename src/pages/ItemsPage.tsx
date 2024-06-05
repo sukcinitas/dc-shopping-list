@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 
 import {
   selectProductsByCategories,
@@ -8,23 +8,25 @@ import {
   selectError,
   changeAddErrorMessage,
   selectAddError,
-} from '../store/reducers/productsSlice';
+} from "../store/reducers/productsSlice";
 import {
   selectItemPiecesMessage,
   changeItemPiecesMessage,
-} from '../store/reducers/listSlice';
-import '../sass/ItemsPage.scss';
-import '../sass/headings.scss';
-import SearchBar from '../components/SearchBar';
-import Loader from '../components/Loader';
-import Message from '../components/Message';
-import CategoryItems from '../components/CategoryItems';
+} from "../store/reducers/listSlice";
+import "../sass/ItemsPage.scss";
+import "../sass/headings.scss";
+import SearchBar from "../components/SearchBar";
+import Loader from "../components/Loader";
+import Message from "../components/Message";
+import CategoryItems from "../components/CategoryItems";
+import { RootState } from "../store";
 
 const ItemsPage = () => {
   const categories = useSelector(selectProductsByCategories);
   const state = useSelector(selectState);
   const error = useSelector(selectError);
   const addError = useSelector(selectAddError);
+  const username = useSelector((state: RootState) => state.user.username);
   const itemPiecesMessage = useSelector(selectItemPiecesMessage);
   const dispatch = useDispatch();
 
@@ -64,11 +66,12 @@ const ItemsPage = () => {
       <div className="items__header">
         <h1 className="heading">
           <span className="heading__detail">Shoppingify</span> allows you take
-          your shopping list wherever you go
+          your shopping list wherever you go,{" "}
+          <span className="heading__detail">{username}</span>
         </h1>
         <SearchBar />
       </div>
-      {state === 'loading' ? (
+      {state === "loading" ? (
         <Loader />
       ) : (
         <>
