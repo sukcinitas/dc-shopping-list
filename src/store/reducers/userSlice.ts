@@ -12,7 +12,7 @@ interface UserState {
 }
 
 const initialState: UserState = {
-  loading: false,
+  loading: true,
   username: undefined,
   user_id: undefined,
 };
