@@ -74,7 +74,6 @@ export const changeActiveListState = createAsyncThunk(
   async (state: "cancelled" | "completed", { getState }) => {
     const { list } = getState() as RootState;
     await api.changeActiveListState(list.list.list_id, state);
-    return;
   }
 );
 
@@ -262,14 +261,11 @@ export const selectItemsByCategories = ({ list }: RootState) => {
       category: string;
     }>;
   } = {};
-  for (let i = 0; i < list.list.items.length; i++) {
-    if (list.list.items[i].category in map) {
-      map[list.list.items[i].category] = [
-        ...map[list.list.items[i].category],
-        list.list.items[i],
-      ];
+  for (const element of list.list.items) {
+    if (element.category in map) {
+      map[element.category] = [...map[element.category], element];
     } else {
-      map[list.list.items[i].category] = [list.list.items[i]];
+      map[element.category] = [element];
     }
   }
   return map;
@@ -280,8 +276,8 @@ export const selectNonCompletedAmount = ({ list }: RootState) => {
     return 0;
   }
   let count = 0;
-  for (let i = 0; i < list.list.items.length; i++) {
-    if (!list.list.items[i].completed) {
+  for (const element of list.list.items) {
+    if (!element.completed) {
       count++;
     }
   }

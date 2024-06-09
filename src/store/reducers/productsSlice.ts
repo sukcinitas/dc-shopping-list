@@ -1,7 +1,7 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-import type { RootState } from '../index';
-import api from '../../api';
+import type { RootState } from "../index";
+import api from "../../api";
 
 interface ProductToAdd {
   name: string;
@@ -31,19 +31,19 @@ interface ProductsState {
 const initialState: ProductsState = {
   products: {
     items: [],
-    state: 'idle', // loading | idle
-    error: '',
+    state: "idle", // loading | idle
+    error: "",
   },
   filteredItems: [],
   selectedProduct: null,
   isSidePanelShown: false,
-  addProductError: '',
-  addProductMessage: '',
+  addProductError: "",
+  addProductMessage: "",
 };
 
 // thunks
 export const getProducts = createAsyncThunk(
-  'products/loadProducts',
+  "products/loadProducts",
   async (): Promise<{ products: Array<Product> }> => await api.getProducts()
 );
 
@@ -51,13 +51,13 @@ export const addProduct = createAsyncThunk<
   { product: Product },
   ProductToAdd,
   { rejectValue: { message: string } }
->('products/add', async (productToAdd: ProductToAdd, { rejectWithValue }) => {
+>("products/add", async (productToAdd: ProductToAdd, { rejectWithValue }) => {
   try {
     const result = await api.addProduct({ ...productToAdd });
     return { product: result.product };
   } catch (err: unknown) {
     return rejectWithValue({
-      message: 'Something went wrong! Try again later!',
+      message: "Something went wrong! Try again later!",
     } as { message: string });
   }
 });
@@ -66,19 +66,22 @@ export const editProduct = createAsyncThunk<
   { product: Product },
   { productToAdd: ProductToAdd; product_id: number },
   { rejectValue: { message: string } }
->('products/edit', async ({ productToAdd, product_id }, { rejectWithValue }) => {
-  try {
-    const result = await api.editProduct({ ...productToAdd }, product_id);
-    return { product: result.product } as { product: Product };
-  } catch (err: unknown) {
-    return rejectWithValue({
-      message: 'Something went wrong! Try again later!',
-    } as { message: string });
+>(
+  "products/edit",
+  async ({ productToAdd, product_id }, { rejectWithValue }) => {
+    try {
+      const result = await api.editProduct({ ...productToAdd }, product_id);
+      return { product: result.product } as { product: Product };
+    } catch (err: unknown) {
+      return rejectWithValue({
+        message: "Something went wrong! Try again later!",
+      } as { message: string });
+    }
   }
-});
+);
 
 export const removeProduct = createAsyncThunk(
-  'products/remove',
+  "products/remove",
   async (product_id: number): Promise<{ product_id: number }> => {
     await api.removeProduct(product_id);
     return { product_id };
@@ -86,25 +89,25 @@ export const removeProduct = createAsyncThunk(
 );
 
 export const productsSlice = createSlice({
-  name: 'products',
+  name: "products",
   initialState,
   reducers: {
     changeErrorMessage: (state) => {
       return {
         ...state,
-        products: { ...state.products, error: '' },
+        products: { ...state.products, error: "" },
       };
     },
     changeAddErrorMessage: (state) => {
       return {
         ...state,
-        addProductError: '',
+        addProductError: "",
       };
     },
     changeAddMessage: (state) => {
       return {
         ...state,
-        addProductMessage: '',
+        addProductMessage: "",
       };
     },
     selectProduct: (state, { payload: { item } }) => {
@@ -132,7 +135,7 @@ export const productsSlice = createSlice({
       if (!phrase) {
         return { ...state, filteredItems: [...state.products.items] };
       } else {
-        const regex = new RegExp(`^${phrase}`, 'i');
+        const regex = new RegExp(`^${phrase}`, "i");
         return {
           ...state,
           filteredItems: state.products.items.filter((item) =>
@@ -148,16 +151,16 @@ export const productsSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getProducts.pending, (state) => {
-        state.products.state = 'loading';
+        state.products.state = "loading";
       })
       .addCase(getProducts.fulfilled, (state, action) => {
         state.products.items = action.payload.products;
         state.filteredItems = action.payload.products;
-        state.products.state = 'idle';
+        state.products.state = "idle";
       })
       .addCase(getProducts.rejected, (state) => {
-        state.products.state = 'idle';
-        state.products.error = 'Something went wrong! Try again later!';
+        state.products.state = "idle";
+        state.products.error = "Something went wrong! Try again later!";
         state.products.items = [];
         state.filteredItems = [];
       })
@@ -173,7 +176,7 @@ export const productsSlice = createSlice({
             ...state.products.items,
             { ...action.payload.product },
           ],
-          addProductMessage: 'Product has been successfully added!',
+          addProductMessage: "Product has been successfully added!",
         };
       })
       .addCase(addProduct.rejected, (state, action) => {
@@ -194,7 +197,7 @@ export const productsSlice = createSlice({
           ...state,
           products: { ...state.products, items },
           filteredItems: items,
-          addProductMessage: 'Product has been successfully edited!',
+          addProductMessage: "Product has been successfully edited!",
           selectedProduct: action.payload.product,
         };
       })
@@ -230,15 +233,12 @@ export const selectProductsByCategories = ({
   products: { filteredItems },
 }: RootState) => {
   const map: { [key: string]: Array<Product> } = {};
-  for (let i = 0; i < filteredItems.length; i++) {
-    if (filteredItems[i].deleted_at) continue;
-    if (filteredItems[i].category in map) {
-      map[filteredItems[i].category] = [
-        ...map[filteredItems[i].category],
-        filteredItems[i],
-      ];
+  for (const element of filteredItems) {
+    if (element.deleted_at) continue;
+    if (element.category in map) {
+      map[element.category] = [...map[element.category], element];
     } else {
-      map[filteredItems[i].category] = [filteredItems[i]];
+      map[element.category] = [element];
     }
   }
   let accumLength = 0;
@@ -264,10 +264,10 @@ export const selectCategories = ({
   },
 }: RootState) => {
   const map: Array<string> = [];
-  for (let i = 0; i < items.length; i++) {
-    if (items[i].deleted_at) continue;
-    if (map.indexOf(items[i].category) < 0) {
-      map.push(items[i].category);
+  for (const element of items) {
+    if (element.deleted_at) continue;
+    if (map.indexOf(element.category) < 0) {
+      map.push(element.category);
     }
   }
   return map;

@@ -16,11 +16,9 @@ axios.defaults.baseURL = location;
 
 const renderApp = async () => {
   ReactDOM.render(
-    <Provider store={store}>
-      <React.StrictMode>
-        <PageLoader />
-      </React.StrictMode>
-    </Provider>,
+    <React.StrictMode>
+      <PageLoader />
+    </React.StrictMode>,
     document.getElementById("root")
   );
   await store.dispatch(fetchUser());

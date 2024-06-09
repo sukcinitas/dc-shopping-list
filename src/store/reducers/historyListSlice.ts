@@ -1,7 +1,7 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-import type { RootState } from '../index';
-import api from '../../api';
+import type { RootState } from "../index";
+import api from "../../api";
 
 interface HistoryList {
   id: number;
@@ -30,19 +30,19 @@ interface HistoryListState {
 const initialState: HistoryListState = {
   list: {
     id: 0,
-    name: '',
-    updated_at: '',
-    state: '',
+    name: "",
+    updated_at: "",
+    state: "",
     user_id: null,
     items: [],
   },
-  status: 'idle',
-  error: '',
+  status: "idle",
+  error: "",
 };
 
 // thunks
 export const getList = createAsyncThunk(
-  'products/loadList',
+  "products/loadList",
   async (id: number) => {
     const response = await api.getList(id);
     return response as HistoryList;
@@ -50,29 +50,29 @@ export const getList = createAsyncThunk(
 );
 
 export const historyListSlice = createSlice({
-  name: 'historyList',
+  name: "historyList",
   initialState,
   reducers: {
     changeErrorMessage: (state) => {
       return {
         ...state,
-        error: '',
+        error: "",
       };
     },
   },
   extraReducers: (builder) => {
     builder
       .addCase(getList.fulfilled, (state, action) => {
-        return { ...state, status: 'idle', error: '', list: action.payload };
+        return { ...state, status: "idle", error: "", list: action.payload };
       })
       .addCase(getList.pending, (state) => {
-        return { ...state, status: 'loading' };
+        return { ...state, status: "loading" };
       })
       .addCase(getList.rejected, (state) => {
         return {
           ...state,
-          status: 'idle',
-          error: 'Something went wrong! Try again later!',
+          status: "idle",
+          error: "Something went wrong! Try again later!",
         };
       });
   },
@@ -95,13 +95,13 @@ export const selectItemsByCategories = ({
   if (items.length === 0) {
     return [];
   }
-  for (let i = 0; i < items.length; i++) {
-    const completed = Boolean(items[i].completed);
+  for (const element of items) {
+    const completed = Boolean(element.completed);
     if (!completed) continue;
-    if (items[i].category in map) {
-      map[items[i].category] = [...map[items[i].category], items[i]];
+    if (element.category in map) {
+      map[element.category] = [...map[element.category], element];
     } else {
-      map[items[i].category] = [items[i]];
+      map[element.category] = [element];
     }
   }
 
