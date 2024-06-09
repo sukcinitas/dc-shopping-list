@@ -6,11 +6,13 @@ import {
 import axios from "axios";
 
 interface UserState {
+  loading: boolean;
   username: string | undefined;
   user_id: number | undefined;
 }
 
 const initialState: UserState = {
+  loading: false,
   username: undefined,
   user_id: undefined,
 };
@@ -43,10 +45,15 @@ export const userSlice = createSlice({
       .addCase(fetchUser.fulfilled, (state, action) => {
         state.username = action.payload.username;
         state.user_id = action.payload.user_id;
+        state.loading = false;
+      })
+      .addCase(fetchUser.pending, (state) => {
+        state.loading = true;
       })
       .addCase(fetchUser.rejected, (state) => {
         state.username = undefined;
         state.user_id = undefined;
+        state.loading = false;
       });
   },
 });
