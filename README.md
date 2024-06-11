@@ -37,6 +37,9 @@
 
 An app to create shopping lists, review your shopping history and statistics. This was created mainly to practise using Redux (Redux Toolkit approach).
 
+You might need to enable third party cookies to view the app. Currently it is hosted across two different domains and session cookie is cross-site, which is not ideal.
+Note (to myself): host differenly before 2025 when Google will remove support for third-party cookies or I'm toast.
+
 ![](https://github.com/sukcinitas/media/blob/master/sh/sh-1.gif)
 ![](https://github.com/sukcinitas/media/blob/master/sh/sh-2.gif)
 
