@@ -51,12 +51,15 @@
     }  
 
     &__list {
-        visibility: hidden;
-        margin-top: 12px;
+        margin-top: -16px;
         border-radius: 12px;
         border: 1px solid variables.$grey-5;
         padding: 6px 8px;
         background-color: variables.$light-1;
+
+        li {
+            list-style-type: none;
+        }
     }
 
     &__list-item {
@@ -65,9 +68,12 @@
         font-size: variables.$s18;
         border-radius: 12px;
         padding: 10px 24px;
+        width: 100%;
+        background: transparent;
+        border: none;
 
         &:hover, &:focus {
-            visibility: visible;
+            cursor: pointer;
             color: variables.$grey-7;
             background-color: variables.$grey-8;
         }

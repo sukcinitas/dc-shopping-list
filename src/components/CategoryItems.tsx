@@ -40,13 +40,13 @@ const CategoryItems = ({
       style={{ animationDelay: (0 + ac) * 0.05 + "s" }}
     >
       {items.map((item, idx) => (
-        <div
+        <button
           className={add ? "items__item" : "items__item items__item--history"}
           key={item.product_id}
           onClick={() => select(item)}
           style={{ animationDelay: (idx + ac) * 0.075 + "s" }}
         >
-          {item.name}
+          <span>{item.name}</span>
           {add ? (
             <AddIcon
               className="items__icon"
@@ -55,7 +55,7 @@ const CategoryItems = ({
           ) : (
             <PiecesDetail pcs={item.pieces} simple />
           )}
-        </div>
+        </button>
       ))}
     </div>
   );

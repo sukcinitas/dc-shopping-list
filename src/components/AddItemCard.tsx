@@ -30,14 +30,22 @@ const AddItemCard = ({
   const [description, setDescription] = useState("");
   const [url, setUrl] = useState("");
   const [category, setCategory] = useState("");
+  const [listVisible, setListVisible] = useState(false);
+
+  function handleCategory(category: string) {
+    setCategory(category);
+    setListVisible(false);
+  }
 
   const categoryList = categories.map((category: string) => (
-    <li
-      onClick={() => setCategory(category)}
-      className="add-item-card__list-item"
-      key={category}
-    >
-      {category}
+    <li key={category}>
+      <button
+        className="add-item-card__list-item"
+        onClick={() => handleCategory(category)}
+        type="button"
+      >
+        {category}
+      </button>
     </li>
   ));
 
@@ -127,8 +135,9 @@ const AddItemCard = ({
             className="inpt inpt--select"
             value={category}
             onChange={(e) => setCategory(e.target.value)}
+            onFocus={() => setListVisible(true)}
           />
-          {categories.length > 0 && (
+          {categories.length > 0 && listVisible && (
             <ul className="add-item-card__list">{categoryList}</ul>
           )}
         </div>

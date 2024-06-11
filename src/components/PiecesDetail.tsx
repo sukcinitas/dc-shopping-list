@@ -33,7 +33,7 @@ const PiecesDetail = ({
         <RemoveIcon onClick={decreaseAmount} className="pieces__icon" />
         <button
           className="pieces pieces--panel"
-          onClick={() => (isInEdit ? setIsExpanded(!isExpanded) : null)}
+          onClick={() => (isInEdit ? setIsExpanded(false) : null)}
         >
           {`${pcs} pcs`}
         </button>
