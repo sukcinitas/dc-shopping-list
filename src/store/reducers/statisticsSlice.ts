@@ -1,7 +1,7 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-import type { RootState } from '../index';
-import api from '../../api';
+import type { RootState } from "../index";
+import api from "../../api";
 
 interface StatisticsState {
   status: string;
@@ -18,27 +18,27 @@ const initialState: StatisticsState = {
   monthlyStatistics: [],
   topItems: [],
   topCategories: [],
-  error: '',
-  status: 'loading', // loading | idle
+  error: "",
+  status: "loading", // loading | idle
 };
 
 const months = [
-  'January',
-  'February',
-  'March',
-  'April',
-  'May',
-  'June',
-  'July',
-  'August',
-  'September',
-  'October',
-  'November',
-  'December',
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
 ];
 // thunks
 export const getStatisticsInfo = createAsyncThunk(
-  'products/getInfo',
+  "products/getInfo",
   async () => {
     const monthlyStatisticsInitial = await api.getMontlyStatistics();
     const monthlyStatistics = monthlyStatisticsInitial.map(
@@ -54,29 +54,29 @@ export const getStatisticsInfo = createAsyncThunk(
 );
 
 export const statisticsSlice = createSlice({
-  name: 'statistics',
+  name: "statistics",
   initialState,
   reducers: {
     changeErrorMessage: (state) => {
       return {
         ...state,
-        error: '',
+        error: "",
       };
     },
   },
   extraReducers: (builder) => {
     builder
       .addCase(getStatisticsInfo.pending, (state) => {
-        return { ...state, status: 'loading' };
+        return { ...state, status: "loading" };
       })
       .addCase(getStatisticsInfo.fulfilled, (state, action) => {
-        return { ...state, status: 'idle', error: '', ...action.payload };
+        return { ...state, status: "idle", error: "", ...action.payload };
       })
       .addCase(getStatisticsInfo.rejected, (state) => {
         return {
           ...state,
-          status: 'idle',
-          error: 'Something went wrong! Try again later!',
+          status: "idle",
+          error: "Something went wrong! Try again later!",
         };
       });
   },

@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import AddIcon from '@material-ui/icons/Add';
-import RemoveIcon from '@material-ui/icons/Remove';
-import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
-import { useSelector } from 'react-redux';
-import { selectInEditState } from '../store/reducers/listSlice';
+import React, { useState } from "react";
+import AddIcon from "@material-ui/icons/Add";
+import RemoveIcon from "@material-ui/icons/Remove";
+import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
+import { useSelector } from "react-redux";
+import { selectInEditState } from "../store/reducers/listSlice";
 
 const PiecesDetail = ({
   pcs,
@@ -23,29 +23,33 @@ const PiecesDetail = ({
 
   if (isExpanded && isInEdit && !simple) {
     return (
-      <span className="pieces__panel">
-        <span
+      <div className="pieces__panel">
+        <button
           className="pieces__icon pieces__icon--bright"
           onClick={deleteItem}
         >
           <DeleteOutlineIcon className="pieces__icon--inside" />
-        </span>
+        </button>
         <RemoveIcon onClick={decreaseAmount} className="pieces__icon" />
-        <span
+        <button
           className="pieces pieces--panel"
           onClick={() => (isInEdit ? setIsExpanded(!isExpanded) : null)}
-        >{`${pcs} pcs`}</span>
+        >
+          {`${pcs} pcs`}
+        </button>
         <AddIcon onClick={increaseAmount} className="pieces__icon" />
-      </span>
+      </div>
     );
   } else if (simple) {
     return <span className="pieces pieces--simple">{`${pcs} pcs`}</span>;
   } else {
     return (
-      <span
+      <button
         onClick={() => (isInEdit ? setIsExpanded(!isExpanded) : null)}
-        className={isInEdit ? 'pieces' : 'pieces pieces--unclickable'}
-      >{`${pcs} pcs`}</span>
+        className={isInEdit ? "pieces" : "pieces pieces--unclickable"}
+      >
+        {`${pcs} pcs`}
+      </button>
     );
   }
 };

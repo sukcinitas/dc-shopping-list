@@ -12,7 +12,7 @@ const Loader = ({ style }: { style?: string }) => (
         <div className="loader__dot"></div>
       </div>
     ) : (
-      <img className="loader__img" src={image} />
+      <img className="loader__img" src={image} alt="" />
     )}
   </div>
 );

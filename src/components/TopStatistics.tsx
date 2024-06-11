@@ -1,7 +1,7 @@
-import React from 'react';
+import React from "react";
 
-import '../sass/headings.scss';
-import '../sass/TopStatistics.scss';
+import "../sass/headings.scss";
+import "../sass/TopStatistics.scss";
 
 const TopStatistics = ({
   title,
@@ -24,9 +24,9 @@ const TopStatistics = ({
             <span className="top-statistics__bar">
               <span
                 className={
-                  title === 'Top Categories'
-                    ? 'top-statistics__bar--percent-blue'
-                    : 'top-statistics__bar--percent'
+                  title === "Top Categories"
+                    ? "top-statistics__bar--percent-blue"
+                    : "top-statistics__bar--percent"
                 }
                 style={{ width: `${percent}%` }}
               ></span>

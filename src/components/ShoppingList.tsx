@@ -149,7 +149,7 @@ const ShoppingList = () => {
         )}
         <div className="shopping-list__add-item">
           <div className="shopping-list__qs">
-            <img className="shopping-list__img" src={image} />
+            <img className="shopping-list__img" src={image} alt="" />
             <p>Did not find what you need?</p>
             <button
               onClick={() => setIsAdding(true)}
@@ -183,9 +183,7 @@ const ShoppingList = () => {
               </h2>
             )}
             {Object.keys(initialList).length === 0 ? (
-              <>
-                <p className="subheading subheading--no-items">No items</p>
-              </>
+              <p className="subheading subheading--no-items">No items</p>
             ) : (
               list
             )}

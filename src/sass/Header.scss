@@ -141,19 +141,14 @@
         right: 4px;
     }
 
-
     .icon {
         margin: 10px auto;
     }
 }
 
-@media only screen and (max-height: 500px) {
+@media only screen and (max-height: 640px) {
     .header {
         height: 100%; // don't use viewport height on mobile
-    }
-
-    .nav__list {
-        height: 200px;
     }
 
     .icon {

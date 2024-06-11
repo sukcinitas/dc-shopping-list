@@ -1,8 +1,8 @@
-import React from 'react';
-import CheckIcon from '@material-ui/icons/Check';
-import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
+import React from "react";
+import CheckIcon from "@material-ui/icons/Check";
+import ErrorOutlineIcon from "@material-ui/icons/ErrorOutline";
 
-import '../sass/Message.scss';
+import "../sass/Message.scss";
 
 const Message = ({
   children,
@@ -17,9 +17,9 @@ const Message = ({
 }) => {
   return (
     <div
-      className={`message message--${error ? 'error' : ''}${
-        success ? 'success' : ''
-      }${fullWidth ? '--full-width' : ''}`}
+      className={`message message--${error ? "error" : ""}${
+        success ? "success" : ""
+      }${fullWidth ? "--full-width" : ""}`}
     >
       {error && <ErrorOutlineIcon />}
       {success && <CheckIcon />}

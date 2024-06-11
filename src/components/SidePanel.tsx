@@ -1,22 +1,23 @@
-import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 
-import { getActiveList } from '../store/reducers/listSlice';
 import {
   selectAddError,
   changeAddErrorMessage,
   selectAddMessage,
   changeAddMessage,
-} from '../store/reducers/productsSlice';
-import { selectMessage, changeMessage } from '../store/reducers/listSlice';
-import Message from './Message';
-import {
   selectSelectedItem,
   selectIsSidePanelShown,
-} from '../store/reducers/productsSlice';
-import ItemInfoCard from './ItemInfoCard';
-import ShoppingList from './ShoppingList';
-import '../sass/SidePanel.scss';
+} from "../store/reducers/productsSlice";
+import {
+  getActiveList,
+  selectMessage,
+  changeMessage,
+} from "../store/reducers/listSlice";
+import Message from "./Message";
+import ItemInfoCard from "./ItemInfoCard";
+import ShoppingList from "./ShoppingList";
+import "../sass/SidePanel.scss";
 
 const SidePanel = () => {
   const item = useSelector(selectSelectedItem);
@@ -58,7 +59,7 @@ const SidePanel = () => {
   }, [dispatch, stateMessage]);
 
   return (
-    <div className={shown ? 'side-panel' : 'side-panel side-panel--hidden'}>
+    <div className={shown ? "side-panel" : "side-panel side-panel--hidden"}>
       {error && (
         <Message error fullWidth>
           {error}

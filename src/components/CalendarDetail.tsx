@@ -1,10 +1,10 @@
-import React from 'react';
-import EventNoteIcon from '@material-ui/icons/EventNote';
+import React from "react";
+import EventNoteIcon from "@material-ui/icons/EventNote";
 
-import '../sass/CalendarDetail.scss';
+import "../sass/CalendarDetail.scss";
 
 const CalendarDetail = ({ date }: { date: string }) => {
-  const dayMap = ['Sun', 'Mon', 'Tue', 'Wen', 'Thu', 'Fri', 'Sat'];
+  const dayMap = ["Sun", "Mon", "Tue", "Wen", "Thu", "Fri", "Sat"];
 
   return (
     <div className="calendar-detail">

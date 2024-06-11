@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
-import TrendingFlatOutlinedIcon from '@material-ui/icons/TrendingFlatOutlined';
-import { useSelector, useDispatch } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import React, { useEffect } from "react";
+import TrendingFlatOutlinedIcon from "@material-ui/icons/TrendingFlatOutlined";
+import { useSelector, useDispatch } from "react-redux";
+import { useParams } from "react-router-dom";
 
 import {
   selectItemsByCategories,
@@ -11,13 +11,13 @@ import {
   selectState,
   selectError,
   changeErrorMessage,
-} from '../store/reducers/historyListSlice';
-import CategoryItems from '../components/CategoryItems';
-import CalendarDetail from '../components/CalendarDetail';
-import Loader from '../components/Loader';
-import Message from '../components/Message';
-import '../sass/buttons.scss';
-import '../sass/HistoryPage.scss';
+} from "../store/reducers/historyListSlice";
+import CategoryItems from "../components/CategoryItems";
+import CalendarDetail from "../components/CalendarDetail";
+import Loader from "../components/Loader";
+import Message from "../components/Message";
+import "../sass/buttons.scss";
+import "../sass/HistoryPage.scss";
 
 const HistoryListPage = () => {
   const items = useSelector(selectItemsByCategories);
@@ -63,7 +63,7 @@ const HistoryListPage = () => {
   return (
     <div className="history">
       {error && <Message error>{error}</Message>}
-      {state === 'loading' ? (
+      {state === "loading" ? (
         <Loader />
       ) : (
         <>

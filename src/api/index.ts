@@ -34,16 +34,12 @@ const editProduct = async (
   product: ProductToAdd,
   product_id: number
 ): Promise<{ product: Product }> => {
-  try {
-    await axios({
-      method: "put",
-      url: "/api/products/" + product_id,
-      data: { ...product },
-    });
-    return { product: { ...product, product_id, deleted_at: null } };
-  } catch (err) {
-    throw err;
-  }
+  await axios({
+    method: "put",
+    url: "/api/products/" + product_id,
+    data: { ...product },
+  });
+  return { product: { ...product, product_id, deleted_at: null } };
 };
 
 const removeProduct = async (id: number) =>

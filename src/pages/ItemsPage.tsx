@@ -74,9 +74,7 @@ const ItemsPage = () => {
       {state === "loading" ? (
         <Loader />
       ) : (
-        <>
-          <div className="items__categories">{cats}</div>
-        </>
+        <div className="items__categories">{cats}</div>
       )}
     </div>
   );

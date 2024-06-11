@@ -7,15 +7,13 @@
     font-size: variables.$s12;
     border-radius: 24px;
     padding: 7px 20px;
+    background-color: transparent;
 
     &:hover {
         color: lighten(variables.$yellow-1, 10%);
         border: 2px solid lighten(variables.$yellow-1, 10%);
         transition: color, border;
         transition-duration: 0.15s;
-    }
-
-    &:hover {
         cursor: pointer;
     }
     
@@ -62,10 +60,6 @@
         color: variables.$yellow-1;
         margin: 4px;
 
-        &:hover {
-            cursor: pointer;
-        }
-
         &--bright {
             color: variables.$light-1;
             background-color: variables.$yellow-1;
@@ -81,6 +75,7 @@
             justify-content: center;
             transition: color, background-color;
             transition-duration: 0.15s;
+            border: none;
     
             &:hover {
                 color: variables.$yellow-1;
@@ -96,6 +91,7 @@
         transition-duration: 0.15s;
 
         &:hover {
+            cursor: pointer;
             color: lighten(variables.$yellow-1, 10%);
             transition: color;
             transition-duration: 0.15s;

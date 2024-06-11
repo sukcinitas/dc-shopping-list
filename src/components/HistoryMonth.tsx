@@ -7,8 +7,6 @@ import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 import "../sass/HistoryMonth.scss";
 import "../sass/headings.scss";
 
-// TODO updated_at to show day of the week
-
 const HistoryMonth = ({
   month,
   items,

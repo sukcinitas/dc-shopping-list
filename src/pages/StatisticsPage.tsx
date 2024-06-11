@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 
 import {
   selectTopCategories,
@@ -7,13 +7,13 @@ import {
   getStatisticsInfo,
   selectState,
   selectError,
-} from '../store/reducers/statisticsSlice';
-import TopStatistics from '../components/TopStatistics';
-import MonthlySummary from '../components/MonthlySummary';
-import Loader from '../components/Loader';
-import Message from '../components/Message';
-import '../sass/StatisticsPage.scss';
-import '../sass/headings.scss';
+} from "../store/reducers/statisticsSlice";
+import TopStatistics from "../components/TopStatistics";
+import MonthlySummary from "../components/MonthlySummary";
+import Loader from "../components/Loader";
+import Message from "../components/Message";
+import "../sass/StatisticsPage.scss";
+import "../sass/headings.scss";
 
 const StatisticsPage = () => {
   const topItems = useSelector(selectTopItems);
@@ -28,7 +28,7 @@ const StatisticsPage = () => {
 
   return (
     <div className="statistics">
-      {state === 'loading' ? (
+      {state === "loading" ? (
         <Loader />
       ) : (
         <>

@@ -1,11 +1,11 @@
-import React from 'react';
-import AddIcon from '@material-ui/icons/Add';
-import { useDispatch } from 'react-redux';
-import { selectProduct } from '../store/reducers/productsSlice';
-import { addItem } from '../store/reducers/listSlice';
-import '../sass/ItemsPage.scss';
-import '../sass/PiecesDetail.scss';
-import PiecesDetail from './PiecesDetail';
+import React from "react";
+import AddIcon from "@material-ui/icons/Add";
+import { useDispatch } from "react-redux";
+import { selectProduct } from "../store/reducers/productsSlice";
+import { addItem } from "../store/reducers/listSlice";
+import "../sass/ItemsPage.scss";
+import "../sass/PiecesDetail.scss";
+import PiecesDetail from "./PiecesDetail";
 
 interface Item {
   product_id: number;
@@ -37,14 +37,14 @@ const CategoryItems = ({
   return (
     <div
       className="items__items"
-      style={{ animationDelay: (0 + ac) * 0.05 + 's' }}
+      style={{ animationDelay: (0 + ac) * 0.05 + "s" }}
     >
       {items.map((item, idx) => (
         <div
-          className={add ? 'items__item' : 'items__item items__item--history'}
+          className={add ? "items__item" : "items__item items__item--history"}
           key={item.product_id}
           onClick={() => select(item)}
-          style={{ animationDelay: (idx + ac) * 0.075 + 's' }}
+          style={{ animationDelay: (idx + ac) * 0.075 + "s" }}
         >
           {item.name}
           {add ? (

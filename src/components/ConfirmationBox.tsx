@@ -1,10 +1,10 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import CloseIcon from '@material-ui/icons/Close';
+import React from "react";
+import ReactDOM from "react-dom";
+import CloseIcon from "@material-ui/icons/Close";
 
-import '../sass/ConfirmationBox.scss';
-import '../sass/headings.scss';
-import '../sass/buttons.scss';
+import "../sass/ConfirmationBox.scss";
+import "../sass/headings.scss";
+import "../sass/buttons.scss";
 
 const ConfirmationBox = ({
   cb,

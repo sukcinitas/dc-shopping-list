@@ -1,5 +1,5 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React from "react";
+import { useSelector } from "react-redux";
 import {
   LineChart,
   Line,
@@ -9,11 +9,11 @@ import {
   Tooltip,
   Legend,
   ResponsiveContainer,
-} from 'recharts';
+} from "recharts";
 
-import { selectMonthlyItems } from '../store/reducers/statisticsSlice';
-import '../sass/MonthlySummary.scss';
-import '../sass/headings.scss';
+import { selectMonthlyItems } from "../store/reducers/statisticsSlice";
+import "../sass/MonthlySummary.scss";
+import "../sass/headings.scss";
 
 const HistoryMonth = () => {
   const items = useSelector(selectMonthlyItems);
@@ -55,7 +55,7 @@ const HistoryMonth = () => {
   return (
     <div className="monthly-summary">
       <h1 className="heading">Monthly Summary</h1>
-      <div style={{ width: '100%', height: '300px' }}>{renderLineChart}</div>
+      <div style={{ width: "100%", height: "300px" }}>{renderLineChart}</div>
     </div>
   );
 };

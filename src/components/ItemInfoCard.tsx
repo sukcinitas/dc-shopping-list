@@ -1,18 +1,18 @@
-import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import TrendingFlatOutlinedIcon from '@material-ui/icons/TrendingFlatOutlined';
-import EditIcon from '@material-ui/icons/Edit';
+import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import TrendingFlatOutlinedIcon from "@material-ui/icons/TrendingFlatOutlined";
+import EditIcon from "@material-ui/icons/Edit";
 import {
   removeProduct,
   selectProduct,
   selectSelectedItem,
   toggleSidePanel,
-} from '../store/reducers/productsSlice';
-import { addItem } from '../store/reducers/listSlice';
-import AddItemCard from './AddItemCard';
+} from "../store/reducers/productsSlice";
+import { addItem } from "../store/reducers/listSlice";
+import AddItemCard from "./AddItemCard";
 
-import '../sass/ItemInfoCard.scss';
-import '../sass/buttons.scss';
+import "../sass/ItemInfoCard.scss";
+import "../sass/buttons.scss";
 
 const ItemInfoCard = () => {
   const [isEditing, setIsEditing] = useState(false);
@@ -20,10 +20,10 @@ const ItemInfoCard = () => {
   if (!item) {
     item = {
       product_id: 0,
-      name: '',
-      category: '',
-      description: '',
-      url: '',
+      name: "",
+      category: "",
+      description: "",
+      url: "",
       deleted_at: null,
     };
   }
@@ -77,7 +77,7 @@ const ItemInfoCard = () => {
               <EditIcon className="arrow" />
             </button>
           </div>
-          {url && <img className="item-info-card__img" src={url} />}
+          {url && <img className="item-info-card__img" src={url} alt="" />}
           <div>
             <h4 className="item-info-card__tag">name</h4>
             <p className="item-info-card__content">{name}</p>
@@ -94,7 +94,10 @@ const ItemInfoCard = () => {
           )}
         </div>
         <div className="btns">
-          <button className="btn" onClick={() => removeItemFromList(product_id)}>
+          <button
+            className="btn"
+            onClick={() => removeItemFromList(product_id)}
+          >
             Delete
           </button>
           <button

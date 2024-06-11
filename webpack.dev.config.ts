@@ -1,7 +1,6 @@
-
 import webpack from "webpack";
 import HtmlWebpackPlugin from "html-webpack-plugin";
-import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
+import ForkTsCheckerWebpackPlugin from "fork-ts-checker-webpack-plugin";
 import ESLintPlugin from "eslint-webpack-plugin";
 
 const config: webpack.Configuration = {
@@ -28,13 +27,13 @@ const config: webpack.Configuration = {
       },
       {
         test: /\.(scss|css)$/,
-        use: ['style-loader', 'css-loader', 'sass-loader'],
+        use: ["style-loader", "css-loader", "sass-loader"],
       },
       {
         test: /\.svg$/,
         use: [
           {
-            loader: 'url-loader',
+            loader: "url-loader",
             options: {
               limit: 10000,
             },
@@ -43,11 +42,11 @@ const config: webpack.Configuration = {
       },
       {
         test: /\.(png|jpg|gif|jpeg|ttf)$/,
-          use: [
+        use: [
           {
-              loader: 'file-loader',
-          }
-          ]
+            loader: "file-loader",
+          },
+        ],
       },
     ],
   },
@@ -60,7 +59,7 @@ const config: webpack.Configuration = {
     }),
     new webpack.HotModuleReplacementPlugin(),
     new ForkTsCheckerWebpackPlugin({
-      async: false
+      async: false,
     }),
     new ESLintPlugin({
       extensions: ["js", "jsx", "ts", "tsx"],
@@ -71,10 +70,6 @@ const config: webpack.Configuration = {
     historyApiFallback: true,
     port: 4000,
     open: true,
-    // proxy: [{
-    //   context: '/api/*',
-    //   target: 'http://localhost:8000/',
-    // }],
   },
 };
 

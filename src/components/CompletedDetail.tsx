@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 
-import '../sass/CompletedDetail.scss';
+import "../sass/CompletedDetail.scss";
 
 const CompletedDetail = ({ completed }: { completed: boolean }) => {
   const detail = completed ? (
