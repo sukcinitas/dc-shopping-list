@@ -42,7 +42,7 @@ export const getActiveList = createAsyncThunk(
   async () => {
     const response = await api.getActiveList();
     return response;
-  }
+  },
 );
 
 export const saveList = createAsyncThunk(
@@ -57,7 +57,7 @@ export const saveList = createAsyncThunk(
         completed: completed ? "1" : "0",
         name,
         category,
-      })
+      }),
     );
     const response = await api.saveActiveList({
       ...list.list,
@@ -66,7 +66,7 @@ export const saveList = createAsyncThunk(
       state: "active",
     });
     return response;
-  }
+  },
 );
 
 export const changeActiveListState = createAsyncThunk(
@@ -74,23 +74,23 @@ export const changeActiveListState = createAsyncThunk(
   async (state: "cancelled" | "completed", { getState }) => {
     const { list } = getState() as RootState;
     await api.changeActiveListState(list.list.list_id, state);
-  }
+  },
 );
 
 export const toggleItemCompletion = createAsyncThunk(
   "products/toggleCompletion",
   async (
     state: { id: number | undefined; completed: true | false },
-    { getState }
+    { getState },
   ) => {
     const { list } = getState() as RootState;
     await api.toggleItemCompletion(
       list.list.list_id,
       state.id,
-      state.completed ? "1" : "0"
+      state.completed ? "1" : "0",
     );
     return { id: state.id };
-  }
+  },
 );
 
 export const listSlice = createSlice({
@@ -108,7 +108,7 @@ export const listSlice = createSlice({
     },
     addItem: (state, action) => {
       const item = state.list.items.find(
-        (item) => item.product_id === action.payload.item.product_id
+        (item) => item.product_id === action.payload.item.product_id,
       );
       if (item) {
         return {
@@ -152,7 +152,7 @@ export const listSlice = createSlice({
         list: {
           ...state.list,
           items: state.list.items.filter(
-            (item) => item.product_id !== action.payload.id
+            (item) => item.product_id !== action.payload.id,
           ),
         },
       };

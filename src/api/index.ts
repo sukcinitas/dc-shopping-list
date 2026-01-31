@@ -22,7 +22,7 @@ const getProducts = async (): Promise<{ products: Array<Product> }> => {
 };
 
 const addProduct = async (
-  product: ProductToAdd
+  product: ProductToAdd,
 ): Promise<{ product: Product }> => {
   const {
     data: { product_id },
@@ -32,7 +32,7 @@ const addProduct = async (
 
 const editProduct = async (
   product: ProductToAdd,
-  product_id: number
+  product_id: number,
 ): Promise<{ product: Product }> => {
   await axios({
     method: "put",
@@ -97,25 +97,25 @@ const getActiveList = async () => {
 const toggleItemCompletion = async (
   list_id: number | undefined,
   id: number | undefined,
-  completed: string
+  completed: string,
 ) => {
   const { data } = await axios.put(
     `/api/lists/${list_id}/toggle-item-completion`,
-    { id, completed }
+    { id, completed },
   );
   return data;
 };
 
 const changeActiveListState = async (
   id: number | undefined,
-  state: "cancelled" | "completed"
+  state: "cancelled" | "completed",
 ) => await axios.put(`/api/lists/${id}`, { state });
 
 const getMontlyStatistics = async (): Promise<
   Array<{ month: string; items: number }>
 > => {
   const { data: monthlyStatistics } = await axios.get(
-    "/api/statistics/monthly-statistics"
+    "/api/statistics/monthly-statistics",
   );
   return monthlyStatistics;
 };
@@ -131,7 +131,7 @@ const getTopCategories = async (): Promise<
   Array<{ name: string; percent: number }>
 > => {
   const { data: topCategories } = await axios.get(
-    "/api/statistics/top-categories"
+    "/api/statistics/top-categories",
   );
   return topCategories;
 };

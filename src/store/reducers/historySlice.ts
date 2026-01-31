@@ -37,7 +37,7 @@ export const getLists = createAsyncThunk("products/loadLists", async () => {
       state: string;
       updated_at: string;
       user_id: number;
-    }) => list.state !== "active"
+    }) => list.state !== "active",
   );
 });
 

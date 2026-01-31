@@ -45,12 +45,12 @@ export const getStatisticsInfo = createAsyncThunk(
       (m: { month: string; items: number }) => ({
         month: months[parseInt(m.month) - 1],
         items: m.items,
-      })
+      }),
     );
     const topItems = await api.getTopItems();
     const topCategories = await api.getTopCategories();
     return { monthlyStatistics, topItems, topCategories };
-  }
+  },
 );
 
 export const statisticsSlice = createSlice({

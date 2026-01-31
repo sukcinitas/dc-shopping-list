@@ -1,6 +1,6 @@
 function checkPassword(password: string): string {
   return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{10,}$/.test(
-    password
+    password,
   )
     ? ""
     : "Your password needs to be at least 10 characters long and contain at least one uppercase letter, one lowercase letter, one number and one special character";

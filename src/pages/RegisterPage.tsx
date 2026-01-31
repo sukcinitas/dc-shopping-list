@@ -69,7 +69,7 @@ const Login = () => {
             err.response.data.message ||
             `${err.response.status}: ${err.response.statusText}`,
         }));
-      }
+      },
     );
   };
 
@@ -132,7 +132,7 @@ const Login = () => {
                 <li key={message} className="add-item-card__tag error">
                   {message}
                 </li>
-              )
+              ),
             )}
           </ul>
 

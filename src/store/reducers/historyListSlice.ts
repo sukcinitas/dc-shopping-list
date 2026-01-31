@@ -46,7 +46,7 @@ export const getList = createAsyncThunk(
   async (id: number) => {
     const response = await api.getList(id);
     return response as HistoryList;
-  }
+  },
 );
 
 export const historyListSlice = createSlice({
