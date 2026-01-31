@@ -8,7 +8,7 @@ import App from "./App";
 
 const location = window.location.href.includes("http://localhost:4000/")
   ? "http://localhost:8000/"
-  : "https://curved-maze-mole.glitch.me/";
+  : "https://dc-shopping-list-api.onrender.com/";
 axios.defaults.withCredentials = true;
 axios.defaults.baseURL = location;
 
