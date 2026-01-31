@@ -19,7 +19,7 @@ import SearchBar from "../components/SearchBar";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
 import CategoryItems from "../components/CategoryItems";
-import { RootState } from "../store";
+import { AppDispatch, RootState } from "../store";
 
 const ItemsPage = () => {
   const categories = useSelector(selectProductsByCategories);
@@ -28,7 +28,7 @@ const ItemsPage = () => {
   const addError = useSelector(selectAddError);
   const username = useSelector((state: RootState) => state.user.username);
   const itemPiecesMessage = useSelector(selectItemPiecesMessage);
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
     dispatch(getProducts());

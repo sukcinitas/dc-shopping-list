@@ -44,7 +44,7 @@ const initialState: ProductsState = {
 // thunks
 export const getProducts = createAsyncThunk(
   "products/loadProducts",
-  async (): Promise<{ products: Array<Product> }> => await api.getProducts()
+  async (): Promise<{ products: Array<Product> }> => await api.getProducts(),
 );
 
 export const addProduct = createAsyncThunk<
@@ -77,7 +77,7 @@ export const editProduct = createAsyncThunk<
         message: "Something went wrong! Try again later!",
       } as { message: string });
     }
-  }
+  },
 );
 
 export const removeProduct = createAsyncThunk(
@@ -85,7 +85,7 @@ export const removeProduct = createAsyncThunk(
   async (product_id: number): Promise<{ product_id: number }> => {
     await api.removeProduct(product_id);
     return { product_id };
-  }
+  },
 );
 
 export const productsSlice = createSlice({
@@ -139,7 +139,7 @@ export const productsSlice = createSlice({
         return {
           ...state,
           filteredItems: state.products.items.filter((item) =>
-            regex.test(item.name)
+            regex.test(item.name),
           ),
         };
       }
@@ -217,11 +217,11 @@ export const productsSlice = createSlice({
           products: {
             ...state.products,
             items: state.products.items.filter(
-              (product) => product.product_id !== action.payload.product_id
+              (product) => product.product_id !== action.payload.product_id,
             ),
           },
           filteredItems: state.products.items.filter(
-            (product) => product.product_id !== action.payload.product_id
+            (product) => product.product_id !== action.payload.product_id,
           ),
         };
       });

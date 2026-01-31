@@ -3,12 +3,13 @@ import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { setCurrentUser } from "../store/reducers/userSlice";
+import { AppDispatch } from "../store";
 
 axios.defaults.withCredentials = true;
 
 const Login = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -26,7 +27,7 @@ const Login = () => {
   const handleSubmit = (
     e: React.MouseEvent<HTMLButtonElement>,
     username: string,
-    password: string
+    password: string,
   ): void => {
     e.preventDefault();
     axios.post("/api/users/login", { username, password }).then(
@@ -40,9 +41,9 @@ const Login = () => {
         }
         setErrorMessage(
           err.response.data.message ||
-            `${err.response.status}: ${err.response.statusText}`
+            `${err.response.status}: ${err.response.statusText}`,
         );
-      }
+      },
     );
   };
 

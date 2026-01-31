@@ -12,10 +12,11 @@ import Loader from "../components/Loader";
 import Message from "../components/Message";
 import "../sass/HistoryPage.scss";
 import "../sass/headings.scss";
+import { AppDispatch } from "../store";
 
 const HistoryPage = () => {
   const lists = useSelector(selectListsByDate);
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const state = useSelector(selectState);
   const error = useSelector(selectError);
 

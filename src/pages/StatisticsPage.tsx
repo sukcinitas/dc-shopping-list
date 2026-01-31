@@ -14,13 +14,14 @@ import Loader from "../components/Loader";
 import Message from "../components/Message";
 import "../sass/StatisticsPage.scss";
 import "../sass/headings.scss";
+import { AppDispatch } from "../store";
 
 const StatisticsPage = () => {
   const topItems = useSelector(selectTopItems);
   const topCategories = useSelector(selectTopCategories);
   const state = useSelector(selectState);
   const error = useSelector(selectError);
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
     dispatch(getStatisticsInfo());

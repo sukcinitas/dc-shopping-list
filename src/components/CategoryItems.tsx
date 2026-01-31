@@ -1,11 +1,12 @@
 import React from "react";
-import AddIcon from "@material-ui/icons/Add";
+import AddIcon from "@mui/icons-material/Add";
 import { useDispatch } from "react-redux";
 import { selectProduct } from "../store/reducers/productsSlice";
 import { addItem } from "../store/reducers/listSlice";
 import "../sass/ItemsPage.scss";
 import "../sass/PiecesDetail.scss";
 import PiecesDetail from "./PiecesDetail";
+import { AppDispatch } from "../store";
 
 interface Item {
   product_id: number;
@@ -24,7 +25,7 @@ const CategoryItems = ({
   add?: boolean;
   ac: number;
 }) => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const select = (item: Item) => {
     if (!add) return;
     dispatch(selectProduct({ item }));

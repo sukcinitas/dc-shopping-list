@@ -1,12 +1,13 @@
 import React, { useState } from "react";
-import SearchIcon from "@material-ui/icons/Search";
+import SearchIcon from "@mui/icons-material/Search";
 import { useDispatch } from "react-redux";
 
 import { search } from "../store/reducers/productsSlice";
 import "../sass/inputs.scss";
+import { AppDispatch } from "../store";
 
 const SearchBar = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const [phrase, setPhrase] = useState("");
 
   const searchByPhrase = (e: React.ChangeEvent<HTMLInputElement>) => {

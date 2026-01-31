@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 import CompletedDetail from "./CompletedDetail";
 import CalendarDetail from "./CalendarDetail";
-import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import "../sass/HistoryMonth.scss";
 import "../sass/headings.scss";
 

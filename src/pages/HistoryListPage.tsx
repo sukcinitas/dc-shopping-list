@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import TrendingFlatOutlinedIcon from "@material-ui/icons/TrendingFlatOutlined";
+import TrendingFlatOutlinedIcon from "@mui/icons-material/TrendingFlatOutlined";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 
@@ -18,6 +18,7 @@ import Loader from "../components/Loader";
 import Message from "../components/Message";
 import "../sass/buttons.scss";
 import "../sass/HistoryPage.scss";
+import { AppDispatch } from "../store";
 
 const HistoryListPage = () => {
   const items = useSelector(selectItemsByCategories);
@@ -25,7 +26,7 @@ const HistoryListPage = () => {
   const date = useSelector(selectListDate);
   const state = useSelector(selectState);
   const error = useSelector(selectError);
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const { id } = useParams<{ id: string }>();
 
   useEffect(() => {

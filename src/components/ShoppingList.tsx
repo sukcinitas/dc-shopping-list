@@ -9,7 +9,7 @@ import ConfirmationBox from "./ConfirmationBox";
 import image from "../assets/source.svg";
 import AddItemCard from "./AddItemCard";
 import PiecesDetail from "./PiecesDetail";
-import EditIcon from "@material-ui/icons/Edit";
+import EditIcon from "@mui/icons-material/Edit";
 import Loader from "./Loader";
 import {
   changeActiveListState,
@@ -24,11 +24,12 @@ import {
   editState,
   toggleItemCompletion,
 } from "../store/reducers/listSlice";
-import CheckBoxOutlineBlankOutlinedIcon from "@material-ui/icons/CheckBoxOutlineBlankOutlined";
-import CheckBoxOutlinedIcon from "@material-ui/icons/CheckBoxOutlined";
+import CheckBoxOutlineBlankOutlinedIcon from "@mui/icons-material/CheckBoxOutlineBlankOutlined";
+import CheckBoxOutlinedIcon from "@mui/icons-material/CheckBoxOutlined";
+import { AppDispatch } from "../store";
 
 const ShoppingList = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const initialList = useSelector(selectItemsByCategories);
   const title = useSelector(selectListName);
   const isInEdit = useSelector(selectInEditState);
@@ -62,7 +63,7 @@ const ShoppingList = () => {
                               toggleItemCompletion({
                                 id: product.id,
                                 completed: false,
-                              })
+                              }),
                             )
                           }
                           className="shopping-list__icon"
@@ -87,7 +88,7 @@ const ShoppingList = () => {
                               toggleItemCompletion({
                                 id: product.id,
                                 completed: true,
-                              })
+                              }),
                             )
                           }
                           className="shopping-list__icon"
@@ -108,10 +109,10 @@ const ShoppingList = () => {
                   />
                 </li>
               );
-            }
+            },
           )}
         </ul>
-      </div>
+      </div>,
     );
   }
   const [isAdding, setIsAdding] = useState(false);
@@ -128,7 +129,7 @@ const ShoppingList = () => {
 
   const changeListState = (
     e: React.MouseEvent<HTMLElement>,
-    state: "completed" | "cancelled"
+    state: "completed" | "cancelled",
   ) => {
     e.preventDefault();
     dispatch(changeActiveListState(state));

@@ -1,5 +1,5 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
 import { Provider } from "react-redux";
 
 import store from "./store";
@@ -12,11 +12,12 @@ const location = window.location.href.includes("http://localhost:4000/")
 axios.defaults.withCredentials = true;
 axios.defaults.baseURL = location;
 
-ReactDOM.render(
+const root = createRoot(document.getElementById("root") as HTMLElement);
+
+root.render(
   <Provider store={store}>
     <React.StrictMode>
       <App />
     </React.StrictMode>
   </Provider>,
-  document.getElementById("root")
 );

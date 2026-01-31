@@ -10,7 +10,7 @@ import StatisticsPage from "./pages/StatisticsPage";
 import "./sass/App.scss";
 import { AuthRoute, ProtectedRoute } from "./util/route";
 import LoginPage from "./pages/LoginPage";
-import { RootState } from "./store";
+import { AppDispatch, RootState } from "./store";
 import { useDispatch, useSelector } from "react-redux";
 import RegisterPage from "./pages/RegisterPage";
 import { fetchUser } from "./store/reducers/userSlice";
@@ -18,7 +18,7 @@ import PageLoader from "./components/PageLoader";
 
 const App = () => {
   const user = useSelector((state: RootState) => state.user);
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
     dispatch(fetchUser());

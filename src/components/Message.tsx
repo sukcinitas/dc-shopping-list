@@ -1,6 +1,6 @@
 import React from "react";
-import CheckIcon from "@material-ui/icons/Check";
-import ErrorOutlineIcon from "@material-ui/icons/ErrorOutline";
+import CheckIcon from "@mui/icons-material/Check";
+import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 
 import "../sass/Message.scss";
 

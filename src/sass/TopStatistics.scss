@@ -1,87 +1,97 @@
-@use 'variables';
+@use "sass:color";
+@use "variables";
 
 .top-statistics {
+  width: 100%;
+
+  & > h1 {
+    margin-bottom: 40px;
+  }
+
+  &__items {
+    display: flex;
+    flex-direction: column;
+    row-gap: 30px;
     width: 100%;
+    column-gap: 65px;
+  }
 
-    & > h1 {
-        margin-bottom: 40px;
+  &__item {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    row-gap: 15px;
+
+    &:hover .top-statistics__bar--percent,
+    &:hover .top-statistics__bar--percent-blue {
+      background-color: color.adjust(
+        variables.$yellow-1,
+        $lightness: 20%,
+        $space: hsl
+      );
+      transition: background-color;
+      transition-duration: 0.2s;
     }
 
-    &__items {
-        display: flex;
-        flex-direction: column;
-        row-gap:30px;
-        width: 100%;
-        column-gap: 65px;
+    &:hover .top-statistics__bar--percent-blue {
+      background-color: color.adjust(
+        variables.$blue-1,
+        $lightness: -20%,
+        $space: hsl
+      );
     }
 
-    &__item {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        flex-wrap: wrap;
-        row-gap: 15px;
-
-        &:hover .top-statistics__bar--percent, &:hover .top-statistics__bar--percent-blue {
-            background-color: lighten(variables.$yellow-1, 20%);
-            transition: background-color;
-            transition-duration: 0.2s;
-        }
-
-        &:hover .top-statistics__bar--percent-blue {
-            background-color: darken(variables.$blue-1, 20%); 
-        }
-
-        &:hover .subheading {
-            transform: scale(1.3);
-            transition: transform;
-            transition-duration: 0.2s;
-        }
-
-        & .subheading {
-            transform: scale(1);
-            transition: transform;
-            transition-duration: 0.2s;
-        }
+    &:hover .subheading {
+      transform: scale(1.3);
+      transition: transform;
+      transition-duration: 0.2s;
     }
 
-    &__details {
-        display: flex;
-        justify-content: space-between;
+    & .subheading {
+      transform: scale(1);
+      transition: transform;
+      transition-duration: 0.2s;
     }
+  }
 
-    &__bar {
-        width: 100%;
-        background-color: variables.$grey-5;
-        height: 6px;
-        position: relative;
-        overflow: hidden;
-        border-radius: 4px;
-        transition: background-color;
-        transition-duration: 0.2s;
-    }
-      
-    &__bar--percent {
-        content: "";
-        height: 6px;
-        border-radius: 6px;
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        background-color: variables.$yellow-1;
-        transition: background-color;
-        transition-duration: 0.2s;
-    }
+  &__details {
+    display: flex;
+    justify-content: space-between;
+  }
 
-    &__bar--percent-blue {
-        content: "";
-        height: 6px;
-        border-radius: 6px;
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        background-color: variables.$blue-1;
-        transition: background-color;
-        transition-duration: 0.2s;
-    }
+  &__bar {
+    width: 100%;
+    background-color: variables.$grey-5;
+    height: 6px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 4px;
+    transition: background-color;
+    transition-duration: 0.2s;
+  }
+
+  &__bar--percent {
+    content: "";
+    height: 6px;
+    border-radius: 6px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    background-color: variables.$yellow-1;
+    transition: background-color;
+    transition-duration: 0.2s;
+  }
+
+  &__bar--percent-blue {
+    content: "";
+    height: 6px;
+    border-radius: 6px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    background-color: variables.$blue-1;
+    transition: background-color;
+    transition-duration: 0.2s;
+  }
 }

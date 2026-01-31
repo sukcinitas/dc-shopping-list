@@ -8,6 +8,7 @@ import {
 import "../sass/AddItemCard.scss";
 import "../sass/buttons.scss";
 import "../sass/inputs.scss";
+import { AppDispatch } from "../store";
 
 const AddItemCard = ({
   cb,
@@ -25,7 +26,7 @@ const AddItemCard = ({
   };
 }) => {
   const categories = useSelector(selectCategories);
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [url, setUrl] = useState("");
@@ -61,7 +62,7 @@ const AddItemCard = ({
               category,
             },
             product_id: item.product_id,
-          })
+          }),
         )
       : dispatch(
           addProduct({
@@ -69,7 +70,7 @@ const AddItemCard = ({
             description,
             url,
             category,
-          })
+          }),
         );
     cb();
   };

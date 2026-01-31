@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import TrendingFlatOutlinedIcon from "@material-ui/icons/TrendingFlatOutlined";
-import EditIcon from "@material-ui/icons/Edit";
+import TrendingFlatOutlinedIcon from "@mui/icons-material/TrendingFlatOutlined";
+import EditIcon from "@mui/icons-material/Edit";
 import {
   removeProduct,
   selectProduct,
@@ -13,6 +13,7 @@ import AddItemCard from "./AddItemCard";
 
 import "../sass/ItemInfoCard.scss";
 import "../sass/buttons.scss";
+import { AppDispatch } from "../store";
 
 const ItemInfoCard = () => {
   const [isEditing, setIsEditing] = useState(false);
@@ -29,14 +30,14 @@ const ItemInfoCard = () => {
   }
   const { product_id, name, category, description, url } = item;
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
 
   const addItemToList = (category: string, id: number, name: string) => {
     dispatch(addItem({ item: { product_id, name, category } }));
     dispatch(
       selectProduct({
         item: null,
-      })
+      }),
     );
   };
 
@@ -45,7 +46,7 @@ const ItemInfoCard = () => {
     dispatch(
       selectProduct({
         item: null,
-      })
+      }),
     );
   };
 

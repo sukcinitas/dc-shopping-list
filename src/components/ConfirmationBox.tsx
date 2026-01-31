@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import CloseIcon from "@material-ui/icons/Close";
+import CloseIcon from "@mui/icons-material/Close";
 
 import "../sass/ConfirmationBox.scss";
 import "../sass/headings.scss";
@@ -30,7 +30,7 @@ const ConfirmationBox = ({
         </div>
       </div>
     </div>,
-    document.body
+    document.body,
   );
 
 export default ConfirmationBox;

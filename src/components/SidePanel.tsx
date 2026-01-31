@@ -18,6 +18,7 @@ import Message from "./Message";
 import ItemInfoCard from "./ItemInfoCard";
 import ShoppingList from "./ShoppingList";
 import "../sass/SidePanel.scss";
+import { AppDispatch } from "../store";
 
 const SidePanel = () => {
   const item = useSelector(selectSelectedItem);
@@ -25,7 +26,7 @@ const SidePanel = () => {
   const error = useSelector(selectAddError);
   const message = useSelector(selectAddMessage);
   const stateMessage = useSelector(selectMessage);
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
     dispatch(getActiveList());

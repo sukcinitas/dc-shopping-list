@@ -1,113 +1,115 @@
-@use 'variables';
+@use "sass:color";
+@use "variables";
 
 .pieces {
-    border: 2px solid variables.$yellow-1;
-    font-family: variables.$font-1;
-    color: variables.$yellow-1;
-    font-size: variables.$s12;
-    border-radius: 24px;
-    padding: 7px 20px;
-    background-color: transparent;
+  border: 2px solid variables.$yellow-1;
+  font-family: variables.$font-1;
+  color: variables.$yellow-1;
+  font-size: variables.$s12;
+  border-radius: 24px;
+  padding: 7px 20px;
+  background-color: transparent;
+
+  &:hover {
+    color: color.adjust(variables.$yellow-1, $lightness: 10%, $space: hsl);
+    border: 2px solid
+      color.adjust(variables.$yellow-1, $lightness: 10%, $space: hsl);
+    transition: color, border;
+    transition-duration: 0.15s;
+    cursor: pointer;
+  }
+
+  &--simple {
+    border: none;
+    position: absolute;
+    right: 16px;
+    top: 16px;
+    padding: 0;
 
     &:hover {
-        color: lighten(variables.$yellow-1, 10%);
-        border: 2px solid lighten(variables.$yellow-1, 10%);
-        transition: color, border;
-        transition-duration: 0.15s;
-        cursor: pointer;
+      cursor: zoom-in;
+      transition: none;
+      border: none;
+      color: variables.$yellow-1;
+      padding: 0px 4px;
     }
-    
-    &--simple {
-        border: none;
-        position: absolute; 
-        right: 16px;
-        top: 16px;
-        padding: 0;
+  }
 
-        &:hover {
-            cursor: zoom-in;
-            transition: none;    
-            border: none;
-            color: variables.$yellow-1;
-            padding: 0px 4px;
-        }
+  &--unclickable {
+    &:hover {
+      cursor: zoom-in;
+      transition: none;
+      border: 2px solid variables.$yellow-1;
+      color: variables.$yellow-1;
     }
+  }
 
-    &--unclickable {
-        &:hover {
-            cursor: zoom-in;
-            transition: none;    
-            border: 2px solid variables.$yellow-1;
-            color: variables.$yellow-1;
-        } 
-    }
+  &__panel {
+    display: flex;
+    flex-direction: row;
+    background-color: variables.$light-1;
+    border-radius: 12px;
+    justify-content: space-between;
+    padding: 7px;
+    padding-left: 40px;
+    align-items: center;
+    position: relative;
+    width: 200px;
+    flex-shrink: 0;
+  }
 
-    &__panel {
-        display: flex;
-        flex-direction: row;  
-        background-color: variables.$light-1;
-        border-radius: 12px;
-        justify-content: space-between;
-        padding: 7px;
-        padding-left: 40px;
-        align-items: center;
-        position: relative;
-        width: 200px;
-        flex-shrink: 0;
-    }
+  &__icon {
+    color: variables.$yellow-1;
+    margin: 4px;
 
-    &__icon {
+    &--bright {
+      color: variables.$light-1;
+      background-color: variables.$yellow-1;
+      border-radius: 12px;
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      margin: 0;
+      width: 37px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: color, background-color;
+      transition-duration: 0.15s;
+      border: none;
+
+      &:hover {
         color: variables.$yellow-1;
-        margin: 4px;
-
-        &--bright {
-            color: variables.$light-1;
-            background-color: variables.$yellow-1;
-            border-radius: 12px;
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            margin: 0;
-            width: 37px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: color, background-color;
-            transition-duration: 0.15s;
-            border: none;
-    
-            &:hover {
-                color: variables.$yellow-1;
-                background-color: variables.$light-1;
-            }
-        }
-
-        &--inside {
-            padding: 1px;
-        }
-
-        transition: color;
-        transition-duration: 0.15s;
-
-        &:hover {
-            cursor: pointer;
-            color: lighten(variables.$yellow-1, 10%);
-            transition: color;
-            transition-duration: 0.15s;
-        }
+        background-color: variables.$light-1;
+      }
     }
+
+    &--inside {
+      padding: 1px;
+    }
+
+    transition: color;
+    transition-duration: 0.15s;
+
+    &:hover {
+      cursor: pointer;
+      color: color.adjust(variables.$yellow-1, $lightness: 10%, $space: hsl);
+      transition: color;
+      transition-duration: 0.15s;
+    }
+  }
 }
 
 @media only screen and (max-width: 500px) {
-    .pieces {
-        &__panel {
-            flex-shrink: 1;
-            width: 170px;
-        }
-
-        &--panel {
-            padding: 7px 10px;
-        }
+  .pieces {
+    &__panel {
+      flex-shrink: 1;
+      width: 170px;
     }
+
+    &--panel {
+      padding: 7px 10px;
+    }
+  }
 }
