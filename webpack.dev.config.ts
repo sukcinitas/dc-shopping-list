@@ -64,6 +64,9 @@ const config = {
     new ESLintPlugin({
       extensions: ["js", "jsx", "ts", "tsx"],
     }),
+    new webpack.DefinePlugin({
+      __PRODUCTION__: JSON.stringify(false),
+    }),
   ],
   devtool: "inline-source-map",
   devServer: {

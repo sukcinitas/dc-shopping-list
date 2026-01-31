@@ -6,11 +6,12 @@ import store from "./store";
 import axios from "axios";
 import App from "./App";
 
-const location = window.location.href.includes("http://localhost:4000/")
-  ? "http://localhost:8000/"
-  : "https://dc-shopping-list-api.onrender.com/";
+declare const __PRODUCTION__: boolean;
+axios.defaults.baseURL = "http://localhost:8000/";
+if (__PRODUCTION__) {
+  axios.defaults.baseURL = "https://dc-shopping-list-api.onrender.com";
+}
 axios.defaults.withCredentials = true;
-axios.defaults.baseURL = location;
 
 const root = createRoot(document.getElementById("root") as HTMLElement);
 
